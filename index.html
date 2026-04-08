@@ -326,74 +326,62 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <script>
-    // Search Data Index
-    const searchData = [
-      { title: "Financial Markets & Institutions", subtitle: "Full Course", url: "#", keywords: "finance economics banking" },
-      { title: "113-1 Calculus", subtitle: "Mathematics", url: "#", keywords: "math derivatives integrals" },
-      { title: "113-2 Calculus", subtitle: "Mathematics", url: "#", keywords: "math series multivariable" },
-      { title: "Statistical (I)", subtitle: "Data Science", url: "#", keywords: "probability inference" },
-      {
-        title: "Introduction to Financial Markets & Institutions",
-        subtitle: "Chapter 1 · Financial Markets",
-        url: "notes/financial-market/ch01.html",
-        keywords: "primary secondary money capital forex derivatives fintech globalization volcker rule"
-      },
-      {
-        title: "Determinants of Interest Rates",
-        subtitle: "Chapter 2 · Financial Markets",
-        url: "notes/financial-market/ch02.html",
-        keywords: "loanable funds fisher effect risk premiums yield curve tvm present value"
-      },
-      {
-        title: "Interest Rates & Security Valuation",
-        subtitle: "Chapter 3 · Financial Markets",
-        url: "notes/financial-market/ch03.html",
-        keywords: "bond valuation yield to maturity discount bonds premium bonds"
-      },
-      {
-        title: "Primary vs. Secondary Markets",
-        subtitle: "Chapter 1 · Financial Markets",
-        url: "notes/financial-market/ch01.html#primary-secondary",
-        keywords: "new securities ipo liquidity price information"
-      },
-      {
-        title: "The Fisher Effect",
-        subtitle: "Chapter 2 · Financial Markets",
-        url: "notes/financial-market/ch02.html#fisher-effect",
-        keywords: "nominal real interest rate inflation premium"
-      },
-      {
-        title: "Yield Curve Theories",
-        subtitle: "Chapter 2 · Financial Markets",
-        url: "notes/financial-market/ch02.html#term-structure",
-        keywords: "unbiased expectations liquidity premium market segmentation"
-      }
-    ];
-
-    const fuse = new Fuse(searchData, {
-      keys: ['title', 'keywords', 'subtitle'],
-      threshold: 0.3,
-      includeMatches: true
-    });
-
+    let fuse;
     const searchInput = document.getElementById('search-input');
     const resultsContainer = document.getElementById('search-results');
 
+    // Fetch the generated search index
+    fetch('search-index.json')
+      .then(response => response.json())
+      .then(data => {
+        fuse = new Fuse(data, {
+          keys: [
+            { name: 'title', weight: 0.7 },
+            { name: 'content', weight: 0.3 },
+            { name: 'subtitle', weight: 0.1 }
+          ],
+          threshold: 0.4,
+          includeMatches: true,
+          minMatchCharLength: 2
+        });
+      })
+      .catch(err => console.error('Error loading search index:', err));
+
     searchInput.addEventListener('input', (e) => {
       const query = e.target.value;
-      if (query.length < 2) {
+      if (!fuse || query.length < 2) {
         resultsContainer.style.display = 'none';
         return;
       }
 
       const results = fuse.search(query);
       if (results.length > 0) {
-        resultsContainer.innerHTML = results.map(res => `
-          <a href="${res.item.url}" class="result-item">
-            <div class="result-title">${res.item.title}</div>
-            <div class="result-meta">${res.item.subtitle}</div>
-          </a>
-        `).join('');
+        resultsContainer.innerHTML = results.map(res => {
+          const item = res.item;
+          // Create a snippet from content if it matches
+          let snippet = "";
+          if (item.content) {
+            const index = item.content.toLowerCase().indexOf(query.toLowerCase());
+            if (index !== -1) {
+              const start = Math.max(0, index - 40);
+              const end = Math.min(item.content.length, index + 80);
+              snippet = (start > 0 ? "..." : "") + item.content.substring(start, end) + (end < item.content.length ? "..." : "");
+              // Simple highlighting
+              const regex = new RegExp(`(${query})`, 'gi');
+              snippet = snippet.replace(regex, '<mark style="background: var(--gold-light); border-radius: 2px; padding: 0 2px;">$1</mark>');
+            } else {
+              snippet = item.content.substring(0, 100) + "...";
+            }
+          }
+
+          return `
+            <a href="${item.url}" class="result-item">
+              <div class="result-title">${item.title}</div>
+              <div class="result-meta">${item.subtitle}</div>
+              ${snippet ? `<div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; line-height: 1.4;">${snippet}</div>` : ''}
+            </a>
+          `;
+        }).join('');
         resultsContainer.style.display = 'block';
       } else {
         resultsContainer.innerHTML = '<div class="result-item">No matches found.</div>';
