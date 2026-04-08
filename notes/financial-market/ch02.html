@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2: Determinants of Interest Rates — Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1b2e45;
+  --navy-light: #243b55;
+  --teal: #0e7490;
+  --teal-light: #22d3ee;
+  --teal-pale: #ecfeff;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --cream: #fafaf9;
+  --cream-dark: #f0ede6;
+  --text-dark: #1a1a2e;
+  --text-body: #2d3748;
+  --text-muted: #718096;
+  --green: #276749;
+  --green-light: #e6f4ed;
+  --amber: #b7791f;
+  --amber-light: #fefce8;
+  --red: #9b2335;
+  --red-light: #fff1f2;
+  --blue-accent: #1e5fa3;
+  --blue-light: #ebf4ff;
+  --sidebar-width: 270px;
+  --border: rgba(14, 116, 144, 0.2);
+  --shadow: 0 4px 24px rgba(13,27,42,0.08);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --transition: 0.22s ease;
+}
+
+[data-theme="dark"] {
+  --cream: #0f172a;
+  --cream-dark: #1e293b;
+  --text-dark: #e2e8f0;
+  --text-body: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border: rgba(34, 211, 238, 0.15);
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --green-light: #1a3329;
+  --amber-light: #2d2008;
+  --red-light: #2d0e14;
+  --blue-light: #0f1f35;
+  --teal-pale: #0c2233;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--text-body);
+  line-height: 1.75;
+  display: flex;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  background: var(--navy);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(34,211,238,0.15);
+}
+
+.sidebar-course {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 6px;
+}
+
+.sidebar-title {
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.sidebar-chapter { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+nav { padding: 16px 0; flex: 1; }
+
+.nav-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  padding: 12px 24px 6px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 24px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: all var(--transition);
+  border-left: 3px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--teal-light);
+  background: rgba(34,211,238,0.07);
+  border-left-color: var(--teal-light);
+}
+
+.nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+.sidebar-footer { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+
+.dark-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 8px 14px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.8rem;
+  width: 100%;
+  transition: all var(--transition);
+}
+
+.dark-toggle:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* MAIN */
+.main { margin-left: var(--sidebar-width); flex: 1; min-width: 0; }
+
+.page-hero {
+  background: linear-gradient(135deg, #0d1b2a 0%, #0e4a5e 55%, #0a3d4f 100%);
+  padding: 56px 60px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -60px;
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(34,211,238,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.page-hero::after {
+  content: '∫';
+  position: absolute;
+  bottom: -30px; right: 60px;
+  font-size: 18rem;
+  color: rgba(34,211,238,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  background: rgba(34,211,238,0.1);
+  border: 1px solid rgba(34,211,238,0.25);
+  padding: 5px 12px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  max-width: 600px;
+}
+
+.hero-subtitle { color: rgba(255,255,255,0.5); font-size: 0.95rem; max-width: 560px; }
+
+.hero-meta { display: flex; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
+
+.hero-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 16px;
+  border-radius: 6px;
+  color: rgba(255,255,255,0.65);
+  font-size: 0.82rem;
+}
+
+.hero-stat-icon { color: var(--teal-light); }
+
+/* CONTENT */
+.content { padding: 48px 60px 80px; max-width: 960px; }
+
+.study-section { margin-bottom: 72px; scroll-margin-top: 24px; }
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  background: var(--navy);
+  border-radius: 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--teal-light);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--text-dark); line-height: 1.2; }
+.section-description { font-size: 0.875rem; color: var(--text-muted); margin-top: 4px; }
+
+h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--text-dark); }
+h2 { font-size: 1.45rem; margin: 36px 0 14px; }
+h3 { font-size: 1.15rem; margin: 26px 0 10px; color: var(--teal); }
+[data-theme="dark"] h3 { color: var(--teal-light); }
+h4 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.07em; margin: 18px 0 8px; color: var(--text-muted); }
+p { margin-bottom: 1.1em; }
+strong { color: var(--text-dark); font-weight: 600; }
+[data-theme="dark"] strong { color: #e2e8f0; }
+
+/* FORMULA BOX */
+.formula-box {
+  background: var(--navy);
+  border: 1px solid rgba(34,211,238,0.25);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 20px 0;
+  position: relative;
+}
+
+.formula-box-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+
+.formula-note { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+.formula-vars { margin-top: 12px; display: grid; gap: 4px; }
+.formula-var {
+  display: flex;
+  gap: 8px;
+  font-size: 0.83rem;
+  align-items: flex-start;
+  color: rgba(255,255,255,0.7);
+}
+
+.var-name {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--teal-light);
+  min-width: 50px;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+
+/* CALLOUTS */
+.callout {
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  margin: 18px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.callout-icon { font-size: 1.1rem; margin-top: 1px; flex-shrink: 0; }
+.callout-body strong { display: block; margin-bottom: 4px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.callout-note { background: var(--blue-light); border: 1px solid rgba(30,95,163,0.2); }
+.callout-note .callout-icon { color: var(--blue-accent); }
+.callout-note strong { color: var(--blue-accent); }
+.callout-warn { background: var(--amber-light); border: 1px solid rgba(183,121,31,0.25); }
+.callout-warn .callout-icon { color: var(--amber); }
+.callout-warn strong { color: var(--amber); }
+.callout-tip { background: var(--teal-pale); border: 1px solid rgba(14,116,144,0.2); }
+.callout-tip .callout-icon { color: var(--teal); }
+.callout-tip strong { color: var(--teal); }
+.callout-link { background: var(--green-light); border: 1px solid rgba(39,103,73,0.2); }
+.callout-link .callout-icon { color: var(--green); }
+.callout-link strong { color: var(--green); }
+
+/* WORKED EXAMPLE */
+.worked-example {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.we-header {
+  background: var(--teal);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.we-title {
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+}
+
+.we-body { padding: 18px 20px; }
+
+.we-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  font-size: 0.88rem;
+}
+
+.we-step-num {
+  width: 24px; height: 24px;
+  background: var(--teal);
+  color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.we-result {
+  background: var(--navy);
+  color: var(--teal-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  margin-top: 10px;
+}
+
+/* CONCEPT CARDS */
+.concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+
+.concept-card {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.concept-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+.concept-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+
+.concept-card-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--text-dark); margin-bottom: 10px; }
+.concept-card p { font-size: 0.88rem; margin: 0; }
+
+/* COMPARE TABLE */
+.compare-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.88rem; }
+.compare-table th { background: var(--navy); color: var(--teal-light); font-family: 'Playfair Display', serif; padding: 12px 16px; text-align: left; font-weight: 600; }
+.compare-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.compare-table tr:nth-child(even) td { background: var(--cream-dark); }
+.compare-table tr:hover td { background: var(--teal-pale); }
+
+blockquote {
+  border-left: 3px solid var(--teal);
+  background: var(--teal-pale);
+  padding: 14px 20px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 20px 0;
+  font-style: italic;
+  color: var(--text-body);
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82em;
+  background: var(--cream-dark);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--teal);
+}
+[data-theme="dark"] code { background: rgba(255,255,255,0.08); color: var(--teal-light); }
+
+/* YIELD CURVE */
+.yield-curve-container { margin: 20px 0; }
+.yc-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.yc-tab {
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: 'Source Sans 3', sans-serif;
+  transition: all var(--transition);
+}
+.yc-tab.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+.yc-canvas-wrap {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* FLASHCARDS */
+.flashcard-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.fc-counter { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-muted); }
+.fc-buttons { display: flex; gap: 10px; }
+
+.btn { padding: 8px 18px; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-family: 'Source Sans 3', sans-serif; font-weight: 600; transition: all var(--transition); }
+.btn-primary { background: var(--navy); color: var(--teal-light); }
+.btn-primary:hover { background: var(--navy-light); }
+.btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text-body); }
+.btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+.flashcard { perspective: 1000px; height: 240px; cursor: pointer; margin-bottom: 20px; }
+.flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.55s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  position: absolute; inset: 0;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  backface-visibility: hidden;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+}
+.flashcard-front { background: var(--navy); border: 1px solid rgba(34,211,238,0.25); }
+.flashcard-back { background: var(--cream-dark); border: 1px solid var(--border); transform: rotateY(180deg); }
+
+.fc-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; }
+.flashcard-front .fc-label { color: var(--teal-light); }
+.flashcard-back .fc-label { color: var(--text-muted); }
+.fc-question { color: #fff; font-size: 1.02rem; line-height: 1.5; font-weight: 400; }
+.fc-answer { color: var(--text-dark); font-size: 0.9rem; line-height: 1.55; }
+.fc-hint { position: absolute; bottom: 14px; font-size: 0.72rem; color: rgba(255,255,255,0.3); }
+.flashcard-back .fc-hint { color: var(--text-muted); }
+
+.difficulty-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 600; margin-top: 12px; }
+.diff-basic { background: var(--green-light); color: var(--green); }
+.diff-intermediate { background: var(--amber-light); color: var(--amber); }
+.diff-advanced { background: var(--red-light); color: var(--red); }
+
+/* FEYNMAN */
+.feynman-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 20px 0; }
+.feynman-header { background: var(--navy); padding: 18px 24px; display: flex; align-items: center; gap: 14px; }
+.feynman-num { width: 32px; height: 32px; background: var(--teal); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; flex-shrink: 0; }
+.feynman-concept-title { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.05rem; }
+.feynman-body { padding: 24px; }
+.feynman-section { margin-bottom: 20px; }
+.feynman-section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.feynman-section-label::after { content: ''; height: 1px; flex: 1; background: var(--border); }
+.feynman-section p { font-size: 0.92rem; margin: 0; line-height: 1.7; }
+
+/* KNOWLEDGE GRAPH */
+.graph-container { background: var(--navy); border-radius: var(--radius); padding: 24px 16px; margin: 20px 0; overflow: auto; }
+.graph-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; padding: 14px 20px; background: var(--cream-dark); border-radius: var(--radius); font-size: 0.8rem; }
+.legend-item { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
+.legend-line { width: 24px; height: 2px; border-radius: 2px; }
+.connection-cards { margin-top: 24px; display: grid; gap: 14px; }
+.connection-card { background: var(--cream-dark); border: 1px solid var(--border); border-left: 3px solid var(--teal); border-radius: var(--radius-sm); padding: 14px 18px; font-size: 0.88rem; }
+.connection-card strong { color: var(--teal); display: block; margin-bottom: 4px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* EXERCISES */
+.exercise-tier { margin-bottom: 36px; }
+.tier-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.tier-badge { padding: 4px 12px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+.tier-1 .tier-badge { background: var(--green-light); color: var(--green); }
+.tier-2 .tier-badge { background: var(--amber-light); color: var(--amber); }
+.tier-3 .tier-badge { background: var(--red-light); color: var(--red); }
+.tier-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--text-dark); }
+
+.exercise-item { background: var(--cream-dark); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 12px; }
+.exercise-q { font-size: 0.92rem; line-height: 1.6; color: var(--text-dark); margin-bottom: 12px; }
+.exercise-q-num { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--teal); margin-bottom: 6px; letter-spacing: 0.08em; }
+
+.show-answer-btn { background: transparent; border: 1.5px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-family: 'Source Sans 3', sans-serif; transition: all var(--transition); }
+.show-answer-btn:hover { border-color: var(--teal); color: var(--teal); }
+.show-answer-btn.active { background: var(--navy); color: var(--teal-light); border-color: var(--navy); }
+
+.answer-panel { display: none; margin-top: 14px; padding: 14px 18px; background: var(--teal-pale); border-radius: var(--radius-sm); font-size: 0.88rem; line-height: 1.65; color: var(--text-body); border-left: 3px solid var(--teal); }
+.answer-panel.open { display: block; }
+.answer-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; font-weight: 600; }
+
+/* CHEAT SHEET */
+.cheatsheet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.cs-card { background: var(--cream-dark); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+.cs-card-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--text-dark); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.cs-list { list-style: none; }
+.cs-list li { font-size: 0.83rem; padding: 6px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 8px; align-items: flex-start; line-height: 1.4; }
+.cs-list li:last-child { border-bottom: none; }
+.cs-term { font-weight: 600; color: var(--teal); min-width: 80px; flex-shrink: 0; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; }
+
+.priority-list { counter-reset: priority; list-style: none; }
+.priority-list li { counter-increment: priority; display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; line-height: 1.5; }
+.priority-list li::before { content: counter(priority); display: flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; background: var(--teal); color: #fff; border-radius: 50%; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* ORNAMENT */
+.ornament { text-align: center; color: var(--teal); font-size: 0.8rem; letter-spacing: 0.5em; margin: 28px 0; opacity: 0.4; }
+
+/* PRINT */
+@media print {
+  .sidebar, .mobile-menu-btn, .dark-toggle, .show-answer-btn, .fc-buttons, .yc-tabs { display: none !important; }
+  .main { margin-left: 0; }
+  .content { padding: 20px; }
+  .answer-panel { display: block !important; }
+}
+
+/* MOBILE */
+.mobile-menu-btn { display: none; position: fixed; top: 16px; left: 16px; z-index: 200; background: var(--navy); border: 1px solid rgba(34,211,238,0.3); color: var(--teal-light); width: 40px; height: 40px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; align-items: center; justify-content: center; }
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .mobile-menu-btn { display: flex; }
+  .page-hero { padding: 60px 24px 40px; }
+  .content { padding: 32px 24px 60px; }
+  .concept-grid, .cheatsheet-grid { grid-template-columns: 1fr; }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(34,211,238,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(34,211,238,0.45); }
+</style>
+</head>
+<body>
+
+<button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-course">Financial Markets · Ch. 2</div>
+    <div class="sidebar-title">Determinants of Interest Rates</div>
+    <div class="sidebar-chapter">Chapter 2 · Study Guide</div>
+  </div>
+  <nav>
+    <a href="../../index.html" class="nav-link" style="border-bottom: 1px solid rgba(255,255,255,0.2); margin-bottom: 8px; color: var(--teal-light); font-weight: 600;"><span class="nav-icon">🏠</span> Back to Library</a>
+    <div class="nav-section-label">Sections</div>
+    <a href="#section-a" class="nav-link active"><span class="nav-icon">📖</span> A · Chapter Summary</a>
+    <a href="#section-b" class="nav-link"><span class="nav-icon">🃏</span> B · Flashcards</a>
+    <a href="#section-c" class="nav-link"><span class="nav-icon">🧠</span> C · Feynman Explanations</a>
+    <a href="#section-d" class="nav-link"><span class="nav-icon">🔗</span> D · Knowledge Graph</a>
+    <a href="#section-e" class="nav-link"><span class="nav-icon">✏️</span> E · Exercises</a>
+    <a href="#section-f" class="nav-link"><span class="nav-icon">⚡</span> F · Cheat Sheet</a>
+    <div class="nav-section-label" style="margin-top:12px;">Topics</div>
+    <a href="#loanable-funds" class="nav-link"><span class="nav-icon">📈</span> Loanable Funds Theory</a>
+    <a href="#rate-determinants" class="nav-link"><span class="nav-icon">🔢</span> Rate Determinants</a>
+    <a href="#fisher-effect" class="nav-link"><span class="nav-icon">🌡️</span> Fisher Effect</a>
+    <a href="#risk-premiums" class="nav-link"><span class="nav-icon">⚠️</span> Risk Premiums</a>
+    <a href="#term-structure" class="nav-link"><span class="nav-icon">📉</span> Term Structure</a>
+    <a href="#tvm" class="nav-link"><span class="nav-icon">⏳</span> Time Value of Money</a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="dark-toggle" onclick="toggleDark()">
+      <span id="dark-icon">🌙</span>
+      <span id="dark-label">Dark Mode</span>
+    </button>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="page-hero">
+    <div class="hero-badge">Chapter 2 · Study Guide</div>
+    <h1 class="hero-title">Determinants of Interest Rates</h1>
+    <p class="hero-subtitle">From loanable funds theory to the Fisher effect, yield curves, and time value of money — with worked examples and exam-ready exercises.</p>
+    <div class="hero-meta">
+      <div class="hero-stat"><span class="hero-stat-icon">📄</span> 26 lecture slides + TVM supplements</div>
+      <div class="hero-stat"><span class="hero-stat-icon">🃏</span> 25 flashcards</div>
+      <div class="hero-stat"><span class="hero-stat-icon">✏️</span> 15 exercises</div>
+      <div class="hero-stat"><span class="hero-stat-icon">🔢</span> 8 key formulas</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== SECTION A ===== -->
+    <section class="study-section" id="section-a">
+      <div class="section-header">
+        <div class="section-badge">A</div>
+        <div>
+          <div class="section-title">Chapter Summary</div>
+          <div class="section-description">Read this first — the foundation for everything else</div>
+        </div>
+      </div>
+
+      <h2>Why Interest Rates Matter</h2>
+
+      <p>Interest rates are among the most powerful forces in finance. They are the price of money — what you pay to borrow it and what you earn by lending it. <strong>Nominal interest rates</strong> are the rates actually observed in financial markets: the 5% on your savings account, the 7% on a mortgage, the 4% yield on a Treasury bond. These rates directly affect the price of virtually every financial security, and their movements ripple through every corner of the economy.</p>
+
+      <p>When interest rates rise, existing bond prices fall (because new bonds offer higher yields, making old ones less valuable). When rates fall, borrowing becomes cheaper, stimulating business investment and consumer spending. Central banks like the Federal Reserve spend enormous energy trying to understand, forecast, and influence interest rates — which is why understanding where interest rates come from is foundational to all of finance.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Background: Nominal vs. Real interest rates</strong>
+          A "nominal" rate is the rate you actually see quoted. A "real" rate adjusts for inflation. If your savings account pays 5% but inflation is 3%, your real return is approximately 2% — you're only gaining 2% in actual purchasing power. This distinction is critical throughout Chapter 2 and reappears constantly in finance.
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- LOANABLE FUNDS -->
+      <h2 id="loanable-funds">The Loanable Funds Theory</h2>
+
+      <p>The <strong>loanable funds theory</strong> is the foundational framework for understanding interest rate determination. It views equilibrium interest rates as the result of the <em>supply of</em> and <em>demand for</em> loanable funds in financial markets — just like the price of any good is determined by supply and demand. When supply of funds increases or demand decreases, interest rates fall. When demand increases or supply decreases, interest rates rise.</p>
+
+      <h3>Suppliers of Loanable Funds</h3>
+
+      <p>The "supply of loanable funds" describes capital provided to financial markets by those with surplus money. Supply increases as interest rates rise — higher rates incentivize saving and lending. The major suppliers are:</p>
+
+      <table class="compare-table">
+        <tr><th>Supplier</th><th>2019 Amount</th><th>Notes</th></tr>
+        <tr><td><strong>Household Sector</strong></td><td>$84.66 trillion</td><td>Largest supplier; savings and investment accounts</td></tr>
+        <tr><td><strong>Financial Businesses</strong></td><td>$98.47 trillion</td><td>Banks, insurance cos, investment funds</td></tr>
+        <tr><td><strong>Nonfinancial Businesses</strong></td><td>$28.06 trillion</td><td>Corporations with excess cash (e.g., Apple's $200B+ cash pile)</td></tr>
+        <tr><td><strong>Foreign Investors</strong></td><td>$27.20 trillion</td><td>View U.S. markets as investment alternatives</td></tr>
+        <tr><td><strong>Government</strong></td><td>$5.66 trillion</td><td>Smallest supplier; occasionally runs surpluses</td></tr>
+      </table>
+
+      <h3>What Shifts the Supply Curve</h3>
+
+      <p>At any given interest rate, the supply of loanable funds shifts when these factors change:</p>
+
+      <div class="concept-grid">
+        <div class="concept-card">
+          <div class="concept-card-label">Shift Factor 1</div>
+          <div class="concept-card-title">Wealth of Suppliers</div>
+          <p>As overall wealth increases, people and institutions supply more funds. A growing economy generates more surplus capital looking for investment. Wealth ↑ → Supply ↑</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-card-label">Shift Factor 2</div>
+          <div class="concept-card-title">Risk of Securities</div>
+          <p>If financial securities become riskier (more volatility, more defaults), suppliers pull back. Risk ↑ → Supply ↓ (risk-averse investors demand higher rates before they'll supply funds)</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-card-label">Shift Factor 3</div>
+          <div class="concept-card-title">Near-Term Spending Needs</div>
+          <p>If households anticipate upcoming expenses (holiday season, medical costs), they save more beforehand. Spending needs ↑ → Supply ↑ (temporarily, as they accumulate funds)</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-card-label">Shift Factor 4</div>
+          <div class="concept-card-title">Monetary Policy</div>
+          <p>When the Federal Reserve allows economic expansion (e.g., low rates, bond purchases), it injects money into the system. Expansionary policy → Supply ↑. Contractionary policy → Supply ↓</p>
+        </div>
+      </div>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Shift Factor 5: Foreign economic conditions</strong>
+          When domestic economic conditions improve, domestic suppliers have more to invest, increasing the local supply of funds. When foreign economies improve, foreign investors may redirect funds home rather than to U.S. markets — reducing the foreign supply of funds to U.S. markets. These are asymmetric effects worth remembering.
+        </div>
+      </div>
+
+      <h3>Demanders of Loanable Funds</h3>
+
+      <p>The "demand for loanable funds" describes the total net demand for borrowing by fund users. Demand generally increases as interest rates fall — cheaper borrowing costs make more projects viable. The major borrowers are:</p>
+
+      <table class="compare-table">
+        <tr><th>Borrower</th><th>2019 Amount</th><th>Purpose</th></tr>
+        <tr><td><strong>Financial Businesses</strong></td><td>$111.87 trillion</td><td>Largest borrower; funding loans, securities</td></tr>
+        <tr><td><strong>Nonfinancial Businesses</strong></td><td>$66.46 trillion</td><td>Capital investment, working capital</td></tr>
+        <tr><td><strong>Government</strong></td><td>$28.86 trillion</td><td>Budget deficits, infrastructure, defense</td></tr>
+        <tr><td><strong>Households</strong></td><td>$16.05 trillion</td><td>Mortgages, auto loans, credit cards</td></tr>
+        <tr><td><strong>Foreign Participants</strong></td><td>$20.81 trillion</td><td>Mostly business sector borrowing</td></tr>
+      </table>
+
+      <h3>What Shifts the Demand Curve</h3>
+
+      <p>Three key factors shift demand at any given rate:</p>
+
+      <p><strong>1. Utility/return from borrowed funds.</strong> If the expected return from an investment (funded by borrowed money) rises, businesses are willing to borrow more even at the same rate. Expected project return ↑ → Demand ↑.</p>
+
+      <p><strong>2. Non-price conditions on borrowing.</strong> Even if the interest rate stays the same, if banks require more collateral, impose restrictive covenants (limits on what borrowers can do with funds), or charge higher fees, effective borrowing becomes more expensive. More restrictive non-price conditions → Demand ↓.</p>
+
+      <p><strong>3. Economic growth vs. stagnation.</strong> During economic expansion, businesses borrow more to invest in new capacity and inventory. During recessions, borrowing plummets because investment opportunities look poor. Growth → Demand ↑; Stagnation → Demand ↓.</p>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Common misconception: Government as supplier vs. demander</strong>
+          Students often forget that governments appear on BOTH sides of the loanable funds market. The government can supply funds (when running a surplus or managing reserves) AND demand funds (when running a deficit, which is most of the time in the U.S.). In practice, the U.S. government is a massive net borrower, so it primarily shifts the demand curve rightward, putting upward pressure on interest rates — a phenomenon called "crowding out."
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- RATE DETERMINANTS -->
+      <h2 id="rate-determinants">Determinants of Interest Rates for Individual Securities</h2>
+
+      <p>The loanable funds theory explains market-level interest rates. But why do different securities trade at different rates? A 10-year Treasury bond, a corporate junk bond, and a municipal bond all have different yields — even in the same market, at the same time. The answer lies in the components that make up any security's interest rate:</p>
+
+      <div class="formula-box">
+        <span class="formula-box-label">The Fair Interest Rate Equation</span>
+        <div class="formula">ij* = f(IP, RFR, DRPj, LRPj, SCPj, MPj)</div>
+        <div class="formula-vars">
+          <div class="formula-var"><span class="var-name">ij*</span> = fair (required) interest rate on security j</div>
+          <div class="formula-var"><span class="var-name">IP</span> = inflation premium (expected inflation)</div>
+          <div class="formula-var"><span class="var-name">RFR</span> = real risk-free rate</div>
+          <div class="formula-var"><span class="var-name">DRPj</span> = default risk premium for security j</div>
+          <div class="formula-var"><span class="var-name">LRPj</span> = liquidity risk premium for security j</div>
+          <div class="formula-var"><span class="var-name">SCPj</span> = special covenant/feature premium for security j</div>
+          <div class="formula-var"><span class="var-name">MPj</span> = maturity premium for security j</div>
+        </div>
+      </div>
+
+      <p>Each component compensates the investor for a specific type of cost or risk. Let's unpack each one.</p>
+
+      <!-- FISHER EFFECT -->
+      <h3 id="fisher-effect">1. Inflation Premium (IP) and the Fisher Effect</h3>
+
+      <p><strong>Inflation</strong> is the continual increase in the price level of a basket of goods and services. It is measured in the U.S. using the Consumer Price Index (CPI) or Producer Price Index (PPI). The key insight: if you lend money at 5% for a year, but prices rise 4%, your purchasing power only grew by 1%. Investors demand compensation for expected inflation — the <strong>inflation premium (IP)</strong>.</p>
+
+      <p>The relationship between the real risk-free rate, expected inflation, and the nominal interest rate is captured by the <strong>Fisher effect</strong>, named after economist Irving Fisher:</p>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Fisher Effect (Approximate)</span>
+        <div class="formula">i ≈ RFR + E(IP)</div>
+        <div class="formula">Nominal Rate ≈ Real Rate + Expected Inflation</div>
+        <div class="formula-note">The precise (exact) Fisher equation is: (1 + i) = (1 + RFR) × (1 + E(IP))</div>
+        <div class="formula-note">For low rates, the approximation works well. At higher rates, use the exact equation.</div>
+      </div>
+
+      <div class="worked-example">
+        <div class="we-header"><div class="we-title">📊 Fisher Effect Example</div></div>
+        <div class="we-body">
+          <div class="we-step"><div class="we-step-num">1</div><div>Given: Real risk-free rate (RFR) = 2%, Expected inflation E(IP) = 3%</div></div>
+          <div class="we-step"><div class="we-step-num">2</div><div>Approximate: i ≈ 2% + 3% = <strong>5%</strong></div></div>
+          <div class="we-step"><div class="we-step-num">3</div><div>Exact: (1.02)(1.03) = 1.0506, so i = <strong>5.06%</strong></div></div>
+          <div class="we-result">Nominal rate ≈ 5% | The extra 0.06% is the "cross product" — small at low rates, matters at high rates</div>
+        </div>
+      </div>
+
+      <p>The <strong>real risk-free rate (RFR)</strong> is the interest rate that would exist on a risk-free security if <em>no inflation were expected</em>. It represents society's "time preference for money" — how much people prefer consumption today over future consumption. Higher preference for spending now → higher RFR. The RFR is theoretical; in practice, the U.S. Treasury bill rate (adjusted for inflation) is used as a proxy.</p>
+
+      <!-- DEFAULT RISK -->
+      <h3 id="risk-premiums">2. Default Risk Premium (DRP)</h3>
+
+      <p><strong>Default risk</strong> is the risk that a security issuer will fail to make promised interest and principal payments. The higher the default risk, the higher the interest rate investors demand. The compensation for bearing this risk is the <strong>default risk premium (DRP)</strong>:</p>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Default Risk Premium</span>
+        <div class="formula">DRPj = ij − iT</div>
+        <div class="formula-vars">
+          <div class="formula-var"><span class="var-name">ij</span> = yield on security j (e.g., corporate bond)</div>
+          <div class="formula-var"><span class="var-name">iT</span> = yield on Treasury security with same maturity, liquidity, and features</div>
+        </div>
+        <div class="formula-note">This spread is often called the "credit spread" and is a key signal of market risk appetite.</div>
+      </div>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Background: Credit rating agencies</strong>
+          Companies like Moody's, Standard & Poor's (S&P), and Fitch assign credit ratings to bond issuers. AAA/Aaa rated bonds are considered investment-grade with very low default risk; BB/Ba and below are "junk" or high-yield bonds with higher default risk — and correspondingly higher DRPs. The spread between AAA corporate bonds and Treasury yields fluctuates with economic conditions, widening sharply during crises.
+        </div>
+      </div>
+
+      <h3>3. Liquidity Risk Premium (LRP)</h3>
+
+      <p><strong>Liquidity risk</strong> is the risk that a security cannot be sold quickly at a predictable price with low transaction costs. Highly liquid assets (like U.S. Treasury securities) trade constantly with tiny bid-ask spreads. Illiquid assets (like thinly traded municipal bonds) may require selling at a significant discount if you need cash quickly. Investors who accept illiquid securities demand a <strong>liquidity risk premium (LRP)</strong>.</p>
+
+      <blockquote>
+        Think of it this way: a house and a U.S. Treasury bond might offer the same annual "return," but you'd demand extra compensation for the house because selling it takes months. That extra compensation is the liquidity premium.
+      </blockquote>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Two faces of liquidity risk premium</strong>
+          LRP can arise in two ways: (1) actual illiquidity — the security is hard to trade; and (2) maturity-related sensitivity — even liquid long-term bonds are riskier than short-term bonds because their prices are more sensitive to interest rate changes. Your notes specifically mention this second source. A 30-year bond's price drops far more than a 1-year bond when rates rise by the same amount — this duration risk is sometimes compensated with an LRP.
+        </div>
+      </div>
+
+      <h3>4. Special Covenant/Feature Premium (SCP)</h3>
+
+      <p>Certain contractual features written into a security's terms affect its interest rate. These provisions can either <em>benefit</em> or <em>burden</em> the investor:</p>
+
+      <table class="compare-table">
+        <tr><th>Feature</th><th>Who Benefits</th><th>Effect on Rate</th><th>Example</th></tr>
+        <tr><td><strong>Tax-exempt status</strong></td><td>Investor</td><td>Rate ↓ (investor accepts lower yield for tax savings)</td><td>Municipal bonds — interest free from federal tax</td></tr>
+        <tr><td><strong>Convertibility</strong></td><td>Investor</td><td>Rate ↓ (option to convert to stock has value)</td><td>Convertible bonds — can swap for issuer's equity</td></tr>
+        <tr><td><strong>Callability</strong></td><td>Issuer</td><td>Rate ↑ (issuer can repay early, hurting investor if rates fall)</td><td>Callable bonds — issuer can "call" them before maturity</td></tr>
+        <tr><td><strong>Restrictive covenants</strong></td><td>Investor</td><td>Rate ↓ (restrictions protect bondholder)</td><td>Limits on issuer's debt levels, asset sales</td></tr>
+      </table>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Key rule to remember</strong>
+          Features that benefit the investor → lower interest rate (investor accepts less yield for the added value). Features that benefit the issuer → higher interest rate (investor demands more yield to compensate for the disadvantage). Callability is the classic "issuer benefit" that students often forget raises the yield.
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- TERM STRUCTURE -->
+      <h2 id="term-structure">Term Structure of Interest Rates and the Yield Curve</h2>
+
+      <p>The <strong>term structure of interest rates</strong> is a comparison of yields on securities that are identical in every way <em>except their maturity</em>. Plotted on a chart, this relationship is called the <strong>yield curve</strong>. The yield curve is one of the most important and closely watched tools in finance because its shape signals expectations about the economy and future interest rates.</p>
+
+      <p>The change in required interest rates as maturity changes is called the <strong>maturity premium (MP)</strong>. The MP can be positive, negative, or zero — which gives rise to three common yield curve shapes:</p>
+
+      <div class="yield-curve-container">
+        <div class="yc-tabs">
+          <button class="yc-tab active" onclick="showCurve('normal', this)">Normal (Upward)</button>
+          <button class="yc-tab" onclick="showCurve('inverted', this)">Inverted (Downward)</button>
+          <button class="yc-tab" onclick="showCurve('flat', this)">Flat / Humped</button>
+        </div>
+        <div class="yc-canvas-wrap">
+          <canvas id="yieldChart" width="800" height="260"></canvas>
+        </div>
+      </div>
+
+      <h3>Three Theories Explaining Yield Curve Shape</h3>
+
+      <div class="concept-grid">
+        <div class="concept-card">
+          <div class="concept-card-label">Theory 1</div>
+          <div class="concept-card-title">Unbiased Expectations Theory</div>
+          <p>Long-term rates equal the average of expected future short-term rates. If the market expects short-term rates to rise, long-term rates will be higher today — creating an upward slope. If rates are expected to fall, the curve inverts. This theory implies the yield curve reflects pure expectations, nothing more.</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-card-label">Theory 2</div>
+          <div class="concept-card-title">Liquidity Premium Theory</div>
+          <p>Extends expectations theory by adding a liquidity (risk) premium for longer maturities. Investors are risk-averse and dislike locking money up for long periods. So long-term rates = expected future short-term rates + a liquidity premium. This means yield curves will be <em>upward biased</em> even if rates are expected to stay flat.</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-card-label">Theory 3</div>
+          <div class="concept-card-title">Market Segmentation Theory</div>
+          <p>Different investors prefer different maturities (their "habitats") and won't easily move between maturity segments. Banks prefer short-term; pension funds prefer long-term. Supply and demand within each segment independently determines yields. The curve shape is driven by segment-specific supply/demand, not expectations.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Why does an inverted yield curve matter so much?</strong>
+          An inverted yield curve (short-term rates higher than long-term rates) is historically one of the most reliable predictors of a recession. It signals that the market expects the central bank to cut rates in the future (because the economy will weaken), making long-term rates lower than short-term rates today. Every U.S. recession since 1955 was preceded by an inverted yield curve.
+        </div>
+      </div>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Expectations Theory Calculation: Example</strong>
+          Suppose the 1-year rate today is 3%, the expected 1-year rate next year is 4%, and the expected 1-year rate in two years is 5%. Under the Unbiased Expectations Theory, the 3-year rate today should be approximately (3% + 4% + 5%) / 3 = <strong>4%</strong>. The yield curve is upward-sloping because rates are expected to rise.
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- TIME VALUE OF MONEY -->
+      <h2 id="tvm">Time Value of Money (TVM)</h2>
+
+      <p>The <strong>time value of money</strong> is the foundational concept underlying all of finance: <em>a dollar received today is worth more than a dollar received in the future</em>. Why? Because a dollar today can be invested to earn a return, making it worth more than a dollar received later. This creates a framework for comparing cash flows that occur at different points in time.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>The 3 Rules of Time Travel (from your TVM supplement)</strong>
+          Rule 1: You can only compare/combine cash flows at the <em>same point in time</em>. Rule 2: To move a cash flow <em>forward</em>, you must <em>compound</em> it (multiply by (1+r)). Rule 3: To move a cash flow <em>backward</em>, you must <em>discount</em> it (divide by (1+r)). Everything in TVM follows from these three rules.
+        </div>
+      </div>
+
+      <h3>Lump Sum Formulas</h3>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Future Value of a Lump Sum</span>
+        <div class="formula">FV = PV × (1 + r)ⁿ</div>
+        <div class="formula-vars">
+          <div class="formula-var"><span class="var-name">FV</span> = future value (what your money grows to)</div>
+          <div class="formula-var"><span class="var-name">PV</span> = present value (what you invest today)</div>
+          <div class="formula-var"><span class="var-name">r</span> = interest rate per period (as decimal)</div>
+          <div class="formula-var"><span class="var-name">n</span> = number of periods</div>
+        </div>
+      </div>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Present Value of a Lump Sum</span>
+        <div class="formula">PV = FV / (1 + r)ⁿ</div>
+        <div class="formula-note">Also written as: PV = FV × (1 + r)⁻ⁿ</div>
+        <div class="formula-note">The term (1+r)⁻ⁿ is called the discount factor. "Discounting" means finding what a future sum is worth today.</div>
+      </div>
+
+      <div class="worked-example">
+        <div class="we-header"><div class="we-title">📊 Lump Sum Examples</div></div>
+        <div class="we-body">
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;"><strong>FV Example:</strong> Invest $1,000 today at 10% for 2 years:</p>
+          <div class="we-step"><div class="we-step-num">1</div><div>FV = 1,000 × (1.10)² = 1,000 × 1.21 = <strong>$1,210</strong></div></div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin: 14px 0 12px;"><strong>PV Example:</strong> Need $10,000 in 1 year. Can earn 7%. How much to invest today?</p>
+          <div class="we-step"><div class="we-step-num">1</div><div>PV = 10,000 / (1.07)¹ = <strong>$9,345.79</strong></div></div>
+          <div class="we-step"><div class="we-step-num">2</div><div>Financial calculator: N=1, I/Y=7, FV=10000, PMT=0 → CPT PV = -9,345.79</div></div>
+          <div class="we-result">Key insight: At higher discount rates, PV is smaller. At longer time horizons, PV is smaller.</div>
+        </div>
+      </div>
+
+      <h3>Annuity Formulas</h3>
+
+      <p>An <strong>annuity</strong> is a series of equal cash flows received at fixed intervals over a finite number of periods. Your mortgage payment, car payment, or annual bond coupon are all annuities.</p>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Present Value of an Annuity</span>
+        <div class="formula">PV = C × [1 − 1/(1+r)ⁿ] / r</div>
+        <div class="formula-vars">
+          <div class="formula-var"><span class="var-name">C</span> = periodic cash flow (the annuity payment)</div>
+          <div class="formula-var"><span class="var-name">r</span> = interest rate per period</div>
+          <div class="formula-var"><span class="var-name">n</span> = number of periods</div>
+        </div>
+        <div class="formula-note">Calculator: Enter N, I/Y, PMT=C, FV=0 → CPT PV</div>
+      </div>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Future Value of an Annuity</span>
+        <div class="formula">FV = C × [(1+r)ⁿ − 1] / r</div>
+        <div class="formula-note">Calculator: Enter N, I/Y, PMT=C, PV=0 → CPT FV</div>
+      </div>
+
+      <div class="worked-example">
+        <div class="we-header"><div class="we-title">📊 Annuity Example: PV of Bond Coupons</div></div>
+        <div class="we-body">
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">A bond pays $50 per year for 3 years, then $1,000 at maturity. Discount rate = 6%. Find PV of the coupon payments.</p>
+          <div class="we-step"><div class="we-step-num">1</div><div>PV of annuity = 50 × [1 − 1/(1.06)³] / 0.06</div></div>
+          <div class="we-step"><div class="we-step-num">2</div><div>= 50 × [1 − 0.8396] / 0.06 = 50 × 2.6730 = <strong>$133.65</strong></div></div>
+          <div class="we-step"><div class="we-step-num">3</div><div>PV of $1,000 face value = 1,000 / (1.06)³ = <strong>$839.62</strong></div></div>
+          <div class="we-result">Total Bond Price = $133.65 + $839.62 = $973.27 (bond trades at discount because coupon rate &lt; discount rate)</div>
+        </div>
+      </div>
+
+      <h3>Perpetuity Formulas</h3>
+
+      <p>A <strong>perpetuity</strong> is an annuity that pays forever. It sounds complex, but the formula is beautifully simple:</p>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Present Value of a Perpetuity</span>
+        <div class="formula">PV = C / r</div>
+        <div class="formula-note">This works because in an infinite series, the compounding overwhelms the finite payment, leaving just C/r.</div>
+      </div>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Present Value of a Growing Perpetuity</span>
+        <div class="formula">PV = C / (r − g)</div>
+        <div class="formula-vars">
+          <div class="formula-var"><span class="var-name">g</span> = constant growth rate of the cash flow (g must be &lt; r)</div>
+        </div>
+        <div class="formula-note">This formula is critical for stock valuation (Gordon Growth Model: stock price = D₁/(r−g))</div>
+      </div>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Present Value of a Growing Annuity</span>
+        <div class="formula">PV = C × [1 − ((1+g)/(1+r))ᴺ] / (r−g)</div>
+        <div class="formula-note">Growing annuity: finite payments that grow at rate g each period.</div>
+      </div>
+
+      <h3>Solving for Rate (r) and Time (n)</h3>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Solving for Discount Rate (r)</span>
+        <div class="formula">r = (FV/PV)^(1/t) − 1</div>
+        <div class="formula-note">Calculator: Enter N, PV (negative), FV, PMT → CPT I/Y</div>
+      </div>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Solving for Number of Periods (n)</span>
+        <div class="formula">t = ln(FV/PV) / ln(1+r)</div>
+        <div class="formula-note">Calculator: Enter I/Y, PV (negative), FV, PMT → CPT N</div>
+      </div>
+
+      <div class="formula-box">
+        <span class="formula-box-label">Rule of 72 (Quick Mental Math)</span>
+        <div class="formula">Time to double ≈ 72 / interest rate (%)</div>
+        <div class="formula-note">Example: At 9% interest, your money doubles in approximately 72/9 = 8 years.</div>
+        <div class="formula-note">Works in reverse: if money doubles in 8 years, the interest rate ≈ 72/8 = 9%.</div>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Critical: Simple vs. Compound Interest</strong>
+          Simple interest earns interest only on the principal. Compound interest earns interest on principal PLUS previously earned interest. At $100 × 5% for 2 years: Simple FV = $110. Compound FV = $110.25. The difference grows enormously over long periods. At 200 years: Simple = $1,200. Compound = $4,471,898. Every finance problem assumes compound interest unless explicitly told otherwise.
+        </div>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body">
+          <strong>Calculator sign convention (critical for avoiding errors)</strong>
+          On the BA-II Plus, cash outflows are negative, inflows are positive. If you invest $1,000 today (outflow), enter PV = −1,000. The calculator will return FV as a positive number (you receive it). Always clear TVM registers (2ND → FV) between problems. Forgetting the sign convention is the #1 cause of calculator errors on exams.
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===== SECTION B ===== -->
+    <section class="study-section" id="section-b">
+      <div class="section-header">
+        <div class="section-badge">B</div>
+        <div>
+          <div class="section-title">Flashcard Deck</div>
+          <div class="section-description">Click to flip · Arrow keys to navigate · Spacebar to flip</div>
+        </div>
+      </div>
+
+      <div class="flashcard-controls">
+        <span class="fc-counter" id="fc-counter">Card 1 of 25</span>
+        <div class="fc-buttons">
+          <button class="btn btn-outline" onclick="prevCard()">← Prev</button>
+          <button class="btn btn-outline" onclick="shuffleCards()">⇌ Shuffle</button>
+          <button class="btn btn-primary" onclick="nextCard()">Next →</button>
+        </div>
+      </div>
+
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <div class="fc-label">Question</div>
+            <div class="fc-question" id="fc-question">Loading...</div>
+            <div class="fc-hint">Click to reveal answer</div>
+          </div>
+          <div class="flashcard-back">
+            <div class="fc-label">Answer</div>
+            <div class="fc-answer" id="fc-answer">...</div>
+            <div class="difficulty-badge" id="fc-difficulty">...</div>
+            <div class="fc-hint">Click to go back</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION C ===== -->
+    <section class="study-section" id="section-c">
+      <div class="section-header">
+        <div class="section-badge">C</div>
+        <div>
+          <div class="section-title">Feynman Technique Explanations</div>
+          <div class="section-description">4 hardest concepts, simplified then made precise</div>
+        </div>
+      </div>
+
+      <!-- Feynman 1 -->
+      <div class="feynman-card">
+        <div class="feynman-header">
+          <div class="feynman-num">1</div>
+          <div class="feynman-concept-title">Why Does Compound Interest Grow So Explosively?</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Imagine a snowball rolling downhill. The bigger it gets, the more snow it picks up — so it keeps accelerating. Compound interest works the same way. Each year, you earn interest not just on your original money, but also on all the interest you've already earned. So the pile grows, which means next year's interest is even bigger, which makes the pile even bigger, and so on forever.</p>
+            <p>Put $100 at 10%. After year 1: $110. After year 2: not $120 (simple) but $121 — because you earned 10% on $110, not just $100. That extra $1 seems trivial. But over 30 years, your $100 becomes $1,745 with compounding, versus $400 with simple interest. The snowball effect is enormous.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>A snowball eventually gets too big to roll and stops. Money, in theory, can compound forever without stopping (though inflation, taxes, and market returns vary in practice). Also, compounding requires reinvesting returns — if you spend your interest each year, it's essentially simple interest.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p>Compound interest applies the interest rate to the growing accumulated balance, not just the original principal. The future value formula is <code>FV = PV × (1+r)ⁿ</code>. The exponent n is what creates the exponential (not linear) growth. Simple interest grows as <code>FV = PV × (1 + r×n)</code>, which is linear. The mathematical difference between linear and exponential growth is what makes compounding so powerful over long horizons.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feynman 2 -->
+      <div class="feynman-card">
+        <div class="feynman-header">
+          <div class="feynman-num">2</div>
+          <div class="feynman-concept-title">The Fisher Effect: Why Inflation Drives Interest Rates</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Imagine you lend your friend $100 so they can buy you pizza when they repay you next year. But you know pizza will cost 10% more next year due to inflation. If your friend just gives back $100, you can buy less pizza than you could today. So you'd tell your friend: "Pay me $110 — $100 to replace what I lent you, and $10 to cover the fact that pizza costs more now."</p>
+            <p>That extra $10 is the inflation premium. Lenders in financial markets do exactly this: they add expected inflation to their required return so they don't lose purchasing power. If I want a 2% real return and expect 3% inflation, I'll demand 5% nominal.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>The real world is more complex because the actual inflation that occurs may differ from expected inflation. Lenders are compensated for <em>expected</em> inflation at the time of the loan; if actual inflation turns out higher, they lose purchasing power anyway. Also, the Fisher effect is empirically approximate — the precise relationship involves a multiplicative cross-product term that matters at high inflation rates.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p>The <strong>Fisher effect</strong> states: <code>(1+i) = (1+RFR) × (1+E(IP))</code>, where i is the nominal rate, RFR is the real risk-free rate, and E(IP) is expected inflation. The approximation <code>i ≈ RFR + E(IP)</code> ignores the cross-product term RFR×E(IP), which is small at low rates but significant at high rates. The Fisher effect implies that nominal rates should rise one-for-one with changes in expected inflation, holding the real rate constant — an empirically tested prediction with strong (but imperfect) support in the data.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feynman 3 -->
+      <div class="feynman-card">
+        <div class="feynman-header">
+          <div class="feynman-num">3</div>
+          <div class="feynman-concept-title">The Yield Curve: What Its Shape Is Telling You</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Imagine there's a rumor that next summer will be extremely hot. Water vendors right now charge $1 per bottle (that's the current "short-term price"). But vendors willing to lock in a price for next summer are charging $3 per bottle because of the expected shortage. That "forward price" is higher because people expect conditions to change.</p>
+            <p>The yield curve works similarly. If people expect interest rates to rise in the future (because the economy will be booming), they demand higher yields today on long-term loans. Why? Because if rates rise in two years, a long-term bond paying today's rate will look stingy. The curve slopes upward. If people expect a recession (rates to fall), the curve may invert — short-term rates are high now but expected to fall.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>The yield curve reflects multiple forces simultaneously, not just expectations: risk premiums for holding long-term bonds, segmented market supply/demand, Federal Reserve policy interventions, and global capital flows. No single theory fully explains all yield curve shapes at all times — that's why three competing theories exist.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p>The <strong>term structure of interest rates</strong> plots yields against maturities for securities with identical characteristics except maturity. The maturity premium (MP) can be positive, negative, or zero. Three theories explain its shape: (1) Unbiased Expectations — long rates equal the geometric average of expected future short rates; (2) Liquidity Premium — long rates include a risk premium above expectations; (3) Market Segmentation — supply and demand in each maturity "habitat" independently determines yields, with no arbitrage across segments.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feynman 4 -->
+      <div class="feynman-card">
+        <div class="feynman-header">
+          <div class="feynman-num">4</div>
+          <div class="feynman-concept-title">Present Value: Why Future Money Is Worth Less Today</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Suppose someone offers you a choice: $1,000 right now, or a guaranteed $1,000 exactly one year from now. Any rational person takes the money now — because you can invest it and have more than $1,000 in a year. The future $1,000 is worth less to you today because you're giving up the ability to earn a return on it.</p>
+            <p>To compare them fairly, we need to ask: "How much would I need to invest today to have $1,000 in one year?" If you can earn 10%, the answer is $1,000 ÷ 1.10 = $909.09. So the present value of $1,000 received in one year at 10% is $909.09. We "discounted" the future value back to today's terms.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>This assumes certainty — guaranteed future payments. In reality, future cash flows are usually uncertain. The discount rate used in practice incorporates not just the risk-free rate but also risk premiums to account for that uncertainty. Riskier cash flows get discounted at higher rates, making their present value lower — reflecting that investors demand compensation for uncertainty.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p><strong>Present value (PV)</strong> is the current value of a future cash flow, discounted at an appropriate rate. For a lump sum: <code>PV = FV/(1+r)ⁿ</code>. For a stream of cash flows: <code>PV = Σ Cₙ/(1+r)ⁿ</code>. The discount rate r represents the opportunity cost of capital — the return available on the best alternative investment of comparable risk. Higher r → lower PV. Longer horizon → lower PV. This framework underlies all of security valuation, capital budgeting, and financial decision-making.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION D ===== -->
+    <section class="study-section" id="section-d">
+      <div class="section-header">
+        <div class="section-badge">D</div>
+        <div>
+          <div class="section-title">Knowledge Graph</div>
+          <div class="section-description">How all Chapter 2 concepts connect</div>
+        </div>
+      </div>
+
+      <div class="graph-container">
+        <svg viewBox="0 0 860 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:500px;display:block;">
+          <defs>
+            <marker id="arr-teal" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#22d3ee"/></marker>
+            <marker id="arr-gold" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#c9a84c"/></marker>
+            <marker id="arr-green" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#4caf7d"/></marker>
+            <marker id="arr-red" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#e07070"/></marker>
+          </defs>
+
+          <!-- Central: Nominal Interest Rate -->
+          <ellipse cx="430" cy="250" rx="90" ry="38" fill="#c9a84c" opacity="0.9"/>
+          <text x="430" y="246" text-anchor="middle" fill="#0d1b2a" font-size="13" font-weight="bold">Nominal</text>
+          <text x="430" y="262" text-anchor="middle" fill="#0d1b2a" font-size="13" font-weight="bold">Interest Rate (i)</text>
+
+          <!-- Real Risk-Free Rate -->
+          <ellipse cx="120" cy="140" rx="72" ry="28" fill="#1b2e45"/>
+          <text x="120" y="136" text-anchor="middle" fill="#22d3ee" font-size="11" font-weight="bold">Real Risk-Free</text>
+          <text x="120" y="151" text-anchor="middle" fill="#22d3ee" font-size="11">Rate (RFR)</text>
+
+          <!-- Inflation Premium -->
+          <ellipse cx="120" cy="360" rx="72" ry="28" fill="#1b2e45"/>
+          <text x="120" y="356" text-anchor="middle" fill="#22d3ee" font-size="11" font-weight="bold">Inflation</text>
+          <text x="120" y="371" text-anchor="middle" fill="#22d3ee" font-size="11">Premium (IP)</text>
+
+          <!-- Default Risk Premium -->
+          <ellipse cx="740" cy="140" rx="72" ry="28" fill="#1b2e45"/>
+          <text x="740" y="136" text-anchor="middle" fill="#22d3ee" font-size="11" font-weight="bold">Default Risk</text>
+          <text x="740" y="151" text-anchor="middle" fill="#22d3ee" font-size="11">Premium (DRP)</text>
+
+          <!-- Liquidity Risk Premium -->
+          <ellipse cx="740" cy="360" rx="72" ry="28" fill="#1b2e45"/>
+          <text x="740" y="356" text-anchor="middle" fill="#22d3ee" font-size="11" font-weight="bold">Liquidity Risk</text>
+          <text x="740" y="371" text-anchor="middle" fill="#22d3ee" font-size="11">Premium (LRP)</text>
+
+          <!-- Maturity Premium / Term Structure -->
+          <ellipse cx="430" cy="68" rx="80" ry="28" fill="#1b3a4a"/>
+          <text x="430" y="64" text-anchor="middle" fill="#22d3ee" font-size="11" font-weight="bold">Term Structure /</text>
+          <text x="430" y="79" text-anchor="middle" fill="#22d3ee" font-size="11">Maturity Premium</text>
+
+          <!-- Loanable Funds -->
+          <ellipse cx="430" cy="432" rx="80" ry="28" fill="#1b3a4a"/>
+          <text x="430" y="428" text-anchor="middle" fill="#4caf7d" font-size="11" font-weight="bold">Loanable Funds</text>
+          <text x="430" y="443" text-anchor="middle" fill="#4caf7d" font-size="11">Theory (S & D)</text>
+
+          <!-- Fisher Effect -->
+          <ellipse cx="230" cy="250" rx="60" ry="26" fill="#1a3a2a"/>
+          <text x="230" y="246" text-anchor="middle" fill="#4caf7d" font-size="11" font-weight="bold">Fisher</text>
+          <text x="230" y="261" text-anchor="middle" fill="#4caf7d" font-size="11">Effect</text>
+
+          <!-- TVM -->
+          <ellipse cx="630" cy="250" rx="62" ry="26" fill="#2a1a3a"/>
+          <text x="630" y="246" text-anchor="middle" fill="#c9a84c" font-size="11" font-weight="bold">Time Value</text>
+          <text x="630" y="261" text-anchor="middle" fill="#c9a84c" font-size="11">of Money</text>
+
+          <!-- Edges: components → nominal rate -->
+          <line x1="192" y1="150" x2="355" y2="228" stroke="#22d3ee" stroke-width="1.6" marker-end="url(#arr-teal)"/>
+          <text x="270" y="180" text-anchor="middle" fill="#22d3ee" font-size="9">component of</text>
+
+          <line x1="192" y1="350" x2="355" y2="262" stroke="#22d3ee" stroke-width="1.6" marker-end="url(#arr-teal)"/>
+          <text x="270" y="318" text-anchor="middle" fill="#22d3ee" font-size="9">component of</text>
+
+          <line x1="668" y1="150" x2="518" y2="228" stroke="#22d3ee" stroke-width="1.6" marker-end="url(#arr-teal)"/>
+          <text x="590" y="180" text-anchor="middle" fill="#22d3ee" font-size="9">component of</text>
+
+          <line x1="668" y1="350" x2="518" y2="262" stroke="#22d3ee" stroke-width="1.6" marker-end="url(#arr-teal)"/>
+          <text x="592" y="318" text-anchor="middle" fill="#22d3ee" font-size="9">component of</text>
+
+          <line x1="430" y1="96" x2="430" y2="212" stroke="#22d3ee" stroke-width="1.6" marker-end="url(#arr-teal)"/>
+          <text x="448" y="155" fill="#22d3ee" font-size="9">component of</text>
+
+          <!-- Loanable Funds → Nominal Rate -->
+          <line x1="430" y1="404" x2="430" y2="288" stroke="#4caf7d" stroke-width="1.6" marker-end="url(#arr-green)"/>
+          <text x="448" y="350" fill="#4caf7d" font-size="9">determines</text>
+
+          <!-- Fisher Effect: combines RFR + IP → Nominal -->
+          <line x1="186" y1="156" x2="194" y2="230" stroke="#4caf7d" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+          <line x1="186" y1="344" x2="194" y2="268" stroke="#4caf7d" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+          <line x1="288" y1="250" x2="342" y2="250" stroke="#4caf7d" stroke-width="1.6" marker-end="url(#arr-green)"/>
+          <text x="316" y="244" text-anchor="middle" fill="#4caf7d" font-size="9">links RFR+IP</text>
+
+          <!-- TVM uses i -->
+          <line x1="518" y1="250" x2="570" y2="250" stroke="#c9a84c" stroke-width="1.6" marker-end="url(#arr-gold)"/>
+          <text x="545" y="244" text-anchor="middle" fill="#c9a84c" font-size="9">used in</text>
+
+          <!-- DRP and LRP: affected by market risk -->
+          <line x1="740" y1="168" x2="740" y2="332" stroke="#e07070" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+          <text x="762" y="255" fill="#e07070" font-size="9">both rise in</text>
+          <text x="762" y="268" fill="#e07070" font-size="9">crises</text>
+
+        </svg>
+      </div>
+
+      <div class="graph-legend">
+        <div class="legend-item"><div class="legend-line" style="background:#22d3ee;"></div> component of nominal rate</div>
+        <div class="legend-item"><div class="legend-line" style="background:#4caf7d;"></div> determines / links</div>
+        <div class="legend-item"><div class="legend-line" style="background:#c9a84c;"></div> uses as input</div>
+        <div class="legend-item"><div class="legend-line" style="background:#e07070;"></div> correlated movement</div>
+      </div>
+
+      <div class="connection-cards">
+        <div class="connection-card">
+          <strong>Loanable Funds → Nominal Interest Rate</strong>
+          The loanable funds theory determines the market-level (macro) interest rate through supply and demand for funds. All individual security rates build on this base with additional premiums for security-specific characteristics.
+        </div>
+        <div class="connection-card">
+          <strong>RFR + IP → Fisher Effect → Nominal Rate</strong>
+          The Fisher effect is the mathematical relationship combining the real risk-free rate and expected inflation into a nominal rate. It's the foundation of the rate determination equation — every security's rate starts here.
+        </div>
+        <div class="connection-card">
+          <strong>DRP and LRP: both spike in financial crises</strong>
+          Default risk premiums and liquidity risk premiums both widen dramatically during financial crises. When confidence collapses, investors demand more compensation for both default risk and illiquidity simultaneously — causing interest rate spreads to explode and bond prices to crash.
+        </div>
+        <div class="connection-card">
+          <strong>Nominal Interest Rate → TVM Calculations</strong>
+          The discount rate used in all time value of money calculations should reflect the appropriate nominal rate for the security's risk level. TVM is the mathematical engine that converts a known interest rate (determined by loanable funds + premiums) into security prices and investment values.
+        </div>
+        <div class="connection-card">
+          <strong>Maturity Premium → Term Structure / Yield Curve</strong>
+          The maturity premium is what generates the yield curve — plotting how the interest rate changes as maturity lengthens. The three term structure theories (Expectations, Liquidity Premium, Market Segmentation) each explain what drives the maturity premium and why the curve takes its observed shape.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION E ===== -->
+    <section class="study-section" id="section-e">
+      <div class="section-header">
+        <div class="section-badge">E</div>
+        <div>
+          <div class="section-title">Chapter Exercises</div>
+          <div class="section-description">Try answering before clicking "Show Answer"</div>
+        </div>
+      </div>
+
+      <!-- TIER 1 -->
+      <div class="exercise-tier tier-1">
+        <div class="tier-header">
+          <span class="tier-badge">Tier 1</span>
+          <span class="tier-title">Recall — Core concepts and definitions</span>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q1 · Basic</div>
+          <div class="exercise-q">What does the loanable funds theory say determines equilibrium interest rates in financial markets?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p>Equilibrium interest rates are determined by the <strong>supply of and demand for loanable funds</strong> in financial markets — exactly like price determination in a product market. When supply of funds exceeds demand, rates fall; when demand exceeds supply, rates rise. The theory categorizes all market participants (consumers, businesses, governments, foreign participants) as either net suppliers or demanders of funds.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q2 · Basic</div>
+          <div class="exercise-q">Name and briefly describe the 5 components that determine the fair interest rate on an individual security (the ij* equation).</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>ij* = f(IP, RFR, DRPj, LRPj, SCPj, MPj)</strong></p>
+            <p>(1) <strong>IP</strong> — Inflation Premium: compensates for expected loss in purchasing power<br>
+            (2) <strong>RFR</strong> — Real Risk-Free Rate: base return for time preference with no risk/inflation<br>
+            (3) <strong>DRP</strong> — Default Risk Premium: compensates for risk of issuer failing to pay<br>
+            (4) <strong>LRP</strong> — Liquidity Risk Premium: compensates for difficulty selling at fair price quickly<br>
+            (5) <strong>SCP</strong> — Special Covenant Premium: adjusts for features like callability (↑ rate) or tax-exemption (↓ rate)<br>
+            (6) <strong>MP</strong> — Maturity Premium: accounts for sensitivity to rate changes with longer term</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q3 · Basic</div>
+          <div class="exercise-q">You invest $1,000 at 8% for 3 years. What is the future value? What would it be with simple interest?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>Compound FV = PV × (1+r)ⁿ = 1,000 × (1.08)³ = 1,000 × 1.2597 = $1,259.71</strong></p>
+            <p><strong>Simple FV = PV × (1 + r×n) = 1,000 × (1 + 0.08×3) = 1,000 × 1.24 = $1,240.00</strong></p>
+            <p>Difference: $19.71. This gap grows significantly over longer horizons — compound interest's "snowball effect" becomes increasingly powerful over time.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q4 · Basic</div>
+          <div class="exercise-q">Using the Rule of 72, approximately how long does it take to double your money at 6% interest? At 12%?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p>At <strong>6%</strong>: 72 / 6 = <strong>12 years</strong><br>
+            At <strong>12%</strong>: 72 / 12 = <strong>6 years</strong></p>
+            <p>Doubling the interest rate cuts the doubling time in half. Check: $1,000 at 6% for 12 years = 1,000 × (1.06)¹² = $2,012 ✓ (approximately doubles). The Rule of 72 is a quick mental math shortcut — handy on exams when you need a rough estimate without a calculator.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q5 · Basic</div>
+          <div class="exercise-q">A perpetuity pays $500 per year forever. If the required return is 5%, what is its present value?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>PV = C / r = 500 / 0.05 = $10,000</strong></p>
+            <p>This is elegantly simple: a stream of $500 per year forever, discounted at 5%, is worth $10,000 today. Makes intuitive sense — $10,000 invested at 5% generates $500/year in interest, so $10,000 is the fair price for that cash flow stream.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 2 -->
+      <div class="exercise-tier tier-2">
+        <div class="tier-header">
+          <span class="tier-badge">Tier 2</span>
+          <span class="tier-title">Application — Calculations and scenario analysis</span>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q6 · Intermediate</div>
+          <div class="exercise-q">Using the Fisher effect: If the real risk-free rate is 1.5% and expected inflation is 2.8%, what is the nominal interest rate (both approximate and exact)?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>Approximate:</strong> i ≈ RFR + E(IP) = 1.5% + 2.8% = <strong>4.3%</strong></p>
+            <p><strong>Exact (Fisher):</strong> (1+i) = (1.015)(1.028) = 1.04342, so i = <strong>4.342%</strong></p>
+            <p>The cross-product (0.015 × 0.028 = 0.000042 = 0.042%) is very small at these rate levels, so the approximation works well. At 20% inflation and 5% real rate, the difference would be 1% — much more significant.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q7 · Intermediate</div>
+          <div class="exercise-q">You want to save $150,000 for your child's college education in 17 years. You can earn 8% per year. How much must you invest today? Calculator inputs?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>Formula:</strong> PV = FV / (1+r)ⁿ = 150,000 / (1.08)¹⁷</p>
+            <p>(1.08)¹⁷ = 3.7000 (approx)</p>
+            <p>PV = 150,000 / 3.7000 = <strong>$40,540.34</strong></p>
+            <p><strong>Calculator:</strong> N=17, I/Y=8, FV=150,000, PMT=0 → CPT PV = -40,540.34</p>
+            <p>Investing ~$40,500 today at 8% grows to $150,000 in 17 years. This is the power of early saving and compound growth.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q8 · Intermediate</div>
+          <div class="exercise-q">A car loan requires monthly payments of $350 for 48 months at an annual rate of 6% (0.5%/month). What is the loan amount (PV of the annuity)?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>Formula:</strong> PV = C × [1 − 1/(1+r)ⁿ] / r</p>
+            <p>= 350 × [1 − 1/(1.005)⁴⁸] / 0.005</p>
+            <p>(1.005)⁴⁸ = 1.2705; 1/1.2705 = 0.7871; 1 − 0.7871 = 0.2129</p>
+            <p>= 350 × 0.2129 / 0.005 = 350 × 42.58 = <strong>$14,904.22</strong></p>
+            <p><strong>Calculator:</strong> N=48, I/Y=0.5, PMT=350, FV=0 → CPT PV = -14,904.22</p>
+            <p>Note: When payments are monthly, the period interest rate must be monthly (6%/12 = 0.5%) and N is the number of months, not years.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q9 · Intermediate</div>
+          <div class="exercise-q">A 10-year AAA corporate bond yields 4.5%. A 10-year U.S. Treasury yields 3.8%. What is the default risk premium? If the same AAA bond had a callability feature, would the yield be higher or lower, and why?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>DRP = Corporate yield − Treasury yield = 4.5% − 3.8% = 0.70%</strong> (70 basis points)</p>
+            <p>The DRP compensates investors for the (small, since AAA) risk that the corporation might default, compared to the effectively zero-default risk of the U.S. Treasury.</p>
+            <p><strong>Callability: The yield would be HIGHER.</strong> A callable bond gives the issuer the right to repay early — typically when rates fall. This hurts the investor (who loses the above-market coupon just when they'd most want it). Investors demand a higher yield (call premium) to compensate for this disadvantage. Callable bonds always have higher yields than equivalent non-callable bonds.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q10 · Intermediate</div>
+          <div class="exercise-q">Under the Unbiased Expectations Theory: The 1-year rate today is 4%. The market expects the 1-year rate to be 5% next year and 6% the year after. What should the 3-year rate be today?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>Exact calculation:</strong> (1 + 3yr rate)³ = (1.04)(1.05)(1.06) = 1.15668</p>
+            <p>3yr rate = (1.15668)^(1/3) − 1 = 1.04993 − 1 = <strong>4.993% ≈ 5%</strong></p>
+            <p><strong>Approximation:</strong> (4% + 5% + 6%) / 3 = <strong>5%</strong></p>
+            <p>The 3-year yield today (≈5%) is higher than the current 1-year rate (4%) because the market expects rates to rise. This creates an upward-sloping yield curve at these maturities.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 3 -->
+      <div class="exercise-tier tier-3">
+        <div class="tier-header">
+          <span class="tier-badge">Tier 3</span>
+          <span class="tier-title">Synthesis — Integration and analysis</span>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q11 · Advanced</div>
+          <div class="exercise-q">The Federal Reserve raises interest rates significantly to combat high inflation. Using the loanable funds framework, explain: (a) what happens to supply of funds, (b) what happens to demand for funds, (c) what does this tell us about the Fed's strategy?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p>(a) <strong>Supply of funds:</strong> Higher interest rates incentivize more saving (higher return for deferring consumption). Supply curve shifts rightward — more funds available at each rate level. Foreign investors may also move funds into U.S. markets for higher yields, increasing supply further.</p>
+            <p>(b) <strong>Demand for funds:</strong> Higher rates make borrowing more expensive. Businesses postpone investments that no longer meet return thresholds (projects must earn more than the higher borrowing cost). Household demand for mortgages and consumer credit falls. Demand curve shifts leftward — fewer funds demanded at each rate level.</p>
+            <p>(c) <strong>Fed's strategy:</strong> By tightening monetary policy, the Fed is deliberately reducing the supply of reserves and raising rates, which: (1) reduces spending/investment (cools the economy); (2) reduces the demand for funds; and (3) works through the Fisher effect — by bringing actual inflation down, it reduces the inflation premium component of all interest rates, eventually allowing nominal rates to fall. The mechanism is intentional monetary contraction to reduce aggregate demand and cool price pressures.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q12 · Advanced</div>
+          <div class="exercise-q">Compare and contrast the three theories of the term structure. Which theory best explains why yield curves almost always slope upward, even when interest rates aren't expected to rise?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>Unbiased Expectations Theory:</strong> Long-term rates = average of expected future short-term rates. Predicts flat curves when rates are expected to stay flat, inverted when expected to fall. Assumes risk-neutral investors who are indifferent between short and long maturities.</p>
+            <p><strong>Liquidity Premium Theory:</strong> Extends expectations by adding a positive risk premium for longer maturities. Even if rates are expected to stay flat, the curve slopes upward because investors demand extra return for holding longer-term, less liquid securities. Explains why curves are usually upward-sloping.</p>
+            <p><strong>Market Segmentation Theory:</strong> Investors and institutions prefer specific maturities based on their liability structures. Banks prefer short-term (matching short-term deposits); pension funds prefer long-term (matching long-term obligations). Supply and demand within each segment determines yields independently. The shape reflects segment-specific imbalances, not expectations.</p>
+            <p><strong>Best explanation for persistent upward slope: Liquidity Premium Theory.</strong> It preserves the expectations logic while adding a realistic behavioral element: investors are risk-averse and demand compensation for holding longer, more volatile securities. This naturally biases the curve upward even when rates are expected to be flat — which matches empirical data far better than the pure expectations theory.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q13 · Advanced</div>
+          <div class="exercise-q">Municipal bonds (munis) typically yield less than corporate bonds of equivalent maturity and credit quality. Using the interest rate determinants framework, explain precisely why — and what type of investor munis are best suited for.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>Why munis yield less:</strong> Municipal bond interest is exempt from federal income tax (and often state/local taxes in the issuing state). This is a "special feature" (SCP) that benefits the investor. Under the SCP framework, features that benefit investors → lower interest rate. Investors accept a lower nominal yield on munis because their after-tax return can equal or exceed a higher-yielding taxable bond's after-tax return.</p>
+            <p><strong>Calculation illustration:</strong> An investor in the 35% tax bracket compares a 4% muni to a 6% corporate bond. After-tax corporate return = 6% × (1−0.35) = 3.9%. After-tax muni return = 4% (no tax). The muni wins despite the lower stated yield. The tax-equivalent yield formula: Tax-equiv yield = Muni yield / (1 − tax rate) = 4% / 0.65 = 6.15%. So the muni is equivalent to a 6.15% taxable bond.</p>
+            <p><strong>Best investor for munis:</strong> High-income investors in high tax brackets — they gain the most from the tax exemption. Low-income investors (low tax bracket) benefit less from tax exemption and may find taxable bonds better. Tax-exempt institutional investors (pension funds, IRAs) gain nothing from the exemption and should avoid munis entirely.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q14 · Advanced</div>
+          <div class="exercise-q">A growing perpetuity pays $100 next year and is expected to grow at 3% per year forever. The required return is 8%. (a) What is the PV? (b) What happens to PV if the growth rate increases to 5%? (c) What if the required return falls to 5% while growth stays at 3%?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p>(a) <strong>PV = C/(r−g) = 100/(0.08−0.03) = 100/0.05 = $2,000</strong></p>
+            <p>(b) If g rises to 5%: <strong>PV = 100/(0.08−0.05) = 100/0.03 = $3,333</strong><br>Higher growth rate → smaller denominator → much higher PV. A 2% increase in growth rate increased value by 67%!</p>
+            <p>(c) If r falls to 5% (g stays at 3%): <strong>PV = 100/(0.05−0.03) = 100/0.02 = $5,000</strong><br>The denominator (r−g) narrows from 0.05 to 0.02, more than doubling the value. This shows why falling interest rates cause massive increases in asset prices — they reduce the discount rate that shrinks all future cash flows.</p>
+            <p><strong>Warning:</strong> If r ≤ g, the formula breaks down (you get zero or negative denominator). This is theoretically impossible for a real asset — in practice, growth rates must be below the discount rate in the long run.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q15 · Advanced</div>
+          <div class="exercise-q">A friend says: "With interest rates so high, this is a bad time to invest in long-term bonds." Using the concepts of default risk premium, liquidity risk premium, maturity premium, and the relationship between prices and yields, explain whether this is good financial reasoning and what risks your friend should consider.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel"><div class="answer-label">Answer</div>
+            <p><strong>Your friend has a point, but it's more nuanced:</strong></p>
+            <p><strong>Why they may be right (current risk):</strong> When rates are high, long-term bond prices are low (inverse relationship). If you buy now and rates rise further, bond prices fall more — and long-term bonds fall far more than short-term bonds for the same rate increase (this is the maturity premium / duration effect). If you need to sell before maturity, you could face capital losses.</p>
+            <p><strong>Why they may be wrong (opportunity):</strong> High rates today mean high yields — you're locking in a high return for many years. If rates fall (which often happens after rate hikes), your bond's price rises and you can sell at a capital gain. Historically, after the Fed tightens aggressively, rates eventually fall, creating substantial capital gains on long-term bonds.</p>
+            <p><strong>Additional risks to consider:</strong> DRP — is the bond's issuer creditworthy? During rate-hike cycles, economic stress can increase default risk on corporate bonds. LRP — can you sell the bond quickly if needed? Long-term corporate bonds can be illiquid in stressed markets. Reinvestment risk — if rates fall, future coupon reinvestment earns less.</p>
+            <p><strong>Conclusion:</strong> Whether it's a "bad time" depends on your investment horizon and whether you hold to maturity. If held to maturity, interest rate risk is irrelevant (you get par value + coupons regardless). If you might need to sell early, high-rate environments are indeed risky for long-term bonds.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION F ===== -->
+    <section class="study-section" id="section-f">
+      <div class="section-header">
+        <div class="section-badge">F</div>
+        <div>
+          <div class="section-title">Quick-Reference Cheat Sheet</div>
+          <div class="section-description">Everything you need at a glance — before the exam</div>
+        </div>
+      </div>
+
+      <!-- Formulas first -->
+      <div class="cs-card" style="margin-bottom:16px;">
+        <div class="cs-card-title">🔢 Formula Reference Card</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.83rem;">
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; color:var(--teal); font-size:0.7rem; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;">Fisher Effect</div>
+            <code>i ≈ RFR + E(IP)</code><br>
+            <code>(1+i) = (1+RFR)(1+E(IP))</code>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; color:var(--teal); font-size:0.7rem; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;">Fair Rate</div>
+            <code>ij* = f(IP, RFR, DRP, LRP, SCP, MP)</code>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; color:var(--teal); font-size:0.7rem; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;">Future Value</div>
+            <code>FV = PV × (1+r)ⁿ</code>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; color:var(--teal); font-size:0.7rem; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;">Present Value</div>
+            <code>PV = FV / (1+r)ⁿ</code>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; color:var(--teal); font-size:0.7rem; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;">PV Annuity</div>
+            <code>PV = C × [1−1/(1+r)ⁿ]/r</code>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; color:var(--teal); font-size:0.7rem; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;">FV Annuity</div>
+            <code>FV = C × [(1+r)ⁿ−1]/r</code>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; color:var(--teal); font-size:0.7rem; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;">Perpetuity</div>
+            <code>PV = C/r</code>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; color:var(--teal); font-size:0.7rem; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;">Growing Perpetuity</div>
+            <code>PV = C/(r−g) &nbsp; [g &lt; r]</code>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; color:var(--teal); font-size:0.7rem; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;">Discount Rate</div>
+            <code>r = (FV/PV)^(1/t) − 1</code>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; color:var(--teal); font-size:0.7rem; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;">Rule of 72</div>
+            <code>Doubling time ≈ 72 / r%</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="cheatsheet-grid">
+        <div class="cs-card">
+          <div class="cs-card-title">📌 Rate Component Reference</div>
+          <ul class="cs-list">
+            <li><span class="cs-term">IP</span> Expected inflation — measured by CPI/PPI changes</li>
+            <li><span class="cs-term">RFR</span> Time preference for money with no risk. Proxy: inflation-adjusted T-bill rate</li>
+            <li><span class="cs-term">DRP</span> Yield − equivalent Treasury yield. Higher for lower-rated issuers</li>
+            <li><span class="cs-term">LRP</span> Premium for illiquid securities or maturity-related price sensitivity</li>
+            <li><span class="cs-term">SCP</span> Tax-exempt → rate ↓. Callable → rate ↑. Convertible → rate ↓</li>
+            <li><span class="cs-term">MP</span> Can be +, −, or 0. Creates yield curve shape</li>
+          </ul>
+        </div>
+
+        <div class="cs-card">
+          <div class="cs-card-title">⚠️ Critical Pitfalls</div>
+          <ul class="cs-list">
+            <li><span class="cs-term">Pitfall 1</span> Monthly rates: use r/12 and n×12 for monthly cash flows</li>
+            <li><span class="cs-term">Pitfall 2</span> Sign convention on calculator: outflows negative, inflows positive</li>
+            <li><span class="cs-term">Pitfall 3</span> g must be less than r in growing perpetuity formula</li>
+            <li><span class="cs-term">Pitfall 4</span> Callable bonds → higher yield (not lower) — issuer benefits</li>
+            <li><span class="cs-term">Pitfall 5</span> Simple vs compound: finance always uses compound unless stated</li>
+            <li><span class="cs-term">Pitfall 6</span> Fisher: exact formula (multiplicative), not just additive</li>
+          </ul>
+        </div>
+
+        <div class="cs-card">
+          <div class="cs-card-title">📉 Yield Curve Quick Reference</div>
+          <ul class="cs-list">
+            <li><span class="cs-term">Normal ↑</span> Long-term rates &gt; short-term. Rates expected to rise. Most common shape.</li>
+            <li><span class="cs-term">Inverted ↓</span> Short-term &gt; long-term. Rates expected to fall. Predicts recession.</li>
+            <li><span class="cs-term">Flat →</span> All maturities similar yield. Transition between normal and inverted.</li>
+            <li><span class="cs-term">Expectations</span> Long rate = avg of expected future short rates. Risk neutral.</li>
+            <li><span class="cs-term">Liquidity Prem</span> Adds risk premium to expectations. Biases curve upward.</li>
+            <li><span class="cs-term">Market Seg</span> Each maturity independently priced by its supply/demand segment.</li>
+          </ul>
+        </div>
+
+        <div class="cs-card">
+          <div class="cs-card-title">🏆 Top 5 Exam Priorities</div>
+          <ol class="priority-list">
+            <li>Know all 6 components of ij* — able to name, define, and say what causes each to increase or decrease.</li>
+            <li>Apply the Fisher effect (both approximate and exact) and understand what each variable means.</li>
+            <li>Calculate FV and PV of lump sums and annuities by formula AND by calculator (with correct sign convention).</li>
+            <li>Explain the three yield curve theories — compare and contrast, and know which explains the persistent upward slope.</li>
+            <li>Identify how supply/demand shifts affect interest rates in the loanable funds framework (who supplies, who demands, what shifts each curve).</li>
+          </ol>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<script>
+// DARK MODE
+function toggleDark() {
+  const html = document.documentElement;
+  const isD = html.getAttribute('data-theme') === 'dark';
+  if(isD) { html.removeAttribute('data-theme'); document.getElementById('dark-icon').textContent='🌙'; document.getElementById('dark-label').textContent='Dark Mode'; }
+  else { html.setAttribute('data-theme','dark'); document.getElementById('dark-icon').textContent='☀️'; document.getElementById('dark-label').textContent='Light Mode'; }
+  drawChart(currentCurve);
+}
+
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+
+// ANSWERS
+function toggleAnswer(btn) {
+  const panel = btn.nextElementSibling;
+  const open = panel.classList.contains('open');
+  panel.classList.toggle('open', !open);
+  btn.classList.toggle('active', !open);
+  btn.textContent = open ? 'Show Answer' : 'Hide Answer';
+}
+
+// YIELD CURVE CHART
+const curveData = {
+  normal: { label:'Normal (Upward-Sloping)', color:'#22d3ee', data:[3.5,3.9,4.2,4.5,4.7,4.9,5.0,5.1,5.15,5.2], desc: 'Long-term rates exceed short-term rates. Market expects rates to rise or holds liquidity premium. Most common shape. Associated with economic expansion.' },
+  inverted: { label:'Inverted (Downward-Sloping)', color:'#e07070', data:[5.2,4.9,4.6,4.2,3.9,3.7,3.5,3.4,3.3,3.2], desc: 'Short-term rates exceed long-term rates. Market expects rates to fall (economic slowdown ahead). Historically the most reliable recession predictor.' },
+  flat: { label:'Flat / Humped', color:'#c9a84c', data:[4.0,4.3,4.5,4.4,4.2,4.1,4.0,3.95,3.9,3.9], desc: 'Yields roughly equal across maturities (or slightly humped). Often a transition between normal and inverted. Signals economic uncertainty.' }
+};
+
+let currentCurve = 'normal';
+
+function showCurve(type, btn) {
+  currentCurve = type;
+  document.querySelectorAll('.yc-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  drawChart(type);
+}
+
+function drawChart(type) {
+  const canvas = document.getElementById('yieldChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 800;
+  canvas.width = W;
+  canvas.height = 260;
+  const w = canvas.width, h = canvas.height;
+  const pad = { top:30, right:30, bottom:50, left:55 };
+  const plotW = w - pad.left - pad.right;
+  const plotH = h - pad.top - pad.bottom;
+
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const textColor = isDark ? '#94a3b8' : '#6b7280';
+  const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+
+  ctx.clearRect(0, 0, w, h);
+
+  const curve = curveData[type];
+  const maturities = ['1M','3M','6M','1Y','2Y','3Y','5Y','7Y','10Y','30Y'];
+  const vals = curve.data;
+  const minVal = Math.min(...vals) - 0.3;
+  const maxVal = Math.max(...vals) + 0.3;
+
+  // Grid
+  ctx.strokeStyle = gridColor;
+  ctx.lineWidth = 1;
+  for(let i=0; i<=4; i++) {
+    const y = pad.top + (plotH * i / 4);
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left+plotW, y); ctx.stroke();
+    const val = maxVal - (maxVal-minVal)*i/4;
+    ctx.fillStyle = textColor;
+    ctx.font = '11px JetBrains Mono';
+    ctx.textAlign = 'right';
+    ctx.fillText(val.toFixed(1)+'%', pad.left-8, y+4);
+  }
+
+  // X axis labels
+  ctx.fillStyle = textColor;
+  ctx.font = '11px Source Sans 3';
+  ctx.textAlign = 'center';
+  vals.forEach((v, i) => {
+    const x = pad.left + (i / (vals.length-1)) * plotW;
+    ctx.fillText(maturities[i], x, h-pad.bottom+18);
+  });
+
+  // Axis label
+  ctx.save();
+  ctx.translate(14, pad.top + plotH/2);
+  ctx.rotate(-Math.PI/2);
+  ctx.fillStyle = textColor;
+  ctx.font = '11px Source Sans 3';
+  ctx.textAlign = 'center';
+  ctx.fillText('Yield (%)', 0, 0);
+  ctx.restore();
+
+  ctx.fillStyle = textColor;
+  ctx.font = '11px Source Sans 3';
+  ctx.textAlign = 'center';
+  ctx.fillText('Maturity', pad.left + plotW/2, h-4);
+
+  // Gradient fill
+  const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top+plotH);
+  grad.addColorStop(0, curve.color + '35');
+  grad.addColorStop(1, curve.color + '05');
+
+  ctx.beginPath();
+  vals.forEach((v, i) => {
+    const x = pad.left + (i/(vals.length-1)) * plotW;
+    const y = pad.top + ((maxVal-v)/(maxVal-minVal)) * plotH;
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.lineTo(pad.left+plotW, pad.top+plotH);
+  ctx.lineTo(pad.left, pad.top+plotH);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  ctx.strokeStyle = curve.color;
+  ctx.lineWidth = 2.5;
+  ctx.lineJoin = 'round';
+  vals.forEach((v, i) => {
+    const x = pad.left + (i/(vals.length-1)) * plotW;
+    const y = pad.top + ((maxVal-v)/(maxVal-minVal)) * plotH;
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+
+  // Dots
+  vals.forEach((v, i) => {
+    const x = pad.left + (i/(vals.length-1)) * plotW;
+    const y = pad.top + ((maxVal-v)/(maxVal-minVal)) * plotH;
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, Math.PI*2);
+    ctx.fillStyle = curve.color;
+    ctx.fill();
+    ctx.strokeStyle = '#0d1b2a';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  });
+
+  // Label
+  ctx.fillStyle = curve.color;
+  ctx.font = 'bold 12px Source Sans 3';
+  ctx.textAlign = 'left';
+  ctx.fillText(curve.label, pad.left + 4, pad.top - 8);
+}
+
+window.addEventListener('load', () => drawChart('normal'));
+window.addEventListener('resize', () => drawChart(currentCurve));
+
+// FLASHCARDS
+const cards = [
+  {q:"Define the loanable funds theory in one sentence.", a:"Interest rates are determined by supply of and demand for loanable funds in financial markets, just as any good's price is set by supply and demand.", diff:"basic"},
+  {q:"Who are the 4 major suppliers of loanable funds? Which is largest in the U.S.?", a:"(1) Households — LARGEST ($84.66T in 2019); (2) Businesses (financial and nonfinancial); (3) Foreign investors; (4) Government. The household sector is the primary net supplier.", diff:"basic"},
+  {q:"What happens to the supply of loanable funds when the Federal Reserve adopts an expansionary monetary policy?", a:"Supply of loanable funds INCREASES. Expansionary policy (e.g., open market purchases, lower reserve requirements) injects money into the financial system, increasing the availability of funds at any given interest rate.", diff:"intermediate"},
+  {q:"State the Fisher effect (approximate and exact form).", a:"Approximate: i ≈ RFR + E(IP). Exact: (1+i) = (1+RFR)(1+E(IP)). Nominal rate = real risk-free rate + expected inflation (approximately). The cross-product RFR×E(IP) is ignored in the approximation.", diff:"intermediate"},
+  {q:"What is the real risk-free rate (RFR) and what determines it?", a:"RFR is the interest rate on a risk-free security when NO inflation is expected. It reflects society's time preference — how much people prefer present over future consumption. Higher consumption preference → higher RFR.", diff:"intermediate"},
+  {q:"Define default risk premium (DRP) and write its formula.", a:"DRP = yield on security j minus yield on a Treasury security with the same maturity and other features. It compensates investors for the risk that the issuer might fail to pay interest or principal.", diff:"basic"},
+  {q:"Why does a callable bond have a HIGHER yield than an otherwise identical non-callable bond?", a:"Callability benefits the issuer (not the investor). The issuer can repay early — typically when rates fall — taking away the investor's above-market coupon just when it's most valuable. Investors demand extra yield (a call premium) to compensate for this disadvantage.", diff:"intermediate"},
+  {q:"A municipal bond yields 3.5%. Investor is in the 32% tax bracket. What taxable yield is this equivalent to?", a:"Tax-equivalent yield = Muni yield / (1 − tax rate) = 3.5% / (1 − 0.32) = 3.5% / 0.68 = 5.15%. A taxable bond yielding more than 5.15% would be better; less than 5.15% and the muni wins.", diff:"advanced"},
+  {q:"What are the 3 shapes a yield curve can take, and what does each signal?", a:"(1) Normal (upward): long rates > short rates — rates expected to rise, or liquidity premium demanded; (2) Inverted (downward): short rates > long rates — rates expected to fall, recession signal; (3) Flat/Humped: similar rates across maturities — transition period, uncertainty.", diff:"intermediate"},
+  {q:"Explain the Unbiased Expectations Theory in plain terms.", a:"Today's long-term rate is the market's forecast of what average short-term rates will be over that period. If the market expects rates to rise, the curve slopes up. If rates are expected to stay flat, the curve is flat. Assumes investors are risk-neutral between maturities.", diff:"intermediate"},
+  {q:"Why does the Liquidity Premium Theory predict a persistent upward yield curve slope, even when rates are expected to stay flat?", a:"Investors are risk-averse and dislike locking money in long-term securities (more uncertain future value). They demand a liquidity/risk premium to do so. Even with flat rate expectations, this premium makes long-term yields higher — biasing the curve upward.", diff:"advanced"},
+  {q:"Future Value formula. What is FV of $2,500 invested at 6% for 5 years?", a:"FV = PV × (1+r)ⁿ = 2,500 × (1.06)⁵ = 2,500 × 1.3382 = $3,345.56. Calculator: N=5, I/Y=6, PV=-2500, PMT=0, CPT FV = 3,345.56", diff:"basic"},
+  {q:"Present Value formula. What is PV of $5,000 received in 8 years at 7%?", a:"PV = FV/(1+r)ⁿ = 5,000/(1.07)⁸ = 5,000/1.7182 = $2,910.75. Calculator: N=8, I/Y=7, FV=5000, PMT=0, CPT PV = -2,910.75", diff:"basic"},
+  {q:"What is the PV of an annuity paying $1,000/year for 10 years at 5%?", a:"PV = 1,000 × [1 − 1/(1.05)¹⁰] / 0.05 = 1,000 × [1 − 0.6139] / 0.05 = 1,000 × 7.7217 = $7,721.73. Calculator: N=10, I/Y=5, PMT=1000, FV=0, CPT PV = -7,721.73", diff:"intermediate"},
+  {q:"What is the FV of saving $200/month for 30 years at 8% annual (0.667%/month)?", a:"FV = 200 × [(1.00667)³⁶⁰ − 1] / 0.00667 = 200 × [10.935 − 1] / 0.00667 = 200 × 1,490 = $298,072. Calculator: N=360, I/Y=0.667, PMT=200, PV=0, CPT FV. Monthly compounding on small deposits grows dramatically over 30 years.", diff:"advanced"},
+  {q:"Apply the Rule of 72: How long to double at 4%? At 18%? If money doubles in 9 years, what is the implied rate?", a:"At 4%: 72/4 = 18 years. At 18%: 72/18 = 4 years. If doubles in 9 years: 72/9 = 8% implied rate.", diff:"basic"},
+  {q:"A $1,000 investment grows to $1,500 in 6 years. What is the implied annual rate?", a:"r = (FV/PV)^(1/t) − 1 = (1,500/1,000)^(1/6) − 1 = (1.5)^(0.1667) − 1 = 1.0699 − 1 = 6.99% ≈ 7%. Calculator: N=6, PV=-1000, FV=1500, PMT=0, CPT I/Y = 6.99%", diff:"intermediate"},
+  {q:"What is the PV of a perpetuity paying $200/year at 4%? At 8%?", a:"At 4%: PV = 200/0.04 = $5,000. At 8%: PV = 200/0.08 = $2,500. When the discount rate doubles, the PV halves — inverse relationship. This demonstrates why rising interest rates reduce the value of all long-lived assets.", diff:"intermediate"},
+  {q:"What is the PV of a growing perpetuity with C=$100, g=4%, r=9%?", a:"PV = C/(r−g) = 100/(0.09−0.04) = 100/0.05 = $2,000. Critical requirement: r must exceed g. If g = r or g > r, the formula gives infinity (or negative), which is economically impossible — growth can't permanently exceed the discount rate.", diff:"intermediate"},
+  {q:"What are the 3 demand-side factors that shift the loanable funds demand curve?", a:"(1) Utility/expected return from borrowed funds — higher returns → demand ↑; (2) Non-price conditions (collateral, covenants, fees) — more restrictive → demand ↓; (3) Economic conditions — growth → demand ↑, recession → demand ↓.", diff:"intermediate"},
+  {q:"What is 'crowding out' and how does it relate to loanable funds theory?", a:"When government borrows heavily (running large deficits), it competes with private borrowers for available funds, shifting the demand curve rightward and pushing interest rates higher. Higher rates make private investment more expensive, 'crowding out' business investment. Seen most clearly during wartime or stimulus spending programs.", diff:"advanced"},
+  {q:"Name all 5 factors that shift the supply of loanable funds.", a:"(1) Wealth of fund suppliers ↑ → supply ↑; (2) Risk of securities ↑ → supply ↓; (3) Near-term spending needs ↑ → supply ↑ (saving up); (4) Expansionary monetary policy → supply ↑; (5) Improving domestic economic conditions → supply ↑ (improving foreign conditions may divert foreign funds away → supply ↓ from foreign side).", diff:"advanced"},
+  {q:"What does the Market Segmentation Theory say, and how does it differ from the other two theories?", a:"It argues investors and FIs have strict preferred maturity ranges ('habitats') based on their liability structures. They won't substitute across maturities even for higher rates. The yield curve shape reflects supply/demand within each segment independently — unlike Expectations and Liquidity Premium theories, which assume some cross-maturity substitution.", diff:"advanced"},
+  {q:"You invest $500 for 15 years at 8%. Simple vs. compound interest — what's the difference?", a:"Simple: FV = 500 × (1 + 0.08×15) = 500 × 2.2 = $1,100. Compound: FV = 500 × (1.08)¹⁵ = 500 × 3.1722 = $1,586. Compounding adds $486 — 44% more. The longer the period, the greater the compounding advantage.", diff:"basic"},
+  {q:"How are interest rates and bond prices related? Why does this matter for capital markets?", a:"Inverse relationship: when interest rates rise, existing bond prices fall (new bonds offer better yields, making old ones less attractive). When rates fall, existing bond prices rise. This is why capital market instruments (long-term bonds) show 'wider price fluctuations' — their prices are constantly adjusting to rate changes. Duration quantifies exactly how sensitive a bond's price is to rate changes.", diff:"advanced"}
+];
+
+let currentIndex = 0;
+let order = [...Array(cards.length).keys()];
+
+function renderCard() {
+  const card = cards[order[currentIndex]];
+  document.getElementById('fc-question').textContent = card.q;
+  document.getElementById('fc-answer').textContent = card.a;
+  const diffEl = document.getElementById('fc-difficulty');
+  const map = {basic:['🟢 Basic','diff-basic'], intermediate:['🟡 Intermediate','diff-intermediate'], advanced:['🔴 Advanced','diff-advanced']};
+  const [label, cls] = map[card.diff];
+  diffEl.textContent = label; diffEl.className = 'difficulty-badge ' + cls;
+  document.getElementById('fc-counter').textContent = `Card ${currentIndex+1} of ${cards.length}`;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { currentIndex = (currentIndex+1) % cards.length; renderCard(); }
+function prevCard() { currentIndex = (currentIndex-1+cards.length) % cards.length; renderCard(); }
+
+function shuffleCards() {
+  for(let i=order.length-1; i>0; i--) { const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+  currentIndex=0; renderCard();
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight') nextCard();
+  if(e.key==='ArrowLeft') prevCard();
+  if(e.key===' ') { e.preventDefault(); flipCard(); }
+});
+
+renderCard();
+</script>
+</body>
+</html>

@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 3: Interest Rates & Security Valuation — Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1b2e45;
+  --emerald: #065f46;
+  --emerald-mid: #047857;
+  --emerald-light: #34d399;
+  --emerald-pale: #ecfdf5;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --cream: #fafaf9;
+  --cream-dark: #f0ede6;
+  --text-dark: #1a1a2e;
+  --text-body: #2d3748;
+  --text-muted: #718096;
+  --green: #276749;
+  --green-light: #e6f4ed;
+  --amber: #b7791f;
+  --amber-light: #fefce8;
+  --red: #9b2335;
+  --red-light: #fff1f2;
+  --blue-accent: #1e5fa3;
+  --blue-light: #ebf4ff;
+  --purple: #6b21a8;
+  --purple-light: #f3e8ff;
+  --sidebar-width: 270px;
+  --border: rgba(6, 95, 70, 0.18);
+  --shadow: 0 4px 24px rgba(13,27,42,0.08);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --transition: 0.22s ease;
+}
+[data-theme="dark"] {
+  --cream: #0c1a12;
+  --cream-dark: #1a2e20;
+  --text-dark: #d1fae5;
+  --text-body: #a7f3d0;
+  --text-muted: #6ee7b7;
+  --border: rgba(52,211,153,0.15);
+  --shadow: 0 4px 24px rgba(0,0,0,0.5);
+  --green-light: #1a3329;
+  --amber-light: #2d2008;
+  --red-light: #2d0e14;
+  --blue-light: #0f1f35;
+  --emerald-pale: #0a2118;
+  --purple-light: #1e0a35;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--cream);color:var(--text-body);line-height:1.75;display:flex;min-height:100vh;transition:background var(--transition),color var(--transition)}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-width);min-height:100vh;background:var(--navy);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;display:flex;flex-direction:column}
+.sidebar-header{padding:28px 24px 20px;border-bottom:1px solid rgba(52,211,153,0.15)}
+.sidebar-course{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--emerald-light);margin-bottom:6px}
+.sidebar-title{font-family:'Playfair Display',serif;color:#fff;font-size:1rem;line-height:1.35}
+.sidebar-chapter{font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:4px}
+nav{padding:16px 0;flex:1}
+.nav-section-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:12px 24px 6px}
+.nav-link{display:flex;align-items:center;gap:10px;padding:9px 24px;color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.875rem;transition:all var(--transition);border-left:3px solid transparent}
+.nav-link:hover,.nav-link.active{color:var(--emerald-light);background:rgba(52,211,153,0.07);border-left-color:var(--emerald-light)}
+.nav-icon{font-size:1rem;width:20px;text-align:center}
+.sidebar-footer{padding:16px 24px;border-top:1px solid rgba(255,255,255,0.08)}
+.dark-toggle{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:8px 14px;cursor:pointer;color:rgba(255,255,255,0.6);font-size:0.8rem;width:100%;transition:all var(--transition)}
+.dark-toggle:hover{background:rgba(255,255,255,0.12);color:#fff}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-width);flex:1;min-width:0}
+.page-hero{background:linear-gradient(135deg,#0d1b2a 0%,#064e35 55%,#043d2a 100%);padding:56px 60px 48px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;top:-80px;right:-60px;width:350px;height:350px;background:radial-gradient(circle,rgba(52,211,153,0.1) 0%,transparent 70%);border-radius:50%}
+.page-hero::after{content:'$';position:absolute;bottom:-30px;right:60px;font-family:'Playfair Display',serif;font-size:18rem;color:rgba(52,211,153,0.04);line-height:1;pointer-events:none}
+.hero-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--emerald-light);background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);padding:5px 12px;border-radius:4px;margin-bottom:18px}
+.hero-title{font-family:'Playfair Display',serif;font-size:2.5rem;color:#fff;line-height:1.15;margin-bottom:14px;max-width:620px}
+.hero-subtitle{color:rgba(255,255,255,0.5);font-size:0.95rem;max-width:560px}
+.hero-meta{display:flex;gap:24px;margin-top:28px;flex-wrap:wrap}
+.hero-stat{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);padding:8px 16px;border-radius:6px;color:rgba(255,255,255,0.65);font-size:0.82rem}
+.hero-stat-icon{color:var(--emerald-light)}
+
+/* CONTENT */
+.content{padding:48px 60px 80px;max-width:960px}
+.study-section{margin-bottom:72px;scroll-margin-top:24px}
+.section-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.section-badge{display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:var(--navy);border-radius:10px;font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--emerald-light);flex-shrink:0;margin-top:3px}
+.section-title{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--text-dark);line-height:1.2}
+.section-description{font-size:0.875rem;color:var(--text-muted);margin-top:4px}
+
+h2,h3,h4{font-family:'Playfair Display',serif;color:var(--text-dark)}
+h2{font-size:1.45rem;margin:36px 0 14px}
+h3{font-size:1.15rem;margin:26px 0 10px;color:var(--emerald)}
+[data-theme="dark"] h3{color:var(--emerald-light)}
+h4{font-size:0.9rem;text-transform:uppercase;letter-spacing:.07em;margin:18px 0 8px;color:var(--text-muted)}
+p{margin-bottom:1.1em}
+strong{color:var(--text-dark);font-weight:600}
+[data-theme="dark"] strong{color:#d1fae5}
+
+/* FORMULA BOX */
+.formula-box{background:var(--navy);border:1px solid rgba(52,211,153,0.25);border-radius:var(--radius);padding:20px 24px;margin:20px 0}
+.formula-box-label{font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--emerald-light);margin-bottom:10px;display:block}
+.formula{font-family:'JetBrains Mono',monospace;font-size:1rem;color:#e2e8f0;margin-bottom:8px;line-height:1.9}
+.formula-note{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.6}
+.formula-vars{margin-top:12px;display:grid;gap:4px}
+.formula-var{display:flex;gap:8px;font-size:0.83rem;align-items:flex-start;color:rgba(255,255,255,0.7)}
+.var-name{font-family:'JetBrains Mono',monospace;color:var(--emerald-light);min-width:60px;flex-shrink:0;font-size:0.78rem}
+
+/* CALLOUTS */
+.callout{padding:14px 18px;border-radius:var(--radius-sm);margin:18px 0;display:flex;gap:12px;align-items:flex-start;font-size:0.9rem;line-height:1.6}
+.callout-icon{font-size:1.1rem;margin-top:1px;flex-shrink:0}
+.callout-body strong{display:block;margin-bottom:4px;font-size:0.8rem;text-transform:uppercase;letter-spacing:.06em}
+.callout-note{background:var(--blue-light);border:1px solid rgba(30,95,163,0.2)}
+.callout-note .callout-icon{color:var(--blue-accent)}
+.callout-note strong{color:var(--blue-accent)}
+.callout-warn{background:var(--amber-light);border:1px solid rgba(183,121,31,0.25)}
+.callout-warn .callout-icon{color:var(--amber)}
+.callout-warn strong{color:var(--amber)}
+.callout-tip{background:var(--emerald-pale);border:1px solid rgba(6,95,70,0.2)}
+.callout-tip .callout-icon{color:var(--emerald)}
+.callout-tip strong{color:var(--emerald)}
+.callout-link{background:var(--purple-light);border:1px solid rgba(107,33,168,0.15)}
+.callout-link .callout-icon{color:var(--purple)}
+.callout-link strong{color:var(--purple)}
+
+/* WORKED EXAMPLE */
+.worked-example{background:var(--cream-dark);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:20px 0}
+.we-header{background:var(--emerald);padding:12px 20px;display:flex;align-items:center;gap:10px}
+.we-title{color:#fff;font-family:'Playfair Display',serif;font-size:0.95rem}
+.we-body{padding:18px 20px}
+.we-step{display:flex;gap:14px;align-items:flex-start;margin-bottom:10px;font-size:0.88rem}
+.we-step-num{width:24px;height:24px;background:var(--emerald);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;flex-shrink:0;margin-top:1px}
+.we-result{background:var(--navy);color:var(--emerald-light);font-family:'JetBrains Mono',monospace;font-size:0.88rem;padding:10px 16px;border-radius:var(--radius-sm);margin-top:10px}
+
+/* CONCEPT CARDS */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.concept-card{background:var(--cream-dark);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:transform var(--transition),box-shadow var(--transition)}
+.concept-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.concept-card-label{font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--emerald);margin-bottom:8px}
+.concept-card-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text-dark);margin-bottom:10px}
+.concept-card p{font-size:0.88rem;margin:0}
+
+/* COMPARE TABLE */
+.compare-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.88rem}
+.compare-table th{background:var(--navy);color:var(--emerald-light);font-family:'Playfair Display',serif;padding:12px 16px;text-align:left;font-weight:600}
+.compare-table td{padding:11px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.compare-table tr:nth-child(even) td{background:var(--cream-dark)}
+.compare-table tr:hover td{background:var(--emerald-pale)}
+blockquote{border-left:3px solid var(--emerald);background:var(--emerald-pale);padding:14px 20px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:20px 0;font-style:italic;color:var(--text-body)}
+code{font-family:'JetBrains Mono',monospace;font-size:0.82em;background:var(--cream-dark);padding:2px 6px;border-radius:4px;color:var(--emerald)}
+[data-theme="dark"] code{background:rgba(255,255,255,0.08);color:var(--emerald-light)}
+
+/* RATE TABLE */
+.rate-table{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0}
+.rate-card{background:var(--cream-dark);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center}
+.rate-card-type{font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--emerald);margin-bottom:8px}
+.rate-card-name{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text-dark);margin-bottom:8px}
+.rate-card-timing{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:600;margin-bottom:10px}
+.timing-ante{background:var(--blue-light);color:var(--blue-accent)}
+.timing-post{background:var(--green-light);color:var(--green)}
+.timing-post2{background:var(--amber-light);color:var(--amber)}
+.rate-card p{font-size:0.83rem;margin:0;color:var(--text-body)}
+
+/* BOND PRICE VIZ */
+.bond-viz{background:var(--navy);border-radius:var(--radius);padding:20px;margin:20px 0}
+.bond-viz-title{color:var(--emerald-light);font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.bond-scenarios{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.bond-scenario{background:rgba(255,255,255,0.05);border-radius:8px;padding:16px;text-align:center;border:1px solid rgba(255,255,255,0.08)}
+.bs-label{font-size:0.72rem;color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.bs-condition{font-size:0.85rem;margin-bottom:8px;color:rgba(255,255,255,0.7)}
+.bs-price{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;margin-bottom:4px}
+.bs-price.discount{color:#f87171}
+.bs-price.par{color:#fbbf24}
+.bs-price.premium{color:#34d399}
+.bs-rule{font-size:0.75rem;color:rgba(255,255,255,0.4)}
+
+/* DURATION TABLE */
+.duration-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.85rem}
+.duration-table th{background:var(--emerald);color:#fff;padding:10px 14px;text-align:center;font-weight:600}
+.duration-table td{padding:9px 14px;border:1px solid var(--border);text-align:center;vertical-align:middle}
+.duration-table tr:nth-child(even) td{background:var(--cream-dark)}
+.duration-table td:first-child{text-align:left;font-weight:600;color:var(--emerald)}
+[data-theme="dark"] .duration-table td:first-child{color:var(--emerald-light)}
+
+/* FLASHCARDS */
+.flashcard-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.fc-counter{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-muted)}
+.fc-buttons{display:flex;gap:10px}
+.btn{padding:8px 18px;border:none;border-radius:6px;cursor:pointer;font-size:0.85rem;font-family:'Source Sans 3',sans-serif;font-weight:600;transition:all var(--transition)}
+.btn-primary{background:var(--navy);color:var(--emerald-light)}
+.btn-primary:hover{background:var(--navy-mid)}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text-body)}
+.btn-outline:hover{border-color:var(--emerald);color:var(--emerald)}
+.flashcard{perspective:1000px;height:240px;cursor:pointer;margin-bottom:20px}
+.flashcard-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.flashcard.flipped .flashcard-inner{transform:rotateY(180deg)}
+.flashcard-front,.flashcard-back{position:absolute;inset:0;border-radius:var(--radius);padding:28px 32px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.flashcard-front{background:var(--navy);border:1px solid rgba(52,211,153,0.25)}
+.flashcard-back{background:var(--cream-dark);border:1px solid var(--border);transform:rotateY(180deg)}
+.fc-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.flashcard-front .fc-label{color:var(--emerald-light)}
+.flashcard-back .fc-label{color:var(--text-muted)}
+.fc-question{color:#fff;font-size:1rem;line-height:1.5}
+.fc-answer{color:var(--text-dark);font-size:0.88rem;line-height:1.55}
+.fc-hint{position:absolute;bottom:14px;font-size:0.72rem;color:rgba(255,255,255,0.3)}
+.flashcard-back .fc-hint{color:var(--text-muted)}
+.difficulty-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:0.72rem;font-weight:600;margin-top:12px}
+.diff-basic{background:var(--green-light);color:var(--green)}
+.diff-intermediate{background:var(--amber-light);color:var(--amber)}
+.diff-advanced{background:var(--red-light);color:var(--red)}
+
+/* FEYNMAN */
+.feynman-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:20px 0}
+.feynman-header{background:var(--navy);padding:18px 24px;display:flex;align-items:center;gap:14px}
+.feynman-num{width:32px;height:32px;background:var(--emerald);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;flex-shrink:0}
+.feynman-concept-title{font-family:'Playfair Display',serif;color:#fff;font-size:1.05rem}
+.feynman-body{padding:24px}
+.feynman-section{margin-bottom:20px}
+.feynman-section-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--emerald);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.feynman-section-label::after{content:'';height:1px;flex:1;background:var(--border)}
+.feynman-section p{font-size:0.92rem;margin:0;line-height:1.7}
+
+/* KNOWLEDGE GRAPH */
+.graph-container{background:var(--navy);border-radius:var(--radius);padding:24px 16px;margin:20px 0;overflow:auto}
+.graph-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:16px;padding:14px 20px;background:var(--cream-dark);border-radius:var(--radius);font-size:0.8rem}
+.legend-item{display:flex;align-items:center;gap:6px;color:var(--text-muted)}
+.legend-line{width:24px;height:2px;border-radius:2px}
+.connection-cards{margin-top:24px;display:grid;gap:14px}
+.connection-card{background:var(--cream-dark);border:1px solid var(--border);border-left:3px solid var(--emerald);border-radius:var(--radius-sm);padding:14px 18px;font-size:0.88rem}
+.connection-card strong{color:var(--emerald);display:block;margin-bottom:4px;font-size:0.82rem;text-transform:uppercase;letter-spacing:.05em}
+[data-theme="dark"] .connection-card strong{color:var(--emerald-light)}
+
+/* EXERCISES */
+.exercise-tier{margin-bottom:36px}
+.tier-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.tier-badge{padding:4px 12px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.tier-1 .tier-badge{background:var(--green-light);color:var(--green)}
+.tier-2 .tier-badge{background:var(--amber-light);color:var(--amber)}
+.tier-3 .tier-badge{background:var(--red-light);color:var(--red)}
+.tier-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text-dark)}
+.exercise-item{background:var(--cream-dark);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:12px}
+.exercise-q{font-size:0.92rem;line-height:1.6;color:var(--text-dark);margin-bottom:12px}
+.exercise-q-num{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--emerald);margin-bottom:6px;letter-spacing:.08em}
+.show-answer-btn{background:transparent;border:1.5px solid var(--border);color:var(--text-muted);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:0.8rem;font-family:'Source Sans 3',sans-serif;transition:all var(--transition)}
+.show-answer-btn:hover{border-color:var(--emerald);color:var(--emerald)}
+.show-answer-btn.active{background:var(--navy);color:var(--emerald-light);border-color:var(--navy)}
+.answer-panel{display:none;margin-top:14px;padding:14px 18px;background:var(--emerald-pale);border-radius:var(--radius-sm);font-size:0.88rem;line-height:1.65;color:var(--text-body);border-left:3px solid var(--emerald)}
+.answer-panel.open{display:block}
+.answer-label{font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--emerald);margin-bottom:8px;font-weight:600}
+
+/* CHEAT SHEET */
+.cheatsheet-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.cs-card{background:var(--cream-dark);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.cs-card-title{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--text-dark);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.cs-list{list-style:none}
+.cs-list li{font-size:0.82rem;padding:5px 0;border-bottom:1px dashed var(--border);display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.cs-list li:last-child{border-bottom:none}
+.cs-term{font-weight:600;color:var(--emerald);min-width:72px;flex-shrink:0;font-size:0.78rem;font-family:'JetBrains Mono',monospace}
+.priority-list{counter-reset:priority;list-style:none}
+.priority-list li{counter-increment:priority;display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;line-height:1.5}
+.priority-list li::before{content:counter(priority);display:flex;align-items:center;justify-content:center;min-width:24px;height:24px;background:var(--emerald);color:#fff;border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;flex-shrink:0;margin-top:1px}
+
+.ornament{text-align:center;color:var(--emerald);font-size:0.8rem;letter-spacing:.5em;margin:28px 0;opacity:.4}
+
+/* PRINT */
+@media print{.sidebar,.mobile-menu-btn,.dark-toggle,.show-answer-btn,.fc-buttons{display:none!important}.main{margin-left:0}.content{padding:20px}.answer-panel{display:block!important}}
+
+/* MOBILE */
+.mobile-menu-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--navy);border:1px solid rgba(52,211,153,0.3);color:var(--emerald-light);width:40px;height:40px;border-radius:8px;cursor:pointer;font-size:1.1rem;align-items:center;justify-content:center}
+@media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.mobile-menu-btn{display:flex}.page-hero{padding:60px 24px 40px}.content{padding:32px 24px 60px}.concept-grid,.cheatsheet-grid,.rate-table,.bond-scenarios{grid-template-columns:1fr}}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(52,211,153,0.2);border-radius:3px}
+</style>
+</head>
+<body>
+<button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-course">Financial Markets · Ch. 3</div>
+    <div class="sidebar-title">Interest Rates &amp; Security Valuation</div>
+    <div class="sidebar-chapter">Chapter 3 · Study Guide</div>
+  </div>
+  <nav>
+    <div class="nav-section-label">Sections</div>
+    <a href="#section-a" class="nav-link active"><span class="nav-icon">📖</span> A · Chapter Summary</a>
+    <a href="#section-b" class="nav-link"><span class="nav-icon">🃏</span> B · Flashcards</a>
+    <a href="#section-c" class="nav-link"><span class="nav-icon">🧠</span> C · Feynman Explanations</a>
+    <a href="#section-d" class="nav-link"><span class="nav-icon">🔗</span> D · Knowledge Graph</a>
+    <a href="#section-e" class="nav-link"><span class="nav-icon">✏️</span> E · Exercises</a>
+    <a href="#section-f" class="nav-link"><span class="nav-icon">⚡</span> F · Cheat Sheet</a>
+    <div class="nav-section-label" style="margin-top:12px;">Topics</div>
+    <a href="#rate-measures" class="nav-link"><span class="nav-icon">📐</span> Rate Measures</a>
+    <a href="#bond-valuation" class="nav-link"><span class="nav-icon">🏦</span> Bond Valuation</a>
+    <a href="#equity-valuation" class="nav-link"><span class="nav-icon">📈</span> Equity Valuation</a>
+    <a href="#price-sensitivity" class="nav-link"><span class="nav-icon">↕️</span> Price Sensitivity</a>
+    <a href="#duration" class="nav-link"><span class="nav-icon">⏱️</span> Duration</a>
+    <a href="#convexity" class="nav-link"><span class="nav-icon">〜</span> Convexity</a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="dark-toggle" onclick="toggleDark()"><span id="dark-icon">🌙</span><span id="dark-label">Dark Mode</span></button>
+  </div>
+</aside>
+
+<main class="main">
+<div class="page-hero">
+  <div class="hero-badge">Chapter 3 · Study Guide</div>
+  <h1 class="hero-title">Interest Rates &amp; Security Valuation</h1>
+  <p class="hero-subtitle">Bond pricing, stock valuation, YTM, dividend discount models, duration, and convexity — with worked examples and numerical exercises.</p>
+  <div class="hero-meta">
+    <div class="hero-stat"><span class="hero-stat-icon">📄</span> 30 slides + bond &amp; stock supplements</div>
+    <div class="hero-stat"><span class="hero-stat-icon">🃏</span> 26 flashcards</div>
+    <div class="hero-stat"><span class="hero-stat-icon">✏️</span> 15 exercises</div>
+    <div class="hero-stat"><span class="hero-stat-icon">🔢</span> 10 key formulas</div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ===== SECTION A ===== -->
+<section class="study-section" id="section-a">
+  <div class="section-header">
+    <div class="section-badge">A</div>
+    <div>
+      <div class="section-title">Chapter Summary</div>
+      <div class="section-description">The complete reference — covers bonds, stocks, duration, and convexity</div>
+    </div>
+  </div>
+
+  <h2>The Big Picture: Valuing Financial Securities</h2>
+  <p>Chapter 3 is where the theoretical foundation of Chapters 1 and 2 becomes practical. You now know that interest rates exist and how they're determined — the question becomes: <em>given an interest rate, what is a financial security actually worth?</em> The answer always comes back to the same principle: the <strong>fair value of any financial security is the present value of all the cash flows it is expected to generate, discounted at the appropriate required rate of return</strong>. Everything in this chapter is an application of that one idea.</p>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- RATE MEASURES -->
+  <h2 id="rate-measures">Three Interest Rate Measures: Required, Expected, Realized</h2>
+  <p>Before diving into valuation, your course distinguishes three different "interest rates" on a security. Students often confuse these, but they are conceptually distinct and describe different moments in time:</p>
+
+  <div class="rate-table">
+    <div class="rate-card">
+      <div class="rate-card-type">Measure 1</div>
+      <div class="rate-card-name">Required Rate of Return (r)</div>
+      <span class="rate-card-timing timing-ante">Ex Ante (Before)</span>
+      <p>The rate you <em>should</em> earn given the security's risk. Used to calculate fair present value. Reflects default risk, liquidity risk, maturity, and all other risk factors from Chapter 2. If market price = fair value, then r = E(r).</p>
+    </div>
+    <div class="rate-card">
+      <div class="rate-card-type">Measure 2</div>
+      <div class="rate-card-name">Expected Rate of Return E(r)</div>
+      <span class="rate-card-timing timing-ante">Ex Ante (Before)</span>
+      <p>The rate you <em>expect</em> to earn if you buy the security at its <em>current market price</em>, receive all projected cash flows, and sell at your horizon. This is the internal rate of return implied by current market price. Also called yield to maturity (YTM) for bonds.</p>
+    </div>
+    <div class="rate-card">
+      <div class="rate-card-type">Measure 3</div>
+      <div class="rate-card-name">Realized Rate of Return (r̄)</div>
+      <span class="rate-card-timing timing-post">Ex Post (After)</span>
+      <p>The rate you <em>actually earned</em> on an investment that has already happened. May differ from required return because of unexpected events — price changes, defaults, early calls. If r̄ &gt; r, you earned more than required; if r̄ &lt; r, you underperformed.</p>
+    </div>
+  </div>
+
+  <h3>Market Efficiency: Why Required ≈ Expected</h3>
+  <p>In an <strong>efficient market</strong>, prices adjust quickly to new information so that current market price ≈ fair present value. This means E(r) ≈ r most of the time — you can't consistently find securities where the expected return exceeds the required return (that would be a "free lunch"). When unexpected events occur (surprise earnings, Fed rate changes, credit downgrades), prices temporarily diverge from fair value, then quickly converge again as traders act on the mispricing.</p>
+
+  <div class="callout callout-note">
+    <span class="callout-icon">📝</span>
+    <div class="callout-body">
+      <strong>Background: Why this distinction matters</strong>
+      In bond markets, E(r) = YTM is computed from market price. In stock markets, E(r) is harder to compute because dividends are uncertain. When a bond's YTM (E(r)) is higher than its required rate (r), the bond is underpriced — a buying opportunity. When YTM &lt; r, the bond is overpriced. Market efficiency says such gaps close quickly as investors exploit them.
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- BOND VALUATION -->
+  <h2 id="bond-valuation">Bond Valuation</h2>
+  <p>A <strong>bond</strong> is a debt instrument where the issuer (borrower) promises to pay the holder (lender): (1) periodic <strong>coupon payments</strong> (interest) over the life of the bond, and (2) the <strong>face value (par value)</strong> — typically $1,000 — at maturity. The fair price of a bond equals the present value of all these promised cash flows, discounted at the required rate of return.</p>
+
+  <h3>Coupon Bonds</h3>
+  <div class="formula-box">
+    <span class="formula-box-label">Bond Price (Coupon Bond)</span>
+    <div class="formula">P = INT × [1 − 1/(1+r_b)ᴺ] / r_b  +  M / (1+r_b)ᴺ</div>
+    <div class="formula-vars">
+      <div class="formula-var"><span class="var-name">P</span> = fair present value (price) of the bond</div>
+      <div class="formula-var"><span class="var-name">INT</span> = periodic coupon payment = Coupon Rate × Face Value / periods per year</div>
+      <div class="formula-var"><span class="var-name">r_b</span> = required rate of return per period</div>
+      <div class="formula-var"><span class="var-name">N</span> = total number of periods (years × periods per year)</div>
+      <div class="formula-var"><span class="var-name">M</span> = face/par value (typically $1,000)</div>
+    </div>
+    <div class="formula-note">First term = PV of the annuity of coupons. Second term = PV of the face value (lump sum). Both discounted at r_b.</div>
+  </div>
+
+  <div class="callout callout-note">
+    <span class="callout-icon">📝</span>
+    <div class="callout-body">
+      <strong>Semiannual compounding (most U.S. bonds)</strong>
+      Most U.S. bonds pay coupons twice per year. For semiannual bonds: use r_b/2 as the period rate, and 2N as the number of periods. Coupon payment = (Coupon Rate × Face Value) / 2. Always check whether a problem specifies annual or semiannual compounding — it matters.
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header"><div class="we-title">📊 Coupon Bond Pricing Example</div></div>
+    <div class="we-body">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">A bond has a 8% coupon rate, $1,000 face value, 3 years to maturity, annual payments, and required return = 10%.</p>
+      <div class="we-step"><div class="we-step-num">1</div><div>Annual coupon INT = 0.08 × $1,000 = <strong>$80</strong></div></div>
+      <div class="we-step"><div class="we-step-num">2</div><div>PV of coupons = 80 × [1 − 1/(1.10)³] / 0.10 = 80 × 2.4869 = <strong>$198.95</strong></div></div>
+      <div class="we-step"><div class="we-step-num">3</div><div>PV of face value = 1,000 / (1.10)³ = 1,000 / 1.331 = <strong>$751.31</strong></div></div>
+      <div class="we-result">Bond Price = $198.95 + $751.31 = $950.26 → Trades at a DISCOUNT (r_b = 10% &gt; coupon rate 8%)</div>
+    </div>
+  </div>
+
+  <h3>Zero-Coupon Bonds</h3>
+  <p>A <strong>zero-coupon bond</strong> (also called a pure discount bond) makes no periodic coupon payments — INT = 0. You buy it at a discount and receive only the face value at maturity. The entire return comes from the price appreciation. U.S. Treasury Bills are the best-known example.</p>
+
+  <div class="formula-box">
+    <span class="formula-box-label">Zero-Coupon Bond Price &amp; YTM</span>
+    <div class="formula">P = M / (1 + YTM)ⁿ</div>
+    <div class="formula">YTM = (M / P)^(1/n) − 1</div>
+    <div class="formula-vars">
+      <div class="formula-var"><span class="var-name">M</span> = face/par value at maturity</div>
+      <div class="formula-var"><span class="var-name">n</span> = years to maturity</div>
+    </div>
+    <div class="formula-note">Zero-coupon bonds always trade at a discount (P &lt; M) because no interim cash flows are received.</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header"><div class="we-title">📊 Zero-Coupon Bond Example</div></div>
+    <div class="we-body">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">A zero-coupon bond with $100,000 face value is priced at $96,618.36 with 1-year maturity. What is the YTM?</p>
+      <div class="we-step"><div class="we-step-num">1</div><div>YTM = (100,000 / 96,618.36)^(1/1) − 1</div></div>
+      <div class="we-step"><div class="we-step-num">2</div><div>= (1.035) − 1 = <strong>3.5%</strong></div></div>
+      <div class="we-result">The investor earns $3,381.64 in profit (the discount), which equals a 3.5% return on the $96,618.36 investment.</div>
+    </div>
+  </div>
+
+  <h3>Premium, Discount, and Par Bonds</h3>
+  <p>The relationship between a bond's coupon rate and required rate of return determines whether it trades at a premium, discount, or par. This is one of the most tested relationships in the chapter:</p>
+
+  <div class="bond-viz">
+    <div class="bond-viz-title">Bond Price vs. Coupon Rate Relationship</div>
+    <div class="bond-scenarios">
+      <div class="bond-scenario">
+        <div class="bs-label">Scenario A</div>
+        <div class="bs-condition">Coupon Rate <strong style="color:#f87171;">&lt;</strong> Required Rate</div>
+        <div class="bs-price discount">P &lt; $1,000</div>
+        <div class="bs-rule">DISCOUNT BOND</div>
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:8px;">Bond pays less than market demands → price falls below par. YTM &gt; coupon rate.</p>
+      </div>
+      <div class="bond-scenario">
+        <div class="bs-label">Scenario B</div>
+        <div class="bs-condition">Coupon Rate <strong style="color:#fbbf24;">= </strong>Required Rate</div>
+        <div class="bs-price par">P = $1,000</div>
+        <div class="bs-rule">PAR BOND</div>
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:8px;">Bond pays exactly what market requires → trades at face value. YTM = coupon rate.</p>
+      </div>
+      <div class="bond-scenario">
+        <div class="bs-label">Scenario C</div>
+        <div class="bs-condition">Coupon Rate <strong style="color:#34d399;">&gt;</strong> Required Rate</div>
+        <div class="bs-price premium">P &gt; $1,000</div>
+        <div class="bs-rule">PREMIUM BOND</div>
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:8px;">Bond pays more than market requires → price rises above par. YTM &lt; coupon rate.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Yield to Maturity (YTM)</h3>
+  <p>The <strong>Yield to Maturity (YTM)</strong> is the single discount rate that equates the present value of all promised cash flows to the current market price. It is the bond's expected rate of return if: (1) held to maturity, (2) all coupons are reinvested at the YTM rate. YTM is solved iteratively (trial and error) or by financial calculator:</p>
+
+  <div class="formula-box">
+    <span class="formula-box-label">YTM (Solve for r_b in the bond price equation)</span>
+    <div class="formula">P = INT × [1−1/(1+YTM)ᴺ]/YTM + M/(1+YTM)ᴺ</div>
+    <div class="formula-note">Calculator: Enter N, PV = −P (negative, you pay it), PMT = INT, FV = M → CPT I/Y = YTM</div>
+    <div class="formula-note">If YTM &gt; coupon rate → bond at discount. If YTM &lt; coupon rate → bond at premium.</div>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-body">
+      <strong>YTM assumption: reinvestment at YTM rate</strong>
+      YTM assumes all coupon payments are reinvested at the YTM rate until maturity. If you actually reinvest at a different rate, your realized return will differ from YTM. This "reinvestment risk" is a key limitation of YTM as a measure of actual bond return.
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- EQUITY VALUATION -->
+  <h2 id="equity-valuation">Equity (Stock) Valuation</h2>
+  <p>Valuing stocks is conceptually similar to valuing bonds — find the present value of all future cash flows. The difference: bond cash flows (coupons + face value) are contractually fixed. Stock cash flows (<strong>dividends</strong>) are uncertain, can grow, and theoretically continue forever. The framework for this is the <strong>Dividend Discount Model (DDM)</strong>.</p>
+
+  <blockquote>The price of any stock equals the present value of all future dividends it will pay, discounted at the equity cost of capital (r_E). P₀ = Σ Div_t / (1+r_E)^t for t = 1 to ∞</blockquote>
+
+  <p>Since we can't enumerate infinite dividends, we use simplifying assumptions about dividend growth patterns:</p>
+
+  <h3>Case 1: Zero Dividend Growth (Perpetuity)</h3>
+  <p>Dividends remain constant forever — like a preferred stock with a fixed dividend:</p>
+  <div class="formula-box">
+    <span class="formula-box-label">Zero Growth Model</span>
+    <div class="formula">P₀ = Div / r_E</div>
+    <div class="formula-vars">
+      <div class="formula-var"><span class="var-name">Div</span> = constant annual dividend (forever)</div>
+      <div class="formula-var"><span class="var-name">r_E</span> = required return on equity</div>
+    </div>
+    <div class="formula-note">This is just the perpetuity formula from Chapter 2: P = C/r. Stock with no growth acts like a perpetuity.</div>
+  </div>
+
+  <h3>Case 2: Constant Growth (Gordon Growth Model)</h3>
+  <p>Dividends grow at a constant rate <em>g</em> forever — appropriate for mature, stable companies:</p>
+  <div class="formula-box">
+    <span class="formula-box-label">Constant Growth Dividend Discount Model (Gordon Growth Model)</span>
+    <div class="formula">P₀ = Div₁ / (r_E − g)</div>
+    <div class="formula">r_E = Div₁/P₀ + g  =  Dividend Yield + Capital Gain Rate</div>
+    <div class="formula-vars">
+      <div class="formula-var"><span class="var-name">Div₁</span> = next year's expected dividend = Div₀ × (1+g)</div>
+      <div class="formula-var"><span class="var-name">g</span> = constant dividend growth rate (must be &lt; r_E)</div>
+      <div class="formula-var"><span class="var-name">r_E</span> = required return on equity (equity cost of capital)</div>
+    </div>
+    <div class="formula-note">The total return equation splits into: dividend yield (Div₁/P₀) + expected capital appreciation (g).</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header"><div class="we-title">📊 Gordon Growth Model Example</div></div>
+    <div class="we-body">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">A stock just paid a dividend of $2.00 (Div₀). Dividends grow at 5% forever. Required return = 10%.</p>
+      <div class="we-step"><div class="we-step-num">1</div><div>Next dividend: Div₁ = $2.00 × 1.05 = <strong>$2.10</strong></div></div>
+      <div class="we-step"><div class="we-step-num">2</div><div>Stock price: P₀ = $2.10 / (0.10 − 0.05) = $2.10 / 0.05 = <strong>$42.00</strong></div></div>
+      <div class="we-step"><div class="we-step-num">3</div><div>Dividend yield = 2.10/42.00 = 5%; Capital gain rate = 5%; Total return = <strong>10%</strong> ✓</div></div>
+      <div class="we-result">Stock is worth $42. Total return = 5% dividend yield + 5% capital growth = 10% required return.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-body">
+      <strong>Critical: g must be less than r_E</strong>
+      If g ≥ r_E, the Gordon Growth Model gives a nonsensical result (zero or negative denominator → infinite or negative price). This is impossible in equilibrium. The long-run growth rate of any company must be less than the economy's growth rate, which in turn must be less than the discount rate. When using this model, always verify g &lt; r_E.
+    </div>
+  </div>
+
+  <h3>Case 3: Supernormal (Nonconstant) Dividend Growth</h3>
+  <p>Many companies — especially young, fast-growing firms — go through a period of high (above-normal) dividend growth before settling into steady-state growth. The <strong>three-step process</strong> handles this:</p>
+
+  <div class="concept-grid">
+    <div class="concept-card" style="grid-column:1/-1">
+      <div class="concept-card-label">3-Step Supernormal Growth Process</div>
+      <div class="concept-card-title">Finding P₀ with Non-Constant Growth</div>
+      <p><strong>Step 1:</strong> Calculate each dividend during the high-growth period and find its PV individually: PV(Divₜ) = Divₜ / (1+r_E)^t. Sum these PVs.</p><br>
+      <p><strong>Step 2:</strong> Find the stock price at the END of the high-growth period (Pₙ) using the Gordon Growth Model with the stable long-run growth rate: Pₙ = Divₙ₊₁ / (r_E − g_stable). Then discount Pₙ back to today: PV(Pₙ) = Pₙ / (1+r_E)ⁿ.</p><br>
+      <p><strong>Step 3:</strong> P₀ = Sum of PVs from Step 1 + PV(Pₙ) from Step 2.</p>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header"><div class="we-title">📊 Supernormal Growth Example</div></div>
+    <div class="we-body">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">A stock pays no dividend for 2 years, then Div₃ = $1.00 growing at 25% for 2 years (Div₄ = $1.25), then constant 6% forever. r_E = 12%.</p>
+      <div class="we-step"><div class="we-step-num">1</div><div>Step 1 PVs: PV(Div₃) = 1.00/1.12³ = $0.712; PV(Div₄) = 1.25/1.12⁴ = $0.794</div></div>
+      <div class="we-step"><div class="we-step-num">2</div><div>Div₅ = $1.25 × 1.06 = $1.325. Terminal price P₄ = 1.325/(0.12−0.06) = $22.08</div></div>
+      <div class="we-step"><div class="we-step-num">3</div><div>PV(P₄) = 22.08/1.12⁴ = $14.03</div></div>
+      <div class="we-result">P₀ = $0.712 + $0.794 + $14.03 = $15.54</div>
+    </div>
+  </div>
+
+  <div class="callout callout-note">
+    <span class="callout-icon">📝</span>
+    <div class="callout-body">
+      <strong>Total Return Components</strong>
+      For any stock: <strong>r_E = Dividend Yield + Capital Gain Rate</strong>, where Dividend Yield = Div₁/P₀ and Capital Gain Rate = (P₁−P₀)/P₀. In the constant-growth model, capital gain rate = g, which is why g also represents price appreciation. Investors receive value both from dividends paid and from price appreciation over time.
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- PRICE SENSITIVITY -->
+  <h2 id="price-sensitivity">Impact of Interest Rate Changes on Bond Prices</h2>
+  <p>The relationship between interest rates and bond prices is one of the most fundamental in fixed income: <strong>when interest rates rise, bond prices fall; when rates fall, prices rise</strong>. This inverse relationship has three important nuances:</p>
+
+  <h3>1. The Relationship Is Non-Linear (Convex)</h3>
+  <p>As interest rates increase, bond prices decrease — but at a <em>decreasing rate</em>. This means a 1% rate increase reduces prices by less than a 1% rate decrease raises them. The price-rate curve is bowed (convex), not a straight line. This non-linearity is measured by convexity (covered below).</p>
+
+  <h3>2. Maturity Effect: Longer Bonds Are More Sensitive</h3>
+  <p>The further a bond is from maturity, the more its price changes for a given interest rate move. A 30-year bond's price falls far more when rates rise 1% than a 2-year bond's price. However, this relationship is also non-linear — increasing maturity increases price sensitivity, but at a <em>decreasing rate</em>. Going from 1 year to 2 years adds more sensitivity than going from 29 to 30 years.</p>
+
+  <h3>3. Coupon Rate Effect: Lower-Coupon Bonds Are More Sensitive</h3>
+  <p>The higher the coupon rate, the <em>less</em> price-sensitive the bond. Why? Higher coupons return more cash to investors early (sooner in the bond's life). Since early cash flows are less affected by distant rate changes, high-coupon bonds are "weighted" toward the near future — making them less sensitive. Zero-coupon bonds have the highest price sensitivity of any bond with a given maturity.</p>
+
+  <table class="compare-table">
+    <tr><th>Factor</th><th>Direction</th><th>Effect on Price Sensitivity</th></tr>
+    <tr><td><strong>Maturity ↑</strong></td><td>Increases sensitivity</td><td>Longer time → more future cash flows affected by rate change</td></tr>
+    <tr><td><strong>Coupon Rate ↑</strong></td><td>Decreases sensitivity</td><td>More early cash flows → weighted average life is shorter</td></tr>
+    <tr><td><strong>Interest Rate ↑</strong></td><td>Decreases sensitivity</td><td>Higher rates discount distant flows more → duration falls</td></tr>
+  </table>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- DURATION -->
+  <h2 id="duration">Duration: The Unified Measure of Price Sensitivity</h2>
+  <p><strong>Duration</strong> is the weighted-average time to maturity of a bond, using the relative present values of cash flows as weights. It is simultaneously: (1) a measure of the average life of a bond; and (2) a direct measure of the bond's price sensitivity to interest rate changes.</p>
+
+  <div class="formula-box">
+    <span class="formula-box-label">Duration Formula (Annual Compounding)</span>
+    <div class="formula">D = [Σ t × CF_t / (1+r)^t] / P</div>
+    <div class="formula-vars">
+      <div class="formula-var"><span class="var-name">t</span> = time period of cash flow</div>
+      <div class="formula-var"><span class="var-name">CF_t</span> = cash flow at time t (coupon or coupon + face)</div>
+      <div class="formula-var"><span class="var-name">r</span> = required rate of return (or YTM)</div>
+      <div class="formula-var"><span class="var-name">P</span> = current bond price (= Σ CF_t/(1+r)^t)</div>
+    </div>
+    <div class="formula-note">Each cash flow's "weight" is its PV share of the total bond price. Duration is the time-weighted average of those weights.</div>
+  </div>
+
+  <div class="formula-box">
+    <span class="formula-box-label">Duration: Economic Meaning (Price Change Approximation)</span>
+    <div class="formula">ΔP/P ≈ −D × Δr / (1+r)    [Annual compounding]</div>
+    <div class="formula">ΔP/P ≈ −D × Δ(r/2) / (1+r/2)   [Semiannual compounding]</div>
+    <div class="formula">ΔP/P ≈ −MD × Δr</div>
+    <div class="formula-vars">
+      <div class="formula-var"><span class="var-name">MD</span> = Modified Duration = D / (1+r)  or  D / (1+r/2) for semiannual</div>
+      <div class="formula-var"><span class="var-name">Δr</span> = change in interest rate (in decimal form)</div>
+    </div>
+    <div class="formula-note">A bond with duration of 5 years will fall approximately 5% in value for each 1% rise in interest rates (using modified duration).</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header"><div class="we-title">📊 Duration Calculation Example</div></div>
+    <div class="we-body">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">8% annual coupon bond, $1,000 face value, 3 years to maturity, required return = 10%.</p>
+      <table class="duration-table" style="font-size:0.82rem;">
+        <tr><th>Year (t)</th><th>Cash Flow</th><th>PV of CF</th><th>Weight (PV/P)</th><th>t × Weight</th></tr>
+        <tr><td>1</td><td>$80</td><td>$72.73</td><td>7.65%</td><td>0.0765</td></tr>
+        <tr><td>2</td><td>$80</td><td>$66.12</td><td>6.96%</td><td>0.1392</td></tr>
+        <tr><td>3</td><td>$1,080</td><td>$811.42</td><td>85.39%</td><td>2.5617</td></tr>
+        <tr><td colspan="3"><strong>Total (Price P)</strong></td><td><strong>$950.26</strong></td><td><strong>D = 2.777 yrs</strong></td></tr>
+      </table>
+      <div class="we-step" style="margin-top:10px;"><div class="we-step-num">▶</div><div>Modified Duration: MD = 2.777 / 1.10 = <strong>2.524</strong></div></div>
+      <div class="we-result">Price impact of a 1% rate rise: ΔP/P ≈ −2.524 × 0.01 = −2.524% → Price drops ≈ $23.98</div>
+    </div>
+  </div>
+
+  <h3>Key Duration Features</h3>
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-card-label">Feature 1</div>
+      <div class="concept-card-title">Duration &amp; Coupon Rate</div>
+      <p>Higher coupon → <strong>shorter duration</strong>. Higher coupons return cash sooner, shifting the weight of cash flows toward the near future. Zero-coupon bond: duration = maturity (the longest possible for any given maturity).</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-label">Feature 2</div>
+      <div class="concept-card-title">Duration &amp; Rate of Return</div>
+      <p>Higher required return → <strong>shorter duration</strong>. Higher discount rates reduce the relative weight of distant cash flows (the face value). This means higher-rate environments produce lower duration bonds.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-label">Feature 3</div>
+      <div class="concept-card-title">Duration &amp; Maturity</div>
+      <p>Longer maturity → <strong>longer duration</strong>, but at a <em>decreasing rate</em>. As maturity increases, duration grows but asymptotically approaches a ceiling. For a perpetuity: D = (1+r)/r.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-label">Feature 4</div>
+      <div class="concept-card-title">Zero-Coupon Bond Duration</div>
+      <p>For a zero-coupon bond: <strong>Duration = Maturity</strong>. There's only one cash flow (face value at maturity), so the weighted average time is simply the maturity. Zero-coupon bonds have the maximum duration for their maturity.</p>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- CONVEXITY -->
+  <h2 id="convexity">Convexity: When Duration Isn't Enough</h2>
+  <p>Duration provides a <em>linear approximation</em> of how bond prices change with interest rates. But the actual price-rate relationship is curved (non-linear). <strong>Convexity</strong> is the degree of curvature of the price-interest rate curve around some interest rate level. It measures how much the duration approximation errors as rates change.</p>
+
+  <p>Two critical insights about convexity:</p>
+
+  <p><strong>Duration overestimates price losses when rates rise</strong> and <strong>underestimates price gains when rates fall</strong>. The actual price is always <em>better</em> than the duration-predicted price — which means convexity is always good for the holder.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-card-label">Property 1</div>
+      <div class="concept-card-title">Convexity Is Desirable</div>
+      <p>Greater convexity means more protection against rate increases (price falls less than duration predicts) and greater gains when rates fall (price rises more). Investors should prefer higher-convexity bonds, all else equal.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-label">Property 2</div>
+      <div class="concept-card-title">Convexity Causes Duration Error</div>
+      <p>The larger the interest rate change, the more convexity causes duration's linear approximation to misestimate the actual price change. For small moves (a few basis points), duration is accurate. For large moves (100+ bps), use both duration and convexity.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-label">Property 3</div>
+      <div class="concept-card-title">All Fixed-Income Securities Are Convex</div>
+      <p>Every bond's price-rate relationship is convex because bond prices are the sum of discounted cash flows — a non-linear function of the discount rate. Convexity is not optional; it's a mathematical property of all bonds.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-label">A Basis Point</div>
+      <div class="concept-card-title">Unit of Measurement</div>
+      <p>Duration is most accurate for "small" changes — defined as <strong>one basis point = 0.01%</strong> (one-hundredth of 1%). For changes of a few basis points, duration alone is fine. For changes of 1% or more, convexity correction becomes important.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== SECTION B ===== -->
+<section class="study-section" id="section-b">
+  <div class="section-header">
+    <div class="section-badge">B</div>
+    <div>
+      <div class="section-title">Flashcard Deck</div>
+      <div class="section-description">Click to flip · Arrow keys · Spacebar to flip</div>
+    </div>
+  </div>
+  <div class="flashcard-controls">
+    <span class="fc-counter" id="fc-counter">Card 1 of 26</span>
+    <div class="fc-buttons">
+      <button class="btn btn-outline" onclick="prevCard()">← Prev</button>
+      <button class="btn btn-outline" onclick="shuffleCards()">⇌ Shuffle</button>
+      <button class="btn btn-primary" onclick="nextCard()">Next →</button>
+    </div>
+  </div>
+  <div class="flashcard" id="flashcard" onclick="flipCard()">
+    <div class="flashcard-inner">
+      <div class="flashcard-front">
+        <div class="fc-label">Question</div>
+        <div class="fc-question" id="fc-question">Loading...</div>
+        <div class="fc-hint">Click to reveal answer</div>
+      </div>
+      <div class="flashcard-back">
+        <div class="fc-label">Answer</div>
+        <div class="fc-answer" id="fc-answer">...</div>
+        <div class="difficulty-badge" id="fc-difficulty">...</div>
+        <div class="fc-hint">Click to go back</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION C ===== -->
+<section class="study-section" id="section-c">
+  <div class="section-header">
+    <div class="section-badge">C</div>
+    <div>
+      <div class="section-title">Feynman Technique Explanations</div>
+      <div class="section-description">4 hardest concepts, simplified then made precise</div>
+    </div>
+  </div>
+
+  <div class="feynman-card">
+    <div class="feynman-header"><div class="feynman-num">1</div><div class="feynman-concept-title">Why Do Bond Prices Move Opposite to Interest Rates?</div></div>
+    <div class="feynman-body">
+      <div class="feynman-section">
+        <div class="feynman-section-label">Simple Explanation</div>
+        <p>Imagine you lent your friend $1,000 for a year, and they promised to pay you back $1,050 (5% interest). Now imagine the next day, everyone else starts lending money at 10% interest. Your friend's promise to pay you $1,050 is worth less than a fresh 10% loan — if someone else wanted to take over your loan, they'd only pay you something less than $1,000 because a new loan would earn them more. Your bond lost value even though nothing changed about the promise.</p>
+        <p>That's the entire inverse relationship in a nutshell. When market rates rise, existing bonds (with their fixed coupons) become less attractive compared to new bonds — so their price falls. When rates fall, existing bonds look great — so buyers bid up their price.</p>
+      </div>
+      <div class="feynman-section">
+        <div class="feynman-section-label">Where the analogy breaks down</div>
+        <p>The analogy is actually quite accurate! The key nuance: the longer your friend's loan runs (longer maturity), the bigger the price impact of the rate change. A 1-day loan is barely affected by rate changes; a 30-year loan is hugely affected. Also, if your friend promises very frequent payments (high coupon), you get money back quickly, so you're less exposed to future rate changes.</p>
+      </div>
+      <div class="feynman-section">
+        <div class="feynman-section-label">The precise version</div>
+        <p>Bond price is the present value of all promised cash flows discounted at the required rate of return: <code>P = Σ CF_t/(1+r)^t</code>. When r increases, all discount factors (1+r)^t increase, reducing each PV term and thus total price. The relationship is not linear but convex — price falls at a decreasing rate as rates rise. This is because as rates rise, the present value of distant cash flows shrinks relatively faster than near-term flows, changing the weighting.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="feynman-card">
+    <div class="feynman-header"><div class="feynman-num">2</div><div class="feynman-concept-title">Duration: What It Really Means</div></div>
+    <div class="feynman-body">
+      <div class="feynman-section">
+        <div class="feynman-section-label">Simple Explanation</div>
+        <p>Think of a bond's cash flows as weights on a seesaw. Each coupon is a small weight placed at its respective year on the seesaw. The big face-value payment is a heavy weight at maturity. Duration is the balance point — where would you have to put your finger to balance the entire seesaw?</p>
+        <p>A zero-coupon bond has one heavy weight right at maturity — the balance point is at maturity. That's why duration = maturity for zeros. A high-coupon bond has lots of small weights spread out near the front — so the balance point is much closer to today. That's why high coupons mean shorter duration.</p>
+      </div>
+      <div class="feynman-section">
+        <div class="feynman-section-label">Where the analogy breaks down</div>
+        <p>The "weights" aren't the raw cash flows but their present values — larger discount rates shrink the far-away weights. This is why higher interest rates also shorten duration (far-away cash flows get discounted more, reducing their relative weight). The seesaw doesn't use raw cash flows; it uses PV-adjusted cash flows.</p>
+      </div>
+      <div class="feynman-section">
+        <div class="feynman-section-label">The precise version</div>
+        <p><strong>Duration</strong> = weighted average time to maturity, where the weights are each cash flow's PV share of the total bond price. Formula: <code>D = [Σ t × PV(CF_t)] / P</code>. Duration doubles as a direct elasticity measure: <code>ΔP/P ≈ −MD × Δr</code>, where Modified Duration <code>MD = D/(1+r)</code>. A bond with MD = 5 loses approximately 5% of its value for each 1% rise in rates. This makes duration the single most important risk measure for fixed-income securities.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="feynman-card">
+    <div class="feynman-header"><div class="feynman-num">3</div><div class="feynman-concept-title">The Gordon Growth Model: Why Growth Rate Matters So Much</div></div>
+    <div class="feynman-body">
+      <div class="feynman-section">
+        <div class="feynman-section-label">Simple Explanation</div>
+        <p>Imagine a golden goose that lays $100 worth of eggs per year, and you expect this to grow 3% every year forever. If you need a 10% return on your investment, how much would you pay for the goose? The answer is $100/(10%−3%) = $100/7% ≈ $1,429.</p>
+        <p>Now change the growth rate to 8%. You'd pay $100/(10%−8%) = $100/2% = $5,000. A tiny change in expected growth (3% → 8%) multiplied the goose's value by 3.5x! This is why stock valuations are so sensitive to growth assumptions — small changes in g create massive changes in value because g appears in the denominator.</p>
+      </div>
+      <div class="feynman-section">
+        <div class="feynman-section-label">Where the analogy breaks down</div>
+        <p>The model assumes growth is constant forever, which is unrealistic. Real companies go through phases: high growth, then maturity, sometimes decline. The model also doesn't capture companies that pay no dividends. Growth rates must always stay below the discount rate, which doesn't apply to individual company growth rates in the short term.</p>
+      </div>
+      <div class="feynman-section">
+        <div class="feynman-section-label">The precise version</div>
+        <p>The <strong>Constant Growth DDM (Gordon Growth Model)</strong>: <code>P₀ = Div₁/(r_E − g)</code>, where Div₁ = next period's dividend, r_E = equity required return, g = perpetual growth rate. Rearranging: <code>r_E = Div₁/P₀ + g</code> = dividend yield + capital gain rate. This model is the cornerstone of equity valuation. For nonconstant growth, use the 3-step process: find PVs of dividends in the high-growth phase, then use the GGM to find terminal value at the end of that phase, and discount everything back.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="feynman-card">
+    <div class="feynman-header"><div class="feynman-num">4</div><div class="feynman-concept-title">Convexity: Why Duration Is an Optimistic Approximation</div></div>
+    <div class="feynman-body">
+      <div class="feynman-section">
+        <div class="feynman-section-label">Simple Explanation</div>
+        <p>Imagine you're measuring how steep a hill is at one particular point. Duration is like saying "the hill slopes at 5 degrees right here." If you walk 1 meter in that direction, duration predicts you'll descend a certain amount. But the hill is curved — it gets gentler as you walk. So if you go 10 meters, duration's prediction becomes increasingly wrong.</p>
+        <p>For bond prices: duration gives you the slope at one rate level. But as rates change, the slope itself changes. The actual bond price curve is always above the duration tangent line — meaning the bond always does better than duration predicts. This "always better than expected" property is what makes convexity valuable.</p>
+      </div>
+      <div class="feynman-section">
+        <div class="feynman-section-label">Where the analogy breaks down</div>
+        <p>Unlike a physical hill where you might walk any distance, convexity is most relevant for large interest rate movements (1% or more). For small moves (a few basis points), duration alone is fine. Also, some exotic instruments (like callable bonds) can have negative convexity — their price-rate curve bows in the opposite direction — but all standard coupon and zero-coupon bonds have positive convexity.</p>
+      </div>
+      <div class="feynman-section">
+        <div class="feynman-section-label">The precise version</div>
+        <p><strong>Convexity</strong> is the second derivative of the price-rate relationship (duration is the first derivative). The full approximation: <code>ΔP/P ≈ −MD×Δr + ½×Convexity×(Δr)²</code>. The second term is always positive (½×Convexity×(Δr)² > 0), meaning the actual price is always above the duration-only prediction. Properties: (1) Convexity is desirable; (2) Greater convexity → more accurate duration; (3) All standard bonds are convex; (4) Zero-coupon bonds have more convexity than coupon bonds of the same maturity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION D ===== -->
+<section class="study-section" id="section-d">
+  <div class="section-header">
+    <div class="section-badge">D</div>
+    <div>
+      <div class="section-title">Knowledge Graph</div>
+      <div class="section-description">How all Chapter 3 concepts connect</div>
+    </div>
+  </div>
+
+  <div class="graph-container">
+    <svg viewBox="0 0 860 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:500px;display:block;">
+      <defs>
+        <marker id="a1" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#34d399"/></marker>
+        <marker id="a2" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#c9a84c"/></marker>
+        <marker id="a3" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#f87171"/></marker>
+        <marker id="a4" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#818cf8"/></marker>
+      </defs>
+
+      <!-- Central: Security Valuation -->
+      <ellipse cx="430" cy="250" rx="88" ry="36" fill="#065f46" opacity="0.9"/>
+      <text x="430" y="245" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Security</text>
+      <text x="430" y="262" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Valuation</text>
+
+      <!-- Bond Valuation -->
+      <ellipse cx="150" cy="160" rx="74" ry="28" fill="#1b2e45"/>
+      <text x="150" y="156" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">Bond</text>
+      <text x="150" y="171" text-anchor="middle" fill="#34d399" font-size="11">Valuation</text>
+
+      <!-- Stock Valuation -->
+      <ellipse cx="710" cy="160" rx="74" ry="28" fill="#1b2e45"/>
+      <text x="710" y="156" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">Equity</text>
+      <text x="710" y="171" text-anchor="middle" fill="#34d399" font-size="11">Valuation (DDM)</text>
+
+      <!-- Required Rate of Return -->
+      <ellipse cx="150" cy="340" rx="74" ry="28" fill="#1b2e45"/>
+      <text x="150" y="336" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">Required Rate</text>
+      <text x="150" y="351" text-anchor="middle" fill="#34d399" font-size="11">of Return (r)</text>
+
+      <!-- YTM / Expected Return -->
+      <ellipse cx="710" cy="340" rx="74" ry="28" fill="#1b2e45"/>
+      <text x="710" y="336" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">YTM / E(r)</text>
+      <text x="710" y="351" text-anchor="middle" fill="#34d399" font-size="11">Expected Return</text>
+
+      <!-- Duration -->
+      <ellipse cx="430" cy="90" rx="68" ry="26" fill="#1a3a28"/>
+      <text x="430" y="86" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="bold">Duration (D)</text>
+      <text x="430" y="101" text-anchor="middle" fill="#6ee7b7" font-size="11">&amp; Modified Duration</text>
+
+      <!-- Convexity -->
+      <ellipse cx="430" cy="430" rx="68" ry="26" fill="#1a3a28"/>
+      <text x="430" y="426" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="bold">Convexity</text>
+      <text x="430" y="441" text-anchor="middle" fill="#6ee7b7" font-size="11">Price Curvature</text>
+
+      <!-- Market Efficiency -->
+      <ellipse cx="430" cy="160" rx="68" ry="26" fill="#2a1a0a"/>
+      <text x="430" y="156" text-anchor="middle" fill="#c9a84c" font-size="11" font-weight="bold">Market</text>
+      <text x="430" y="171" text-anchor="middle" fill="#c9a84c" font-size="11">Efficiency</text>
+
+      <!-- Interest Rates (Ch2 link) -->
+      <ellipse cx="250" cy="430" rx="68" ry="26" fill="#0a1a2a"/>
+      <text x="250" y="426" text-anchor="middle" fill="#818cf8" font-size="11" font-weight="bold">Interest Rates</text>
+      <text x="250" y="441" text-anchor="middle" fill="#818cf8" font-size="11">(from Ch. 2)</text>
+
+      <!-- TVM (Ch2 link) -->
+      <ellipse cx="610" cy="430" rx="68" ry="26" fill="#0a1a2a"/>
+      <text x="610" y="426" text-anchor="middle" fill="#818cf8" font-size="11" font-weight="bold">Time Value</text>
+      <text x="610" y="441" text-anchor="middle" fill="#818cf8" font-size="11">of Money (Ch. 2)</text>
+
+      <!-- Edges -->
+      <!-- Req rate → bond, equity valuation -->
+      <line x1="220" y1="335" x2="355" y2="268" stroke="#34d399" stroke-width="1.6" marker-end="url(#a1)"/>
+      <text x="270" y="308" fill="#34d399" font-size="9" text-anchor="middle">inputs to</text>
+
+      <line x1="640" y1="335" x2="505" y2="268" stroke="#34d399" stroke-width="1.6" marker-end="url(#a1)"/>
+
+      <!-- Bond, Equity → Valuation -->
+      <line x1="224" y1="168" x2="347" y2="236" stroke="#34d399" stroke-width="1.6" marker-end="url(#a1)"/>
+      <text x="270" y="196" fill="#34d399" font-size="9" text-anchor="middle">feeds into</text>
+
+      <line x1="636" y1="168" x2="513" y2="236" stroke="#34d399" stroke-width="1.6" marker-end="url(#a1)"/>
+
+      <!-- Duration → Valuation -->
+      <line x1="430" y1="116" x2="430" y2="214" stroke="#6ee7b7" stroke-width="1.6" marker-end="url(#a1)"/>
+      <text x="450" y="165" fill="#6ee7b7" font-size="9">measures sensitivity</text>
+
+      <!-- Convexity → Duration -->
+      <line x1="430" y1="404" x2="430" y2="286" stroke="#6ee7b7" stroke-width="1.6" marker-end="url(#a1)"/>
+      <text x="450" y="350" fill="#6ee7b7" font-size="9">refines</text>
+
+      <!-- Market Efficiency links r and E(r) -->
+      <line x1="362" y1="168" x2="224" y2="330" stroke="#c9a84c" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a2)"/>
+      <text x="270" y="248" fill="#c9a84c" font-size="9" text-anchor="middle">when efficient:</text>
+      <text x="270" y="260" fill="#c9a84c" font-size="9" text-anchor="middle">r ≈ E(r)</text>
+      <line x1="498" y1="168" x2="636" y2="330" stroke="#c9a84c" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a2)"/>
+
+      <!-- Ch.2 links -->
+      <line x1="315" y1="420" x2="355" y2="270" stroke="#818cf8" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a4)"/>
+      <text x="310" y="360" fill="#818cf8" font-size="9" text-anchor="middle">determines</text>
+
+      <line x1="545" y1="420" x2="510" y2="280" stroke="#818cf8" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a4)"/>
+      <text x="590" y="360" fill="#818cf8" font-size="9" text-anchor="middle">enables</text>
+
+      <!-- YTM applied to bond -->
+      <line x1="710" y1="312" x2="710" y2="188" stroke="#34d399" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a1)"/>
+      <text x="728" y="250" fill="#34d399" font-size="9">bond-specific</text>
+
+    </svg>
+  </div>
+
+  <div class="graph-legend">
+    <div class="legend-item"><div class="legend-line" style="background:#34d399;"></div> feeds into / inputs to</div>
+    <div class="legend-item"><div class="legend-line" style="background:#6ee7b7;"></div> measures / refines</div>
+    <div class="legend-item"><div class="legend-line" style="background:#c9a84c;"></div> links via market efficiency</div>
+    <div class="legend-item"><div class="legend-line" style="background:#818cf8;"></div> prerequisite from Chapter 2</div>
+  </div>
+
+  <div class="connection-cards">
+    <div class="connection-card">
+      <strong>Required Rate → Bond Price / Stock Price</strong>
+      The required rate of return (from Ch. 2's interest rate determinants) is the discount rate in all valuation formulas. Changing r_b or r_E directly changes the calculated fair price. This is why rate changes from loanable funds or Fed policy immediately affect all security prices.
+    </div>
+    <div class="connection-card">
+      <strong>Market Efficiency → r ≈ E(r)</strong>
+      In an efficient market, current price = fair PV, so required return = expected return. This is why YTM (the expected return derived from market price) should equal the required return. Temporary divergences create arbitrage opportunities that traders quickly eliminate.
+    </div>
+    <div class="connection-card">
+      <strong>Duration → Price Sensitivity → Risk Management</strong>
+      Duration is the bridge between interest rate changes (from loanable funds theory) and actual security price changes. Financial institutions use duration matching to immunize their portfolios against rate risk — a direct application of Ch. 2 and Ch. 3 combined.
+    </div>
+    <div class="connection-card">
+      <strong>Convexity → Refines Duration</strong>
+      Duration gives a linear price estimate; convexity adds the curved correction. Together they provide the full picture of how bond prices respond to rate changes. Convexity is why rate decreases produce proportionally larger price gains than rate increases produce losses.
+    </div>
+    <div class="connection-card">
+      <strong>TVM (Ch. 2) → Foundation of All Valuation</strong>
+      Every formula in Chapter 3 — bond pricing, DDM, duration — is TVM applied to specific cash flow structures. Bond pricing = PV of annuity + PV of lump sum. DDM = PV of growing perpetuity. Duration = time-weighted PV. Chapter 3 is TVM in action.
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION E ===== -->
+<section class="study-section" id="section-e">
+  <div class="section-header">
+    <div class="section-badge">E</div>
+    <div>
+      <div class="section-title">Chapter Exercises</div>
+      <div class="section-description">Work each problem before clicking Show Answer</div>
+    </div>
+  </div>
+
+  <!-- TIER 1 -->
+  <div class="exercise-tier tier-1">
+    <div class="tier-header"><span class="tier-badge">Tier 1</span><span class="tier-title">Recall &amp; Basic Calculation</span></div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🟢 Q1 · Basic</div>
+      <div class="exercise-q">What are the three types of interest rate measures? State which is ex ante and which is ex post, and define each briefly.</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p><strong>(1) Required Rate of Return (r)</strong> — Ex ante. The rate an investor SHOULD earn given a security's risk. Used to compute fair present value. From Chapter 2's interest rate determinants.<br>
+        <strong>(2) Expected Rate of Return E(r)</strong> — Ex ante. The rate an investor EXPECTS to earn by buying at current market price and holding. For bonds, this is the YTM. If markets are efficient, E(r) ≈ r.<br>
+        <strong>(3) Realized Rate of Return (r̄)</strong> — Ex post. The rate actually EARNED after the investment period. May differ from required return due to unexpected events.</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🟢 Q2 · Basic Calculation</div>
+      <div class="exercise-q">Price a bond: 6% annual coupon, $1,000 face value, 5-year maturity, required return = 8%. Is this a premium, par, or discount bond?</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p>Annual coupon INT = 0.06 × $1,000 = <strong>$60</strong></p>
+        <p>PV of coupons = 60 × [1−1/(1.08)⁵]/0.08 = 60 × 3.9927 = <strong>$239.56</strong></p>
+        <p>PV of face = 1,000/(1.08)⁵ = 1,000/1.4693 = <strong>$680.58</strong></p>
+        <p><strong>Bond Price = $239.56 + $680.58 = $920.15</strong></p>
+        <p>This is a <strong>DISCOUNT bond</strong> — coupon rate (6%) &lt; required rate (8%), so price &lt; $1,000. Calculator: N=5, I/Y=8, PMT=60, FV=1000 → CPT PV = -920.15</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🟢 Q3 · Basic</div>
+      <div class="exercise-q">A stock's required return is 12%, and it just paid a $3.00 dividend (Div₀). Dividends grow at a constant 4% per year. What is the stock's fair value today?</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p>Div₁ = $3.00 × (1.04) = <strong>$3.12</strong></p>
+        <p>P₀ = Div₁ / (r_E − g) = $3.12 / (0.12 − 0.04) = $3.12 / 0.08 = <strong>$39.00</strong></p>
+        <p>Check: Dividend yield = 3.12/39.00 = 8%; Capital gain rate = 4%; Total return = 12% ✓</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🟢 Q4 · Basic</div>
+      <div class="exercise-q">State the three features of duration: how does duration change with (a) coupon rate, (b) required rate of return, and (c) maturity?</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p>(a) <strong>Coupon rate ↑ → Duration ↓</strong>. Higher coupons return cash sooner, shifting PV weight toward near-term flows.<br>
+        (b) <strong>Required return ↑ → Duration ↓</strong>. Higher rates discount distant flows more heavily, reducing their weight in the duration calculation.<br>
+        (c) <strong>Maturity ↑ → Duration ↑</strong>, but at a decreasing rate. Duration grows with maturity but approaches an asymptote — each additional year adds less to duration than the previous year.</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🟢 Q5 · Basic</div>
+      <div class="exercise-q">A zero-coupon bond has a face value of $1,000, 4-year maturity, and is priced at $792.09. What is its YTM? What is its duration?</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p><strong>YTM:</strong> YTM = (1,000/792.09)^(1/4) − 1 = (1.2625)^(0.25) − 1 = 1.0600 − 1 = <strong>6.0%</strong></p>
+        <p>Calculator: N=4, PV=-792.09, FV=1000, PMT=0 → CPT I/Y = 6.0%</p>
+        <p><strong>Duration:</strong> For a zero-coupon bond, <strong>Duration = Maturity = 4 years</strong>. There is only one cash flow (the face value at maturity), so the weighted average time is simply 4 years. Zero-coupon bonds always have the highest duration of any bond with the same maturity.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER 2 -->
+  <div class="exercise-tier tier-2">
+    <div class="tier-header"><span class="tier-badge">Tier 2</span><span class="tier-title">Application — Multi-step calculations</span></div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🟡 Q6 · Intermediate Calculation</div>
+      <div class="exercise-q">A bond has a 9% coupon, $1,000 face value, 4-year maturity (annual payments), and currently sells for $950.76. Find its YTM. Is it a premium or discount bond?</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p>Annual coupon = 0.09 × $1,000 = $90. We need to find YTM such that:</p>
+        <p>950.76 = 90/YTM × [1−1/(1+YTM)⁴] + 1,000/(1+YTM)⁴</p>
+        <p><strong>Calculator: N=4, PV=−950.76, PMT=90, FV=1000 → CPT I/Y = 10.50%</strong></p>
+        <p>This is a <strong>DISCOUNT bond</strong>: market price ($950.76) &lt; face value ($1,000), which means YTM (10.5%) &gt; coupon rate (9%). The bond trades at a discount because investors require a higher return than the coupon offers.</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🟡 Q7 · Intermediate Calculation</div>
+      <div class="exercise-q">A stock currently pays no dividend but is expected to pay Div₃ = $2.50 starting year 3. After year 3, dividends grow at 6% per year forever. Required return = 11%. What is the stock price today?</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p><strong>Step 1:</strong> PV of Div₃ = 2.50/(1.11)³ = 2.50/1.3676 = <strong>$1.828</strong></p>
+        <p><strong>Step 2:</strong> Div₄ = 2.50 × 1.06 = $2.65. Terminal price at end of year 3: P₃ = 2.65/(0.11−0.06) = 2.65/0.05 = <strong>$53.00</strong>. PV(P₃) = 53.00/(1.11)³ = 53.00/1.3676 = <strong>$38.76</strong></p>
+        <p><strong>Step 3:</strong> P₀ = $1.828 + $38.76 = <strong>$40.59</strong></p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🟡 Q8 · Duration Calculation</div>
+      <div class="exercise-q">A bond has a 10% coupon, $1,000 face value, 2-year maturity (annual), and required return = 10% (so it prices at par). Calculate its duration. Then use modified duration to estimate the price change if rates rise by 50 basis points.</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p><strong>At par (r = 10%):</strong> Year 1 CF = $100, Year 2 CF = $1,100. Price = 100/1.10 + 1,100/1.10² = $90.91 + $909.09 = <strong>$1,000</strong></p>
+        <p><strong>Duration:</strong><br>
+        Year 1: weight = 90.91/1000 = 0.0909; contribution = 1 × 0.0909 = 0.0909<br>
+        Year 2: weight = 909.09/1000 = 0.9091; contribution = 2 × 0.9091 = 1.8182<br>
+        <strong>D = 0.0909 + 1.8182 = 1.909 years</strong></p>
+        <p><strong>Modified Duration:</strong> MD = 1.909/1.10 = <strong>1.736</strong></p>
+        <p><strong>Price change for Δr = +0.005 (50 bps):</strong><br>
+        ΔP/P ≈ −1.736 × 0.005 = −0.00868 = −<strong>0.868%</strong><br>
+        ΔP ≈ −$1,000 × 0.00868 = <strong>−$8.68</strong> → New estimated price ≈ $991.32</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🟡 Q9 · Intermediate</div>
+      <div class="exercise-q">A stock trades at $50. Next year's expected dividend is $2.50. The stock's required return is 10%. (a) What growth rate is implied? (b) What does this imply about the stock's expected capital gain rate?</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p>Using r_E = Div₁/P₀ + g:</p>
+        <p>0.10 = 2.50/50 + g<br>0.10 = 0.05 + g<br><strong>g = 5%</strong></p>
+        <p>(b) The implied capital gain rate = g = <strong>5%</strong>. In the Gordon Growth Model, the constant growth rate equals the expected annual price appreciation rate. If the stock is worth $50 today and g = 5%, next year's price should be P₁ = 50 × 1.05 = <strong>$52.50</strong>.</p>
+        <p>Verification: Dividend yield (5%) + Capital gain (5%) = 10% required return ✓</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🟡 Q10 · Intermediate</div>
+      <div class="exercise-q">Compare two bonds, both with $1,000 face value and 5-year maturity, both priced to yield 8%. Bond A has a 4% coupon; Bond B has a 12% coupon. Without calculating, state which has: (a) higher price, (b) higher duration, (c) more price sensitivity if rates change. Explain each.</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p>(a) <strong>Bond B (12% coupon) has higher price.</strong> Higher coupon → higher cash flows → higher PV. Bond A trades at a discount (coupon 4% &lt; yield 8%); Bond B trades at a premium (coupon 12% &gt; yield 8%).</p>
+        <p>(b) <strong>Bond A (4% coupon) has higher duration.</strong> Lower coupon → less cash returned early → cash flows are weighted further into the future → longer weighted-average life (duration). The extreme case is a zero-coupon bond: all weight is at year 5, giving duration = 5.</p>
+        <p>(c) <strong>Bond A is more price-sensitive.</strong> Higher duration → higher modified duration → larger percentage price change for any given rate change. Bond A's price swings more for the same rate movement. This is why low-coupon bonds are "riskier" in terms of interest rate risk.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER 3 -->
+  <div class="exercise-tier tier-3">
+    <div class="tier-header"><span class="tier-badge">Tier 3</span><span class="tier-title">Synthesis — Integration and critical analysis</span></div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🔴 Q11 · Advanced</div>
+      <div class="exercise-q">The Federal Reserve unexpectedly raises interest rates by 1%. Analyze the impact on: (a) a short-term (2-year) high-coupon bond, (b) a long-term (20-year) zero-coupon bond, (c) a stock with very high expected growth. Which loses the most value, and why?</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p>(a) <strong>2-year high-coupon bond:</strong> Short maturity + high coupon → low duration (perhaps 1.5–1.8 years). Modified duration ≈ 1.5. Price falls approximately 1.5%. Relatively modest impact because cash flows are near-term and high in size.</p>
+        <p>(b) <strong>20-year zero-coupon bond:</strong> Duration = maturity = 20 years. Modified duration ≈ 20/1.0x ≈ 19. Price falls approximately 19%. Catastrophic impact — all cash flow is 20 years away and is now discounted much more heavily. This is the most affected of the three by far.</p>
+        <p>(c) <strong>High-growth stock:</strong> In the DDM, P₀ = Div₁/(r_E − g). If r_E rises by 1% and g is fixed, the denominator (r_E − g) grows. For a stock with g = 9% and r_E = 10%, the price was 20× Div₁. After rate rise: r_E = 11%, price = Div₁/(0.11−0.09) = 50× Div₁. Wait — the denominator SHRANK from 1% to 2%! Price doubles. But this is a rate decrease example. A rate increase (r_E goes from 10% to 11%) with g = 9%: 10%−9%=1% denominator → 11%−9%=2% denominator. Price falls by 50%! High-growth stocks are enormously sensitive to rate changes because the (r_E − g) spread is tiny.</p>
+        <p><strong>Most affected overall:</strong> The 20-year zero-coupon bond (~19% loss) or high-growth stock (potentially 30–50% loss depending on g), with the short-term high-coupon bond barely moving (~1.5% loss).</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🔴 Q12 · Advanced</div>
+      <div class="exercise-q">Explain why convexity makes bonds more valuable, and why an investor should pay MORE (accept a lower yield) for a high-convexity bond versus a low-convexity bond of the same duration. Use the asymmetry of gains vs. losses to support your argument.</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p><strong>The asymmetry argument:</strong> Duration predicts equal price changes for equal rate changes in either direction. But convexity means the actual price curve bends away from this linear prediction — always favorably for the bondholder.</p>
+        <p>Concretely: If rates rise by 1%, a high-convexity bond loses LESS than duration predicts. If rates fall by 1%, a high-convexity bond GAINS MORE than duration predicts. This asymmetry — "less pain when rates rise, more gain when rates fall" — is pure value for the bondholder.</p>
+        <p><strong>Why pay more?</strong> Imagine two bonds with identical duration (same first-order rate sensitivity). The high-convexity bond outperforms in all interest rate scenarios — it falls less when rates rise and rises more when rates fall. This better performance has value, so rational investors bid its price up (accepting a lower yield) until the additional yield given up equals the value of the convexity advantage.</p>
+        <p><strong>Practical implication:</strong> Portfolio managers actively seek high-convexity bonds during periods of high rate volatility, as the asymmetric payoff is most valuable when large rate moves are likely. Zero-coupon bonds have high convexity for their maturity; callable bonds have negative convexity (the issuer's call option works against the bondholder) — callable bonds must compensate with higher yields.</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🔴 Q13 · Advanced</div>
+      <div class="exercise-q">A tech company currently pays no dividend. Analysts expect it to start paying dividends of $5.00 per share in year 5, growing at 20% for 2 more years (years 6–7), then settling at 4% forever. Required return = 12%. Find the current stock price. What does this tell you about how much of a growth stock's value comes from far-future cash flows?</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p><strong>Step 1: Dividends during high-growth period</strong><br>
+        Div₅ = $5.00, Div₆ = 5.00 × 1.20 = $6.00, Div₇ = 6.00 × 1.20 = $7.20</p>
+        <p>PV(Div₅) = 5.00/(1.12)⁵ = 5.00/1.7623 = <strong>$2.837</strong><br>
+        PV(Div₆) = 6.00/(1.12)⁶ = 6.00/1.9738 = <strong>$3.040</strong><br>
+        PV(Div₇) = 7.20/(1.12)⁷ = 7.20/2.2107 = <strong>$3.257</strong></p>
+        <p><strong>Step 2: Terminal value at year 7</strong><br>
+        Div₈ = 7.20 × 1.04 = $7.488<br>
+        P₇ = 7.488 / (0.12 − 0.04) = 7.488 / 0.08 = <strong>$93.60</strong><br>
+        PV(P₇) = 93.60/(1.12)⁷ = 93.60/2.2107 = <strong>$42.34</strong></p>
+        <p><strong>Step 3:</strong> P₀ = $2.837 + $3.040 + $3.257 + $42.34 = <strong>$51.47</strong></p>
+        <p><strong>Insight:</strong> The terminal value PV ($42.34) represents 82% of the total stock price ($51.47)! The first 7 years of dividends contribute only 18% of value. This illustrates why growth stocks are so sensitive to long-run assumptions — the vast majority of value comes from cash flows far in the future, which are highly sensitive to changes in r_E or g.</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🔴 Q14 · Advanced</div>
+      <div class="exercise-q">An FI manager holds a bond portfolio with modified duration of 8 years and total value of $50 million. She fears rates will rise by 1.5%. (a) What is the estimated dollar loss using duration? (b) Why will the actual loss be smaller than this estimate? (c) What could she do to reduce the portfolio's interest rate risk?</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p>(a) <strong>Duration-estimated loss:</strong><br>
+        ΔP/P ≈ −MD × Δr = −8 × 0.015 = −12%<br>
+        Dollar loss ≈ $50,000,000 × 0.12 = <strong>−$6,000,000</strong></p>
+        <p>(b) <strong>Why actual loss is smaller — convexity:</strong> Duration provides a linear (tangent line) approximation to the curved price-rate relationship. Because all bonds are convex, the actual price curve lies ABOVE the linear approximation when rates change. A 1.5% rate rise is a large move — convexity's correction is significant. The actual portfolio loss will be less than $6 million because the price-rate curve bends favorably for the holder. To get the precise estimate, add the convexity correction: ΔP/P ≈ −MD×Δr + ½×Convexity×(Δr)², where the convexity term is positive.</p>
+        <p>(c) <strong>Risk reduction strategies:</strong><br>
+        • <em>Shorten duration</em> — sell long-maturity, low-coupon bonds; buy short-maturity, high-coupon bonds. Reduces price sensitivity.<br>
+        • <em>Duration matching (immunization)</em> — match asset duration to liability duration so rate changes affect both sides equally.<br>
+        • <em>Interest rate derivatives</em> — use interest rate swaps (pay fixed, receive floating) or futures to hedge rate exposure without selling bonds.<br>
+        • <em>Increase convexity</em> — while protecting against rate increases, higher convexity provides a cushion if predictions are wrong.</p>
+      </div>
+    </div>
+
+    <div class="exercise-item">
+      <div class="exercise-q-num">🔴 Q15 · Advanced</div>
+      <div class="exercise-q">Market efficiency implies that r ≈ E(r). But occasionally, bonds or stocks appear mispriced. Describe (a) what it would mean for a bond's YTM to be greater than its required rate of return, (b) what would happen next in an efficient market, and (c) a real-world reason why mispricing can persist.</div>
+      <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer-panel"><div class="answer-label">Answer</div>
+        <p>(a) <strong>YTM &gt; required rate means the bond is UNDERPRICED.</strong> The current market price is below fair value. An investor buying at this price earns a return (YTM) that exceeds what is required to compensate for the bond's risk. This is a bargain — the bond offers more return than necessary for its risk level.</p>
+        <p>(b) <strong>What happens in an efficient market:</strong> Sophisticated investors spot the underpricing and buy the bond. This buying pressure drives the market price up, which reduces the YTM (lower price → higher yield, but wait — higher price → lower YTM). As price rises to fair value, YTM falls until YTM = required rate. The mispricing disappears rapidly — in liquid markets, within seconds to minutes. This is the self-correcting mechanism of market efficiency.</p>
+        <p>(c) <strong>Why mispricing can persist in the real world:</strong><br>
+        • <em>Illiquidity</em> — in thinly traded markets (certain corporate or municipal bonds), there may be no ready buyers even if the bond is underpriced. Trading costs may exceed the profit from exploiting the mispricing.<br>
+        • <em>Transaction costs</em> — commissions, bid-ask spreads, and taxes can make exploiting small mispricings unprofitable.<br>
+        • <em>Information asymmetry</em> — some investors may know the bond is risky for reasons not publicly available (e.g., inside knowledge of financial distress), so what appears mispriced is actually fair-priced for informed investors.<br>
+        • <em>Regulatory constraints</em> — some investors (pension funds, insurance companies) are restricted from buying certain securities regardless of valuation.<br>
+        • <em>Short-selling restrictions</em> — it's easier to exploit underpricing (buy the asset) than overpricing (requires short-selling, which has friction and risk).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION F ===== -->
+<section class="study-section" id="section-f">
+  <div class="section-header">
+    <div class="section-badge">F</div>
+    <div>
+      <div class="section-title">Quick-Reference Cheat Sheet</div>
+      <div class="section-description">Everything you need at a glance</div>
+    </div>
+  </div>
+
+  <div class="cs-card" style="margin-bottom:16px;">
+    <div class="cs-card-title">🔢 Complete Formula Reference</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.82rem;">
+      <div><div style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:0.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em;">Bond Price</div><code>P = INT×[1−1/(1+r)ᴺ]/r + M/(1+r)ᴺ</code></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:0.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em;">Zero-Coupon Price</div><code>P = M / (1+YTM)ⁿ</code></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:0.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em;">Zero-Coupon YTM</div><code>YTM = (M/P)^(1/n) − 1</code></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:0.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em;">Stock (Zero Growth)</div><code>P₀ = Div / r_E</code></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:0.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em;">Gordon Growth Model</div><code>P₀ = Div₁ / (r_E − g)</code></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:0.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em;">Required Return (Stock)</div><code>r_E = Div₁/P₀ + g</code></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:0.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em;">Duration</div><code>D = [Σ t×PV(CF_t)] / P</code></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:0.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em;">Modified Duration</div><code>MD = D / (1+r)</code></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:0.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em;">Price Change (Duration)</div><code>ΔP/P ≈ −MD × Δr</code></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:0.68rem;margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em;">Zero-Coupon Duration</div><code>D = n (equals maturity)</code></div>
+    </div>
+  </div>
+
+  <div class="cheatsheet-grid">
+    <div class="cs-card">
+      <div class="cs-card-title">📌 Premium / Discount / Par Rules</div>
+      <ul class="cs-list">
+        <li><span class="cs-term">Coupon &lt; r</span> Discount bond: P &lt; $1,000; YTM &gt; coupon rate</li>
+        <li><span class="cs-term">Coupon = r</span> Par bond: P = $1,000; YTM = coupon rate</li>
+        <li><span class="cs-term">Coupon &gt; r</span> Premium bond: P &gt; $1,000; YTM &lt; coupon rate</li>
+        <li><span class="cs-term">As matures</span> All bonds converge to par ($1,000) at maturity</li>
+      </ul>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-title">⚠️ Critical Pitfalls</div>
+      <ul class="cs-list">
+        <li><span class="cs-term">Pitfall 1</span> Gordon Model: g must be strictly less than r_E</li>
+        <li><span class="cs-term">Pitfall 2</span> Semiannual bonds: use r/2 and N×2, not r and N</li>
+        <li><span class="cs-term">Pitfall 3</span> Duration ≠ maturity (except for zero-coupon bonds)</li>
+        <li><span class="cs-term">Pitfall 4</span> Convexity always benefits the holder (actual &gt; duration estimate)</li>
+        <li><span class="cs-term">Pitfall 5</span> Div₁ (not Div₀) goes in numerator of Gordon Model</li>
+        <li><span class="cs-term">Pitfall 6</span> YTM assumes all coupons reinvested at YTM rate</li>
+      </ul>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-title">📊 Rate Measure Quick Reference</div>
+      <ul class="cs-list">
+        <li><span class="cs-term">r</span> Required rate: fair PV. Ex ante. From Ch. 2 risk premiums.</li>
+        <li><span class="cs-term">E(r)</span> Expected rate: implied by current price. Ex ante. = YTM for bonds.</li>
+        <li><span class="cs-term">r̄</span> Realized rate: what actually happened. Ex post.</li>
+        <li><span class="cs-term">If r = E(r)</span> Market is efficient. Price = fair value.</li>
+        <li><span class="cs-term">If r &lt; YTM</span> Bond underpriced → buy signal (in theory).</li>
+        <li><span class="cs-term">If r &gt; YTM</span> Bond overpriced → sell signal (in theory).</li>
+      </ul>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-title">🏆 Top 5 Exam Priorities</div>
+      <ol class="priority-list">
+        <li>Price a coupon bond given coupon rate, face value, maturity, and required return. Know the premium/discount rules cold.</li>
+        <li>Apply the Gordon Growth Model: P₀ = Div₁/(r_E − g). Know how to find P₀, r_E, or g when given the other two.</li>
+        <li>Explain duration and its three features (coupon ↑ → D ↓; rate ↑ → D ↓; maturity ↑ → D ↑). Know zero-coupon duration = maturity.</li>
+        <li>Use modified duration to estimate price change: ΔP/P ≈ −MD × Δr. Be able to calculate dollar loss given MD, portfolio value, and rate change.</li>
+        <li>Explain convexity: what it is, why it's desirable, and why duration overestimates losses (underestimates gains) for large rate changes.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+</div><!-- /content -->
+</main>
+
+<script>
+function toggleDark(){const h=document.documentElement,d=h.getAttribute('data-theme')==='dark';if(d){h.removeAttribute('data-theme');document.getElementById('dark-icon').textContent='🌙';document.getElementById('dark-label').textContent='Dark Mode';}else{h.setAttribute('data-theme','dark');document.getElementById('dark-icon').textContent='☀️';document.getElementById('dark-label').textContent='Light Mode';}}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+function toggleAnswer(btn){const p=btn.nextElementSibling,o=p.classList.contains('open');p.classList.toggle('open',!o);btn.classList.toggle('active',!o);btn.textContent=o?'Show Answer':'Hide Answer';}
+
+const cards=[
+  {q:"What are the three interest rate measures in Chapter 3?",a:"(1) Required Rate of Return (r) — ex ante, fair PV discount rate; (2) Expected Rate of Return E(r) — ex ante, return implied by current market price; (3) Realized Rate of Return (r̄) — ex post, what actually happened. In efficient markets, r ≈ E(r).",diff:"basic"},
+  {q:"What is Yield to Maturity (YTM) and what assumptions does it require?",a:"YTM is the single discount rate equating PV of all promised cash flows to current market price. Assumptions: (1) held to maturity, (2) all coupons reinvested at the YTM rate, (3) no default. It equals E(r) for bonds.",diff:"intermediate"},
+  {q:"Bond with 5% coupon, 8% required return. Premium, discount, or par?",a:"DISCOUNT bond. Coupon rate (5%) < required rate (8%) → price < $1,000. YTM = 8% > coupon rate = 5%. Investors demand more than the coupon offers, so the price drops until the total return (coupon + price appreciation) equals 8%.",diff:"basic"},
+  {q:"What is the bond price formula?",a:"P = INT × [1 − 1/(1+r_b)ᴺ]/r_b + M/(1+r_b)ᴺ. First term = PV of annuity of coupons. Second term = PV of face value lump sum. Both discounted at required rate r_b.",diff:"intermediate"},
+  {q:"Price a zero-coupon bond: face value $1,000, maturity 5 years, YTM = 7%.",a:"P = 1,000/(1.07)⁵ = 1,000/1.4026 = $712.99. Zero-coupon bonds always trade at a discount — no interim coupons, so entire return comes from price appreciation to face value at maturity.",diff:"basic"},
+  {q:"State the Gordon Growth Model formula and all its conditions.",a:"P₀ = Div₁/(r_E − g). Conditions: (1) dividends grow at constant rate g forever; (2) g must be strictly less than r_E; (3) Div₁ is next period's dividend (= Div₀ × (1+g)). Rearranged: r_E = Div₁/P₀ + g = dividend yield + capital gain rate.",diff:"intermediate"},
+  {q:"A stock trades at $60, Div₁ = $3, growth rate = 5%. What is the required return?",a:"r_E = Div₁/P₀ + g = 3/60 + 0.05 = 0.05 + 0.05 = 10%. Dividend yield = 5%, capital gain rate = 5%, total required return = 10%.",diff:"basic"},
+  {q:"Describe the 3-step process for valuing a stock with supernormal dividend growth.",a:"Step 1: Find PV of each dividend during the high-growth period individually. Step 2: Find the stock price at the END of the high-growth period using Gordon Growth Model (with stable g), then discount it back. Step 3: Add the two PVs from Steps 1 and 2 to get P₀.",diff:"intermediate"},
+  {q:"What is duration? Give both interpretations.",a:"Duration is (1) the weighted-average time to maturity of a bond, using PV shares of cash flows as weights; and (2) a direct measure of price sensitivity — the elasticity of bond price to small interest rate changes. MD = D/(1+r); ΔP/P ≈ −MD × Δr.",diff:"intermediate"},
+  {q:"What is the duration of a zero-coupon bond?",a:"Duration of a zero-coupon bond = its maturity. Since there is only one cash flow (face value at maturity), 100% of the PV weight falls at maturity date. Zero-coupon bonds have the highest duration of any bond with a given maturity.",diff:"basic"},
+  {q:"State the three features of duration (coupon, rate, maturity effects).",a:"(1) Higher coupon → shorter duration (more early cash flows, weighted sooner); (2) Higher required return → shorter duration (distant flows discounted more, less weight); (3) Longer maturity → longer duration, but at a decreasing rate (asymptotes toward a ceiling).",diff:"intermediate"},
+  {q:"A bond has modified duration of 6. Rates rise by 0.5%. Estimate the price change.",a:"ΔP/P ≈ −MD × Δr = −6 × 0.005 = −3.0%. A bond with MD=6 falls approximately 3% in price for a 50 basis point rise in rates. Note: actual loss is slightly less than 3% due to convexity (actual price is above the linear duration approximation).",diff:"intermediate"},
+  {q:"What is convexity? Why is it always desirable for a bondholder?",a:"Convexity is the degree of curvature in the price-rate relationship. It's desirable because: (1) when rates RISE, actual price loss is LESS than duration predicts; (2) when rates FALL, actual price gain is MORE than duration predicts. The bond always does better than the linear (duration) approximation — convexity creates a permanent positive bias for the holder.",diff:"intermediate"},
+  {q:"When does duration accurately predict price changes? When does convexity matter more?",a:"Duration is accurate for SMALL rate changes (a few basis points). A basis point = 0.01%. For LARGE rate changes (1% or more), the convexity correction becomes significant. The larger the rate change and the higher the convexity, the greater the error from using duration alone.",diff:"intermediate"},
+  {q:"What is market efficiency and how does it relate to r vs. E(r)?",a:"Market efficiency is the speed with which prices adjust to new information to maintain equality with fair present value. In an efficient market, current price ≈ fair PV, so E(r) ≈ r. When unexpected events cause divergence, traders quickly exploit the mispricing, restoring equality.",diff:"intermediate"},
+  {q:"A bond's coupon rate is 10% and required return is 10%. What is its price?",a:"$1,000 (par). When coupon rate = required rate, the bond trades at exactly its face value. The coupon fully compensates investors for the required return, so no price premium or discount is needed.",diff:"basic"},
+  {q:"All else equal: which bond has higher duration — a 10% or a 5% coupon bond (same maturity, same required return)?",a:"The 5% coupon bond has higher duration. Lower coupon → less cash returned early → PV weight concentrated further in the future → longer weighted-average life. The 10% coupon bond's early, larger payments pull the balance point forward (shorter duration).",diff:"intermediate"},
+  {q:"In the dividend discount model, a stock pays no dividends today. Does it have zero value?",a:"No! Even if no dividends are paid today, the stock has value if dividends are EXPECTED in the future. The stock price today = PV of ALL future dividends. Many high-growth companies (Amazon held for years, Berkshire Hathaway) pay no dividends but have high value because investors expect eventual large payouts or believe in terminal value.",diff:"intermediate"},
+  {q:"What is the coupon payment formula, and how does it change for semiannual bonds?",a:"Annual: INT = Coupon Rate × Face Value. Semiannual: CPN = (Coupon Rate × Face Value) / 2. For semiannual pricing: use r_b/2 as period rate and 2N as number of periods. Example: 8% annual coupon on $1,000 = $80/year = $40 per half-year.",diff:"basic"},
+  {q:"Bond A: 2-year maturity, 8% coupon. Bond B: 15-year maturity, 8% coupon. Same required return. Which is more sensitive to a 1% rate change?",a:"Bond B (15-year) is far more sensitive. Longer maturity → higher duration → greater modified duration → larger percentage price change for same rate change. The 2-year bond barely moves; the 15-year bond can change by 8–10%+ for a 1% rate shift.",diff:"intermediate"},
+  {q:"A firm has constant dividends of $4/share and required return of 8%. Stock price?",a:"P₀ = Div/r_E = 4/0.08 = $50. This is the zero-growth DDM (perpetuity formula). The stock pays $4/year forever; at 8% discount rate, it's worth $50 today.",diff:"basic"},
+  {q:"Define: realized rate of return. How can r̄ differ from r?",a:"Realized rate of return (r̄) is the actual return earned AFTER the investment. It can differ from required return (r) due to: unexpected interest rate changes (affect price), unexpected dividend changes, reinvestment at rates different from YTM, or credit events (default, rating upgrades). If r̄ > r, the investor exceeded expectations; if r̄ < r, they fell short.",diff:"intermediate"},
+  {q:"Why do bonds pull toward par as maturity approaches?",a:"As time to maturity shrinks, the present value of the face value (which is always $1,000) grows larger relative to the declining coupon stream. Ultimately, at maturity, the only cash flow is the face value — so the price must equal $1,000. This 'pull to par' effect means premium bonds decline in price over time and discount bonds rise, all else equal.",diff:"advanced"},
+  {q:"A bond portfolio has MD = 10 and value = $100M. What dollar loss from a 2% rate rise?",a:"ΔP/P ≈ −MD × Δr = −10 × 0.02 = −20%. Dollar loss ≈ $100M × 0.20 = $20M. However, due to convexity, the actual loss will be LESS than $20M. The convexity correction ½×C×(0.02)² is positive and reduces the estimated loss. For precise calculation, you'd need the portfolio's convexity.",diff:"advanced"},
+  {q:"Why is the Gordon Growth Model particularly sensitive to small changes in g?",a:"P₀ = Div₁/(r_E − g). The denominator (r_E − g) is called the 'spread.' When g is close to r_E, the spread is tiny — small changes in g dramatically change the denominator and thus price. Example: r_E=10%, g=9%: spread=1%, P₀=100×Div₁. Change g to 8%: spread=2%, P₀=50×Div₁. Half the price from a 1% change in g!",diff:"advanced"},
+  {q:"What is a basis point? Why does it matter for duration?",a:"One basis point (bp) = 0.01% = 0.0001 in decimal. Duration is most accurate for 'small' rate changes, defined as movements of a few basis points. For changes of 100+ bps (1%+), convexity correction becomes important. Traders quote rate changes in basis points to avoid confusion (a 25 bp Fed hike = 0.25% rate increase).",diff:"basic"}
+];
+
+let idx=0,order=[...Array(cards.length).keys()];
+function renderCard(){
+  const c=cards[order[idx]];
+  document.getElementById('fc-question').textContent=c.q;
+  document.getElementById('fc-answer').textContent=c.a;
+  const el=document.getElementById('fc-difficulty');
+  const m={basic:['🟢 Basic','diff-basic'],intermediate:['🟡 Intermediate','diff-intermediate'],advanced:['🔴 Advanced','diff-advanced']};
+  el.textContent=m[c.diff][0];el.className='difficulty-badge '+m[c.diff][1];
+  document.getElementById('fc-counter').textContent=`Card ${idx+1} of ${cards.length}`;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+function flipCard(){document.getElementById('flashcard').classList.toggle('flipped');}
+function nextCard(){idx=(idx+1)%cards.length;renderCard();}
+function prevCard(){idx=(idx-1+cards.length)%cards.length;renderCard();}
+function shuffleCards(){for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}idx=0;renderCard();}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextCard();if(e.key==='ArrowLeft')prevCard();if(e.key===' '){e.preventDefault();flipCard();}});
+renderCard();
+</script>
+</body>
+</html>

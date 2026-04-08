@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Notes Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0d1b2a;
+      --navy-light: #1b2e45;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --cream: #faf7f0;
+      --text-dark: #1a1a2e;
+      --text-body: #2d3748;
+      --text-muted: #718096;
+      --border: rgba(201, 168, 76, 0.2);
+      --shadow: 0 4px 24px rgba(13, 27, 42, 0.08);
+      --radius: 12px;
+      --transition: 0.22s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text-body);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ========== HEADER ========== */
+    header {
+      background: var(--navy);
+      padding: 40px 20px 80px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 500px;
+      margin: 0 auto 40px;
+    }
+
+    /* ========== SEARCH ========== */
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #search-input {
+      width: 100%;
+      padding: 16px 24px;
+      padding-left: 52px;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 1.05rem;
+      outline: none;
+      transition: all var(--transition);
+      backdrop-filter: blur(8px);
+    }
+
+    #search-input:focus {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+
+    #search-results {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0; right: 0;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      max-height: 400px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .result-item {
+      padding: 14px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s ease;
+    }
+
+    .result-item:last-child { border-bottom: none; }
+    .result-item:hover { background: #f9f9f9; }
+
+    .result-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .result-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+    }
+
+    /* ========== MAIN CONTENT ========== */
+    main {
+      max-width: 1100px;
+      margin: -40px auto 80px;
+      padding: 0 20px;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .course-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid #f0f0f0;
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(13, 27, 42, 0.12);
+      border-color: var(--border);
+    }
+
+    .course-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .course-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .course-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .chapter-list {
+      list-style: none;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 16px;
+    }
+
+    .chapter-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      color: var(--navy-light);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.15s ease;
+    }
+
+    .chapter-link:hover {
+      color: var(--gold);
+    }
+
+    .chapter-icon {
+      font-size: 1rem;
+      opacity: 0.6;
+    }
+
+    .coming-soon {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status-tag {
+      font-size: 0.65rem;
+      background: #f0f0f0;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: var(--text-muted);
+      margin-left: 8px;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      .header-content { padding-top: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <div class="logo">Academic Repository</div>
+      <h1>Course Notes Library</h1>
+      <p class="subtitle">A centralized hub for clear and rigorous academic materials.</p>
+
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search keywords, chapters, or concepts..." autocomplete="off">
+        <div id="search-results"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="course-grid">
+      <!-- FINANCIAL MARKET -->
+      <div class="course-card">
+        <div class="course-badge">Finance & Economics</div>
+        <h2 class="course-title">Financial Markets & Institutions</h2>
+        <p class="course-desc">Comprehensive study guides covering market structures, interest rates, and financial systems.</p>
+        <ul class="chapter-list">
+          <li><a href="notes/financial-market/ch01.html" class="chapter-link"><span class="chapter-icon">📄</span> Ch 1: Intro to Financial Markets</a></li>
+          <li><a href="notes/financial-market/ch02.html" class="chapter-link"><span class="chapter-icon">📄</span> Ch 2: Determinants of Interest Rates</a></li>
+          <li><a href="#" class="chapter-link coming-soon"><span class="chapter-icon">📄</span> Ch 3: Interest Rates & Money Markets <span class="status-tag">Coming Soon</span></a></li>
+        </ul>
+      </div>
+
+      <!-- CALCULUS 113-1 -->
+      <div class="course-card">
+        <div class="course-badge">Mathematics</div>
+        <h2 class="course-title">113-1 Calculus</h2>
+        <p class="course-desc">Foundational calculus for science and engineering students. Limits, derivatives, and integrals.</p>
+        <ul class="chapter-list">
+          <li><a href="#" class="chapter-link coming-soon"><span class="chapter-icon">📄</span> Library under construction <span class="status-tag">Coming Soon</span></a></li>
+        </ul>
+      </div>
+
+      <!-- CALCULUS 113-2 -->
+      <div class="course-card">
+        <div class="course-badge">Mathematics</div>
+        <h2 class="course-title">113-2 Calculus</h2>
+        <p class="course-desc">Advanced techniques of integration, sequences, and multivariable calculus.</p>
+        <ul class="chapter-list">
+          <li><a href="#" class="chapter-link coming-soon"><span class="chapter-icon">📄</span> Library under construction <span class="status-tag">Coming Soon</span></a></li>
+        </ul>
+      </div>
+
+      <!-- STATISTICS -->
+      <div class="course-card">
+        <div class="course-badge">Data Science</div>
+        <h2 class="course-title">Statistical (I)</h2>
+        <p class="course-desc">Probability distributions, statistical inference, and hypothesis testing.</p>
+        <ul class="chapter-list">
+          <li><a href="#" class="chapter-link coming-soon"><span class="chapter-icon">📄</span> Library under construction <span class="status-tag">Coming Soon</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 Course Notes Library &middot; Designed for Academic Rigor
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+  <script>
+    // Search Data Index
+    const searchData = [
+      {
+        title: "Introduction to Financial Markets & Institutions",
+        subtitle: "Chapter 1 · Financial Markets",
+        url: "notes/financial-market/ch01.html",
+        keywords: "primary secondary money capital forex derivatives fintech globalization volcker rule"
+      },
+      {
+        title: "Determinants of Interest Rates",
+        subtitle: "Chapter 2 · Financial Markets",
+        url: "notes/financial-market/ch02.html",
+        keywords: "loanable funds fisher effect risk premiums yield curve tvm present value"
+      },
+      {
+        title: "Primary vs. Secondary Markets",
+        subtitle: "Chapter 1 · Financial Markets",
+        url: "notes/financial-market/ch01.html#primary-secondary",
+        keywords: "new securities ipo liquidity price information"
+      },
+      {
+        title: "The Fisher Effect",
+        subtitle: "Chapter 2 · Financial Markets",
+        url: "notes/financial-market/ch02.html#fisher-effect",
+        keywords: "nominal real interest rate inflation premium"
+      },
+      {
+        title: "Yield Curve Theories",
+        subtitle: "Chapter 2 · Financial Markets",
+        url: "notes/financial-market/ch02.html#term-structure",
+        keywords: "unbiased expectations liquidity premium market segmentation"
+      }
+    ];
+
+    const fuse = new Fuse(searchData, {
+      keys: ['title', 'keywords', 'subtitle'],
+      threshold: 0.3,
+      includeMatches: true
+    });
+
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('search-results');
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value;
+      if (query.length < 2) {
+        resultsContainer.style.display = 'none';
+        return;
+      }
+
+      const results = fuse.search(query);
+      if (results.length > 0) {
+        resultsContainer.innerHTML = results.map(res => `
+          <a href="${res.item.url}" class="result-item">
+            <div class="result-title">${res.item.title}</div>
+            <div class="result-meta">${res.item.subtitle}</div>
+          </a>
+        `).join('');
+        resultsContainer.style.display = 'block';
+      } else {
+        resultsContainer.innerHTML = '<div class="result-item">No matches found.</div>';
+        resultsContainer.style.display = 'block';
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
+        resultsContainer.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 1: Introduction to Financial Markets — Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ========== DESIGN SYSTEM ========== */
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1b2e45;
+  --navy-light: #243b55;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-pale: #f5e9c8;
+  --cream: #faf7f0;
+  --cream-dark: #f0ead8;
+  --text-dark: #1a1a2e;
+  --text-body: #2d3748;
+  --text-muted: #718096;
+  --green: #276749;
+  --green-light: #e6f4ed;
+  --amber: #b7791f;
+  --amber-light: #fefce8;
+  --red: #9b2335;
+  --red-light: #fff1f2;
+  --blue-accent: #2b6cb0;
+  --blue-light: #ebf4ff;
+  --sidebar-width: 270px;
+  --border: rgba(201, 168, 76, 0.25);
+  --shadow: 0 4px 24px rgba(13, 27, 42, 0.08);
+  --shadow-strong: 0 8px 40px rgba(13, 27, 42, 0.15);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --transition: 0.22s ease;
+}
+
+[data-theme="dark"] {
+  --cream: #111827;
+  --cream-dark: #1f2937;
+  --text-dark: #f0e6d3;
+  --text-body: #d1c9b8;
+  --text-muted: #9ca3af;
+  --border: rgba(201, 168, 76, 0.18);
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --green-light: #1a3329;
+  --amber-light: #2d2008;
+  --red-light: #2d0e14;
+  --blue-light: #0f1f35;
+  --gold-pale: #2a2010;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--text-body);
+  line-height: 1.75;
+  display: flex;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  background: var(--navy);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition);
+}
+
+.sidebar-header {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+
+.sidebar-course {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.sidebar-title {
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.sidebar-chapter {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 4px;
+}
+
+nav { padding: 16px 0; flex: 1; }
+
+.nav-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  padding: 12px 24px 6px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 24px;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 400;
+  transition: all var(--transition);
+  border-left: 3px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--gold-light);
+  background: rgba(201,168,76,0.08);
+  border-left-color: var(--gold);
+}
+
+.nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+.sidebar-footer {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.dark-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 8px 14px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.8rem;
+  width: 100%;
+  transition: all var(--transition);
+}
+
+.dark-toggle:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* ========== MAIN CONTENT ========== */
+.main {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  min-width: 0;
+}
+
+.page-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #1e3a5f 100%);
+  padding: 56px 60px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.page-hero::after {
+  content: '"';
+  position: absolute;
+  bottom: -20px; right: 60px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18rem;
+  color: rgba(201,168,76,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 5px 12px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  max-width: 600px;
+}
+
+.hero-subtitle {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.95rem;
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 16px;
+  border-radius: 6px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.82rem;
+}
+
+.hero-stat-icon { color: var(--gold); }
+
+/* ========== CONTENT AREA ========== */
+.content { padding: 48px 60px 80px; max-width: 960px; }
+
+/* ========== SECTION WRAPPER ========== */
+.study-section {
+  margin-bottom: 72px;
+  scroll-margin-top: 24px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--navy);
+  border-radius: 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+.section-description {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ========== TYPOGRAPHY ========== */
+h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--text-dark); }
+
+h2 { font-size: 1.45rem; margin: 36px 0 14px; }
+h3 { font-size: 1.15rem; margin: 26px 0 10px; color: var(--navy-light); }
+[data-theme="dark"] h3 { color: var(--gold-light); }
+
+h4 { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.06em; margin: 20px 0 8px; color: var(--text-muted); }
+
+p { margin-bottom: 1.1em; }
+
+strong { color: var(--text-dark); font-weight: 600; }
+[data-theme="dark"] strong { color: var(--gold-light); }
+
+em { color: var(--amber); font-style: italic; }
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82em;
+  background: var(--cream-dark);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--navy);
+}
+[data-theme="dark"] code { background: rgba(255,255,255,0.1); color: var(--gold-light); }
+
+blockquote {
+  border-left: 3px solid var(--gold);
+  background: var(--gold-pale);
+  padding: 14px 20px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 20px 0;
+  font-style: italic;
+  color: var(--text-body);
+}
+
+/* ========== CALLOUT BOXES ========== */
+.callout {
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  margin: 18px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.callout-icon { font-size: 1.1rem; margin-top: 1px; flex-shrink: 0; }
+.callout-body strong { display: block; margin-bottom: 4px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+.callout-note { background: var(--blue-light); border: 1px solid rgba(43,108,176,0.2); color: var(--text-body); }
+.callout-note .callout-icon { color: var(--blue-accent); }
+.callout-note strong { color: var(--blue-accent); }
+
+.callout-warn { background: var(--amber-light); border: 1px solid rgba(183,121,31,0.25); color: var(--text-body); }
+.callout-warn .callout-icon { color: var(--amber); }
+.callout-warn strong { color: var(--amber); }
+
+.callout-link { background: var(--green-light); border: 1px solid rgba(39,103,73,0.2); color: var(--text-body); }
+.callout-link .callout-icon { color: var(--green); }
+.callout-link strong { color: var(--green); }
+
+/* ========== CONCEPT CARDS ========== */
+.concept-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.concept-card {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.concept-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+.concept-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.concept-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.concept-card p { font-size: 0.88rem; margin: 0; }
+
+/* ========== COMPARISON TABLE ========== */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.88rem;
+}
+
+.compare-table th {
+  background: var(--navy);
+  color: var(--gold-light);
+  font-family: 'Playfair Display', serif;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.compare-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.compare-table tr:nth-child(even) td { background: var(--cream-dark); }
+
+.compare-table tr:hover td { background: var(--gold-pale); }
+
+/* ========== FLASHCARDS ========== */
+.flashcard-deck {
+  position: relative;
+  margin: 24px 0;
+}
+
+.flashcard-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.fc-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.fc-buttons { display: flex; gap: 10px; }
+
+.btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.btn-primary { background: var(--navy); color: var(--gold); }
+.btn-primary:hover { background: var(--navy-light); }
+.btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text-body); }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+.flashcard {
+  perspective: 1000px;
+  height: 220px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.flashcard-front {
+  background: var(--navy);
+  border: 1px solid rgba(201,168,76,0.3);
+}
+
+.flashcard-back {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  transform: rotateY(180deg);
+}
+
+.fc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.flashcard-front .fc-label { color: var(--gold); }
+.flashcard-back .fc-label { color: var(--text-muted); }
+
+.fc-question {
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.fc-answer {
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.fc-hint {
+  position: absolute;
+  bottom: 14px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+}
+
+.flashcard-back .fc-hint { color: var(--text-muted); }
+
+.difficulty-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.diff-basic { background: var(--green-light); color: var(--green); }
+.diff-intermediate { background: var(--amber-light); color: var(--amber); }
+.diff-advanced { background: var(--red-light); color: var(--red); }
+
+.flashcard-grid { display: none; }
+
+/* ========== FEYNMAN ========== */
+.feynman-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.feynman-header {
+  background: var(--navy);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.feynman-num {
+  width: 32px; height: 32px;
+  background: var(--gold);
+  color: var(--navy);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.feynman-concept-title {
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.feynman-body { padding: 24px; }
+
+.feynman-section { margin-bottom: 20px; }
+
+.feynman-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feynman-section-label::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: var(--border);
+}
+
+.feynman-section p { font-size: 0.92rem; margin: 0; line-height: 1.7; }
+
+/* ========== KNOWLEDGE GRAPH ========== */
+.graph-container {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 30px 20px;
+  margin: 20px 0;
+  overflow: auto;
+}
+
+svg text { font-family: 'Source Sans 3', sans-serif; }
+
+.graph-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 14px 20px;
+  background: var(--cream-dark);
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+}
+
+.legend-item { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
+.legend-line { width: 24px; height: 2px; border-radius: 2px; }
+
+.connection-cards { margin-top: 24px; display: grid; gap: 14px; }
+
+.connection-card {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-size: 0.88rem;
+}
+
+.connection-card strong { color: var(--navy); display: block; margin-bottom: 4px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; }
+[data-theme="dark"] .connection-card strong { color: var(--gold-light); }
+
+/* ========== EXERCISES ========== */
+.exercise-tier {
+  margin-bottom: 36px;
+}
+
+.tier-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tier-badge {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.tier-1 .tier-badge { background: var(--green-light); color: var(--green); }
+.tier-2 .tier-badge { background: var(--amber-light); color: var(--amber); }
+.tier-3 .tier-badge { background: var(--red-light); color: var(--red); }
+
+.tier-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+}
+
+.exercise-item {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 12px;
+}
+
+.exercise-q {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.exercise-q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--gold);
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+}
+
+.show-answer-btn {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: 'Source Sans 3', sans-serif;
+  transition: all var(--transition);
+}
+
+.show-answer-btn:hover { border-color: var(--gold); color: var(--gold); }
+.show-answer-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+
+.answer-panel {
+  display: none;
+  margin-top: 14px;
+  padding: 14px 18px;
+  background: var(--gold-pale);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-body);
+  border-left: 3px solid var(--gold);
+}
+
+.answer-panel.open { display: block; }
+
+.answer-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* ========== CHEAT SHEET ========== */
+.cheatsheet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.cs-card {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.cs-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cs-list { list-style: none; }
+
+.cs-list li {
+  font-size: 0.83rem;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--border);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  line-height: 1.4;
+}
+
+.cs-list li:last-child { border-bottom: none; }
+
+.cs-term {
+  font-weight: 600;
+  color: var(--navy);
+  min-width: 90px;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+[data-theme="dark"] .cs-term { color: var(--gold-light); }
+
+.priority-list {
+  counter-reset: priority;
+  list-style: none;
+}
+
+.priority-list li {
+  counter-increment: priority;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.priority-list li::before {
+  content: counter(priority);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  background: var(--gold);
+  color: var(--navy);
+  border-radius: 50%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ========== TIMELINE ========== */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+  margin: 20px 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -28px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--cream);
+}
+
+.timeline-item p { font-size: 0.88rem; margin: 0; }
+.timeline-item strong { display: block; margin-bottom: 4px; }
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.25); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,0.5); }
+
+/* ========== MOBILE TOGGLE ========== */
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 16px; left: 16px;
+  z-index: 200;
+  background: var(--navy);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold);
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== PRINT ========== */
+@media print {
+  .sidebar, .mobile-menu-btn, .dark-toggle, .show-answer-btn, .fc-buttons { display: none !important; }
+  .main { margin-left: 0; }
+  .content { padding: 20px; }
+  .flashcard-front, .flashcard-back { position: relative; transform: none; backface-visibility: visible; page-break-inside: avoid; }
+  .flashcard-inner { transform: none !important; height: auto; }
+  .flashcard { height: auto; perspective: none; }
+  .answer-panel { display: block !important; }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .mobile-menu-btn { display: flex; }
+  .page-hero { padding: 60px 24px 40px; }
+  .content { padding: 32px 24px 60px; }
+  .concept-grid, .cheatsheet-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== DIVIDERS ========== */
+.ornament {
+  text-align: center;
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.5em;
+  margin: 28px 0;
+  opacity: 0.5;
+}
+
+.market-type-tag {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--gold-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin: 2px;
+  letter-spacing: 0.05em;
+}
+
+.flow-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  background: var(--cream-dark);
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.flow-box {
+  background: var(--navy);
+  color: var(--gold-light);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  text-align: center;
+  font-weight: 600;
+  min-width: 110px;
+}
+
+.flow-arrow {
+  padding: 0 8px;
+  color: var(--gold);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.flow-label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.06em;
+}
+
+.flow-col { display: flex; flex-direction: column; align-items: center; }
+</style>
+</head>
+<body>
+
+<!-- Mobile toggle -->
+<button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Toggle menu">☰</button>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-course">Financial Markets</div>
+    <div class="sidebar-title">Introduction to Financial Markets</div>
+    <div class="sidebar-chapter">Chapter 1 · Study Guide</div>
+  </div>
+  <nav>
+    <a href="../../index.html" class="nav-link" style="border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 8px; color: var(--gold); font-weight: 600;"><span class="nav-icon">🏠</span> Back to Library</a>
+    <div class="nav-section-label">Sections</div>
+    <a href="#section-a" class="nav-link active"><span class="nav-icon">📖</span> A · Chapter Summary</a>
+    <a href="#section-b" class="nav-link"><span class="nav-icon">🃏</span> B · Flashcards</a>
+    <a href="#section-c" class="nav-link"><span class="nav-icon">🧠</span> C · Feynman Explanations</a>
+    <a href="#section-d" class="nav-link"><span class="nav-icon">🔗</span> D · Knowledge Graph</a>
+    <a href="#section-e" class="nav-link"><span class="nav-icon">✏️</span> E · Exercises</a>
+    <a href="#section-f" class="nav-link"><span class="nav-icon">⚡</span> F · Cheat Sheet</a>
+    <div class="nav-section-label" style="margin-top:12px;">Topics</div>
+    <a href="#primary-secondary" class="nav-link"><span class="nav-icon">↔</span> Primary vs Secondary</a>
+    <a href="#money-capital" class="nav-link"><span class="nav-icon">💰</span> Money vs Capital</a>
+    <a href="#forex" class="nav-link"><span class="nav-icon">🌐</span> Foreign Exchange</a>
+    <a href="#derivatives" class="nav-link"><span class="nav-icon">📊</span> Derivatives</a>
+    <a href="#flow-funds" class="nav-link"><span class="nav-icon">🔄</span> Flow of Funds</a>
+    <a href="#fintech" class="nav-link"><span class="nav-icon">💻</span> Fintech</a>
+    <a href="#globalization" class="nav-link"><span class="nav-icon">🌍</span> Globalization</a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="dark-toggle" onclick="toggleDark()">
+      <span id="dark-icon">🌙</span>
+      <span id="dark-label">Dark Mode</span>
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="hero-badge">Chapter 1 · Study Guide</div>
+    <h1 class="hero-title">Introduction to Financial Markets &amp; Institutions</h1>
+    <p class="hero-subtitle">A complete active-learning guide covering every major topic from your lecture slides — enriched with context, examples, and exam-ready exercises.</p>
+    <div class="hero-meta">
+      <div class="hero-stat"><span class="hero-stat-icon">📄</span> 17 lecture slides covered</div>
+      <div class="hero-stat"><span class="hero-stat-icon">🃏</span> 22 flashcards</div>
+      <div class="hero-stat"><span class="hero-stat-icon">✏️</span> 15 exercises</div>
+      <div class="hero-stat"><span class="hero-stat-icon">🧠</span> 4 Feynman explanations</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ====================== SECTION A ====================== -->
+    <section class="study-section" id="section-a">
+      <div class="section-header">
+        <div class="section-badge">A</div>
+        <div>
+          <div class="section-title">Chapter Summary</div>
+          <div class="section-description">Comprehensive reference — read this first, everything else reinforces it</div>
+        </div>
+      </div>
+
+      <h2>Why Financial Markets Matter</h2>
+
+      <p>Financial markets are the circulatory system of a modern economy. Just as blood carries oxygen and nutrients to every cell in your body, financial markets carry capital — money and investment — to every corner of economic activity. Without functioning financial markets, businesses couldn't grow, governments couldn't finance infrastructure, and individuals couldn't save for retirement or buy homes.</p>
+
+      <p>At their core, <strong>financial markets are structures through which funds flow</strong> from those who have surplus capital (savers and investors) to those who need it (corporations, governments, individuals). This transfer of capital is the foundational service that makes economic growth possible. When you understand financial markets, you understand how your world is funded.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Why this course matters</strong>
+          Understanding financial markets isn't just academic — it's directly relevant to career decisions, personal investing, and understanding the news. The 2008 financial crisis, the rise of Bitcoin, and the impact of Federal Reserve interest rate decisions all trace back to concepts you'll learn in this chapter.
+        </div>
+      </div>
+
+      <p>Investment and financing decisions — whether you're a corporate manager deciding how to raise capital for a new factory, or an individual deciding where to put your savings — require a deep understanding of how funds flow through the economy. This is why financial markets are the starting point for any serious study of finance.</p>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- PRIMARY vs SECONDARY -->
+      <h2 id="primary-secondary">Primary vs. Secondary Markets</h2>
+
+      <p>The most fundamental way to classify financial markets is by whether they deal in <em>new</em> securities or <em>existing</em> ones. This distinction gives us the primary/secondary market framework.</p>
+
+      <h3>Primary Markets: Where New Securities Are Born</h3>
+
+      <p><strong>Primary markets</strong> are markets in which users of funds — companies, governments, municipalities — raise money by issuing brand-new financial instruments such as stocks and bonds. The defining characteristic is that the money raised goes directly to the issuer. When a corporation sells stock in a primary market, it receives the proceeds and uses them to fund operations, expand capacity, or pay down debt.</p>
+
+      <p>The most well-known type of primary market activity is the <strong>Initial Public Offering (IPO)</strong>, where a private company sells shares to the public for the first time. When Amazon went public in 1997, or when Airbnb IPO'd in 2020, these were primary market events — the companies raised fresh capital from investors who purchased newly created shares.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Background: How an IPO actually works</strong>
+          In a typical IPO, a company hires an investment bank (called an <em>underwriter</em>) to help price and sell the new shares. The underwriter buys the shares from the company and resells them to institutional investors and the public. The company gets the money; the underwriter earns a fee. This is all primary market activity. After the IPO, trading on the stock exchange (e.g., NYSE or NASDAQ) is secondary market activity.
+        </div>
+      </div>
+
+      <h3>Secondary Markets: Where Securities Change Hands</h3>
+
+      <p><strong>Secondary markets</strong> trade financial instruments after they have already been issued. The New York Stock Exchange, NASDAQ, and bond markets are all secondary markets. When you buy Apple stock on your brokerage app, you're buying from another investor — not from Apple itself. Apple receives nothing from that transaction; you and the other investor are simply exchanging ownership of an already-existing share.</p>
+
+      <p>This might make secondary markets sound less important, but they are actually essential to the entire financial system for three critical reasons:</p>
+
+      <p><strong>Liquidity</strong> is the ability to convert an asset into cash quickly at its fair market value. Secondary markets provide this. If you buy corporate bonds but later need cash, you can sell them in the secondary bond market. Without secondary markets, buying a stock or bond would be like buying a house — you'd be locked in until a private buyer came along. The existence of liquid secondary markets is precisely what makes people willing to buy securities in the primary market in the first place.</p>
+
+      <p><strong>Price information</strong> is the second function. Secondary market prices continuously reflect all available information about the value of investments. When Apple's stock price rises, it signals that investors collectively believe the company is worth more. These prices guide capital allocation across the entire economy.</p>
+
+      <p><strong>Low transaction costs</strong> are the third function. Modern secondary markets — especially electronic exchanges — enable trading at very low cost, which increases efficiency and makes markets accessible to ordinary investors.</p>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Common misconception</strong>
+          Many students confuse where money goes in each market type. In a primary market, the issuer gets the money. In a secondary market, the selling investor gets the money. Buying stock on the NYSE does NOT give money to the company — it gives money to whoever sold you the share.
+        </div>
+      </div>
+
+      <div class="flow-diagram">
+        <div class="flow-col">
+          <div class="flow-box">Corporation<br><small style="opacity:0.7">(needs capital)</small></div>
+          <div class="flow-label">ISSUER</div>
+        </div>
+        <div class="flow-col">
+          <div class="flow-arrow">→</div>
+          <div class="flow-label">New securities</div>
+        </div>
+        <div class="flow-col">
+          <div class="flow-box" style="background:#1a3a5c;">PRIMARY<br>MARKET</div>
+          <div class="flow-label">New issue</div>
+        </div>
+        <div class="flow-col">
+          <div class="flow-arrow">→</div>
+          <div class="flow-label">Cash proceeds</div>
+        </div>
+        <div class="flow-col">
+          <div class="flow-box">Investors<br><small style="opacity:0.7">(surplus capital)</small></div>
+          <div class="flow-label">BUYERS</div>
+        </div>
+      </div>
+      <p style="text-align:center; font-size:0.78rem; color:var(--text-muted); margin-top:8px;">After this initial issue, investors trade with each other in the <strong>secondary market</strong> — the issuer is no longer involved.</p>
+
+      <h3>Impact of the Financial Crisis on Primary Markets</h3>
+
+      <p>The 2008-2009 financial crisis severely disrupted primary markets. As banks suffered catastrophic losses from mortgage-related securities, they became unwilling to underwrite new stock and bond offerings. Companies suddenly found it extremely difficult — or impossible — to raise new capital. This credit freeze caused massive economic contraction, because businesses couldn't fund operations or expansion. It illustrates a critical point: when primary markets seize up, the real economy suffers immediately and severely.</p>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- MONEY vs CAPITAL -->
+      <h2 id="money-capital">Money Markets vs. Capital Markets</h2>
+
+      <p>The second major classification divides markets by the <strong>maturity</strong> — the time until repayment — of the financial instruments traded.</p>
+
+      <div class="concept-grid">
+        <div class="concept-card">
+          <div class="concept-card-label">Short-term instruments</div>
+          <div class="concept-card-title">Money Markets</div>
+          <p>Trade debt instruments with maturities of <strong>one year or less</strong>. These are short-term borrowing and lending arrangements between large institutions, governments, and corporations. Most U.S. money markets are <strong>over-the-counter (OTC)</strong>, meaning trades happen directly between parties, not on a centralized exchange.</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-card-label">Long-term instruments</div>
+          <div class="concept-card-title">Capital Markets</div>
+          <p>Trade debt (bonds) and equity (stocks) with maturities of <strong>more than one year</strong> — including stocks, which technically have no maturity date. Capital market instruments experience <strong>wider price fluctuations</strong> than money market instruments because longer time horizons create more uncertainty.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Background: What are OTC markets?</strong>
+          Over-the-counter (OTC) markets have no physical trading floor or centralized exchange. Instead, dealers electronically quote prices and trade directly with each other and with clients. This contrasts with exchange-traded markets like the NYSE, where all trades happen through a centralized system with publicly posted prices. Most money market instruments are too large and institutional for a retail exchange.
+        </div>
+      </div>
+
+      <h3>Key Money Market Instruments</h3>
+
+      <p>Money markets serve a crucial function: they let governments, banks, and large corporations manage short-term cash needs. The major instruments include:</p>
+
+      <table class="compare-table">
+        <tr><th>Instrument</th><th>Issuer</th><th>Typical Maturity</th><th>Key Feature</th></tr>
+        <tr><td><strong>Treasury Bills (T-bills)</strong></td><td>U.S. Government</td><td>4, 13, 26, or 52 weeks</td><td>Risk-free; benchmark instrument</td></tr>
+        <tr><td><strong>Commercial Paper</strong></td><td>Large corporations</td><td>1–270 days</td><td>Unsecured; only for creditworthy firms</td></tr>
+        <tr><td><strong>Certificates of Deposit (CDs)</strong></td><td>Banks</td><td>1 month to 1 year</td><td>FDIC-insured (up to limits)</td></tr>
+        <tr><td><strong>Federal Funds</strong></td><td>Banks (overnight)</td><td>Overnight</td><td>Banks lend to each other; Fed targets this rate</td></tr>
+        <tr><td><strong>Repurchase Agreements (Repos)</strong></td><td>Dealers/institutions</td><td>1 day to several weeks</td><td>Short-term loan backed by collateral</td></tr>
+      </table>
+
+      <h3>Key Capital Market Instruments</h3>
+
+      <p>Capital markets fund long-term investment — the kind that builds factories, infrastructure, and companies. They include:</p>
+
+      <table class="compare-table">
+        <tr><th>Instrument</th><th>Type</th><th>Typical Maturity</th><th>Key Feature</th></tr>
+        <tr><td><strong>U.S. Treasury Notes/Bonds</strong></td><td>Debt</td><td>2–30 years</td><td>Government-backed; low risk</td></tr>
+        <tr><td><strong>Corporate Bonds</strong></td><td>Debt</td><td>5–30 years</td><td>Higher yield than Treasuries; credit risk</td></tr>
+        <tr><td><strong>Municipal Bonds</strong></td><td>Debt</td><td>1–30 years</td><td>Tax-advantaged; issued by state/local govts</td></tr>
+        <tr><td><strong>Common Stock (Equity)</strong></td><td>Equity</td><td>No maturity</td><td>Ownership stake; highest risk/return potential</td></tr>
+        <tr><td><strong>Mortgages</strong></td><td>Debt</td><td>15–30 years</td><td>Backed by real property</td></tr>
+      </table>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Common misconception: Why do capital markets have wider price swings?</strong>
+          Students often think stocks are volatile because companies are risky, full stop. That's partly true, but the deeper reason is time. With a 30-year bond or no-maturity stock, there's enormous uncertainty about the future — interest rates, economic conditions, company performance — over that long horizon. Compare this to a 3-month T-bill: you know almost exactly what it'll be worth in 90 days. Longer time horizon = more uncertainty = wider price fluctuations.
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- FOREIGN EXCHANGE -->
+      <h2 id="forex">Foreign Exchange Markets</h2>
+
+      <p><strong>Foreign exchange (FX or forex) markets</strong> are where currencies are traded. They are the largest and most liquid financial markets in the world, with over $7 trillion traded daily. For investors and corporations operating internationally, foreign exchange markets are inescapable.</p>
+
+      <p>The core concept your course introduces is <strong>foreign exchange risk</strong>, defined as the sensitivity of the value of cash flows on foreign investments to changes in the foreign currency's price in terms of dollars. Let's unpack that definition with an example:</p>
+
+      <blockquote>
+        Imagine a U.S. company has a subsidiary in Japan that earns ¥100 million in profit. At an exchange rate of ¥150/dollar, that converts to about $667,000. But if the yen weakens to ¥200/dollar, the same ¥100 million profit converts to only $500,000 — a $167,000 loss just from currency movement, with no change in business performance. That's foreign exchange risk.
+      </blockquote>
+
+      <p>This risk is two-sided: the yen could also strengthen (say, to ¥100/dollar), making those profits worth $1,000,000 in dollar terms — an FX gain. Whether this is good or bad depends on your business model and how you've managed your currency exposure.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Background: How are exchange rates set?</strong>
+          In modern floating-rate systems (used by most major economies), exchange rates are determined by supply and demand in FX markets. Factors that move rates include: interest rate differentials between countries, inflation rates, political stability, trade balances, and market speculation. The Federal Reserve's decisions about U.S. interest rates have a significant impact on the dollar's value relative to other currencies.
+        </div>
+      </div>
+
+      <div class="callout callout-link">
+        <span class="callout-icon">🔗</span>
+        <div class="callout-body">
+          <strong>Connection to derivatives</strong>
+          Companies routinely use derivative instruments (specifically currency futures and options) to <em>hedge</em> their foreign exchange risk — locking in a future exchange rate so they aren't surprised by currency movements. This connects the FX market directly to the derivative markets you'll study next.
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- DERIVATIVES -->
+      <h2 id="derivatives">Derivative Security Markets</h2>
+
+      <p><strong>A derivative security</strong> is a financial instrument whose value is derived from — and linked to — an underlying asset or security. The underlying can be a stock, bond, currency, commodity, interest rate, or almost anything else with a price. Derivatives don't stand alone; their payoff depends entirely on what happens to the underlying.</p>
+
+      <p>Derivative markets generally involve an agreement between two parties to exchange a standard quantity of an asset or cash flow at a predetermined price at a specified future date. This simple description covers an enormous variety of instruments.</p>
+
+      <div class="concept-grid">
+        <div class="concept-card">
+          <div class="concept-card-label">Type 1</div>
+          <div class="concept-card-title">Futures</div>
+          <p>An obligation to buy or sell an asset at a fixed price on a specific future date. Both parties <em>must</em> complete the transaction. Traded on exchanges with standardized contracts. Common in commodities (oil, wheat) and financial instruments (Treasury futures).</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-card-label">Type 2</div>
+          <div class="concept-card-title">Options</div>
+          <p>The <em>right but not the obligation</em> to buy (call) or sell (put) an asset at a fixed price before or on a specific date. The buyer pays a premium for this right. Options are fundamental to corporate hedging and speculative trading strategies.</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-card-label">Type 3</div>
+          <div class="concept-card-title">Swaps</div>
+          <p>Agreements to exchange cash flows over time. An interest rate swap, for example, lets one party swap a fixed interest rate for a floating rate. Swaps are massive in size: the global interest rate swap market is valued in the hundreds of trillions of dollars.</p>
+        </div>
+        <div class="concept-card">
+          <div class="concept-card-label">Type 4</div>
+          <div class="concept-card-title">Mortgage-Backed Securities (MBS)</div>
+          <p>Bundles of mortgage loans packaged and sold as securities. Their payoff depends on whether homeowners make their mortgage payments. MBS are why the housing market collapse in 2007–2008 triggered a global financial crisis — banks worldwide held these instruments.</p>
+        </div>
+      </div>
+
+      <h3>Growth and the Volcker Rule</h3>
+
+      <p>Derivative markets saw tremendous growth between 1992 and 2013 — fueled by deregulation, computing power, and financial innovation. However, a large drop in derivative activity occurred from 2013 to 2019, largely due to the <strong>2014 implementation of the Volcker Rule</strong>.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Background: What is the Volcker Rule?</strong>
+          The Volcker Rule, named after former Federal Reserve Chairman Paul Volcker, is part of the 2010 Dodd-Frank Act passed in response to the 2008 financial crisis. It prohibits commercial banks from engaging in "proprietary trading" — trading securities, derivatives, and certain other financial instruments for their own account, using their own money, for profit. Since banks were major participants in derivative markets, this rule significantly reduced derivative activity. The rule exists because proprietary trading with depositor funds is seen as excessively risky and potentially destabilizing.
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Key exam point: Riskiest markets</strong>
+          Your slides explicitly state that derivative markets are "also potentially the riskiest security." Derivatives allow massive leverage — small price movements in the underlying can cause enormous gains or losses. The 2008 crisis demonstrated this dramatically. AIG, an insurance company, nearly brought down the global financial system because of its exposure to credit default swaps (a type of derivative).
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- FLOW OF FUNDS -->
+      <h2 id="flow-funds">Flow of Funds: The Role of Financial Institutions</h2>
+
+      <p>Your slides illustrate two scenarios for how money flows through an economy: one without financial institutions (FIs) and one with them. Understanding this distinction explains why financial institutions exist and why they matter.</p>
+
+      <h3>Without Financial Institutions (Direct Finance)</h3>
+
+      <p>In a world without financial intermediaries, savers who have surplus funds would need to find borrowers directly. A farmer wanting to save money would need to directly lend to a corporation wanting to invest. This direct matching is <strong>extremely inefficient</strong> because of: information problems (how does the farmer evaluate the corporation's creditworthiness?), maturity mismatches (savers might want their money back in 6 months, corporations need it for 10 years), and risk concentration (the farmer bears all the risk of default).</p>
+
+      <h3>With Financial Institutions (Indirect Finance)</h3>
+
+      <p>Financial institutions — banks, insurance companies, pension funds, mutual funds — solve all three problems by acting as intermediaries. A bank, for example, accepts short-term deposits from thousands of savers and makes long-term loans to corporations. It has expertise to evaluate creditworthiness, can pool risk across many borrowers, and transforms short-term savings into long-term investment. This <strong>financial intermediation</strong> dramatically increases the efficiency of capital allocation in the economy.</p>
+
+      <div class="flow-diagram" style="flex-direction:column; gap:12px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size:0.65rem; color:var(--text-muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px;">With Financial Institutions</div>
+        <div style="display:flex; align-items:center; gap:0; flex-wrap:wrap; justify-content:center;">
+          <div class="flow-col"><div class="flow-box">Surplus<br>Savers</div><div class="flow-label">Households,<br>Investors</div></div>
+          <div class="flow-col"><div class="flow-arrow">→</div><div class="flow-label">Deposits/<br>Premiums</div></div>
+          <div class="flow-col"><div class="flow-box" style="background:#b8860b; color:#000;">Financial<br>Institution</div><div class="flow-label">Bank / Fund<br>Insurance Co.</div></div>
+          <div class="flow-col"><div class="flow-arrow">→</div><div class="flow-label">Loans/<br>Investments</div></div>
+          <div class="flow-col"><div class="flow-box">Deficit<br>Borrowers</div><div class="flow-label">Corporations,<br>Government</div></div>
+        </div>
+      </div>
+
+      <div class="callout callout-link">
+        <span class="callout-icon">🔗</span>
+        <div class="callout-body">
+          <strong>Connection to fintech</strong>
+          Fintech's "peer-to-peer" model attempts to recreate direct finance using technology to solve the information problem. Platforms like LendingClub match individual lenders with individual borrowers directly, bypassing traditional banks. This is why fintech is seen as a disruption to traditional FI business models — it makes direct finance feasible at scale.
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- FINTECH -->
+      <h2 id="fintech">Financial Technology (Fintech)</h2>
+
+      <p><strong>Financial technology (fintech)</strong> refers to the use of technology to deliver financial solutions in a manner that competes with traditional financial methods. This is one of the most rapidly evolving areas of the financial world and is increasingly relevant to every aspect of banking, investing, and payments.</p>
+
+      <p>The course specifically mentions <strong>cryptocurrencies</strong> (like Bitcoin) and <strong>blockchain</strong> as examples of fintech. Bitcoin is a decentralized digital currency that operates without a central bank or government. The underlying technology — blockchain — is a distributed ledger that records transactions in a way that is transparent, immutable, and requires no trusted central authority. Bitcoin's blockchain, for example, prevents double-spending (using the same digital currency twice) without needing a bank to verify transactions.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Background: How does blockchain work (simply)?</strong>
+          A blockchain is a chain of "blocks," each containing a batch of transactions. Every new block contains a cryptographic reference (called a hash) to the previous block, so altering any historical record would invalidate all subsequent blocks. This makes the ledger tamper-resistant. The blockchain is stored across thousands of computers simultaneously, so there's no single point of failure or control.
+        </div>
+      </div>
+
+      <p><strong>Fintech risk</strong> is the risk that fintech firms could disrupt the business of traditional financial services firms through lost customers and lost revenue. This is sometimes called "disintermediation" — the process of cutting out the middleman (the bank). A student who sends money to a friend via Venmo is using fintech instead of a bank wire transfer; that's a fee the bank doesn't collect.</p>
+
+      <p>Your slides also mention that fintech <strong>supports models of peer-to-peer mass collaboration</strong> — a reference to how technology enables direct connections between individuals who previously would have needed an institution to facilitate their interaction. Crowdfunding (Kickstarter), peer-to-peer lending (LendingClub), and robo-advisors (Betterment) are all examples of this model.</p>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Common misconception: Fintech vs. traditional finance</strong>
+          Students sometimes assume fintech will completely replace traditional banks. In reality, the relationship is more complex: many banks are <em>adopting</em> fintech (PayPal, Apple Pay partnerships with banks), while true disruptors face regulatory hurdles since financial services are heavily regulated. The full impact of fintech on the financial system is still unfolding.
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <!-- GLOBALIZATION -->
+      <h2 id="globalization">Globalization of Financial Markets and Institutions</h2>
+
+      <p>U.S. financial markets remain the largest in the world, but the trend since the late 20th century has been clear: <strong>international markets are growing rapidly</strong>, and the boundaries between national financial systems are blurring. Capital flows across borders with increasing ease, and events in one market quickly affect markets on the other side of the world.</p>
+
+      <p>Your text identifies seven key factors driving the globalization of financial markets:</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p><strong>Growing foreign savings pools.</strong> As economies in Asia, the Middle East, and elsewhere developed, their citizens and institutions accumulated more savings — and those savings needed investment destinations beyond their home markets.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p><strong>International diversification seeking.</strong> Foreign investors increasingly turned to U.S. and other markets to diversify their portfolios and access investment opportunities unavailable at home.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p><strong>Better information access.</strong> The internet and financial information platforms (Bloomberg, Reuters, etc.) made it practical for investors to research and monitor foreign markets and investments.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p><strong>U.S. FIs offering global access.</strong> American financial institutions began offering retail and institutional clients low-cost access to foreign securities and emerging markets.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p><strong>The euro's impact.</strong> The introduction of the euro (1999) created a vast, unified currency zone with a single bond market that rivaled U.S. Treasuries in liquidity, fundamentally reshaping global capital flows.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p><strong>Pacific Basin and emerging market growth.</strong> Explosive economic growth in China, South Korea, India, and other Pacific Basin countries created enormous new stock markets and investment opportunities, drawing global capital.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p><strong>Deregulation in foreign countries.</strong> Many countries removed restrictions on cross-border capital flows, allowing international investors in and giving domestic investors access to global markets.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>The dark side of globalization: contagion</strong>
+          Globalization has a drawback that becomes apparent in crises: financial problems in one country can rapidly spread worldwide. The 2008 U.S. mortgage crisis caused simultaneous market crashes in Europe, Asia, and emerging markets — because global investors held U.S. mortgage-backed securities. This "financial contagion" is a direct consequence of globalized capital markets. More interconnected markets mean faster, more widespread transmission of both growth and crises.
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================== SECTION B ====================== -->
+    <section class="study-section" id="section-b">
+      <div class="section-header">
+        <div class="section-badge">B</div>
+        <div>
+          <div class="section-title">Flashcard Deck</div>
+          <div class="section-description">Click a card to flip it. Use arrow buttons to navigate.</div>
+        </div>
+      </div>
+
+      <div class="flashcard-deck">
+        <div class="flashcard-controls">
+          <span class="fc-counter" id="fc-counter">Card 1 of 22</span>
+          <div class="fc-buttons">
+            <button class="btn btn-outline" onclick="prevCard()">← Prev</button>
+            <button class="btn btn-outline" onclick="shuffleCards()">⇌ Shuffle</button>
+            <button class="btn btn-primary" onclick="nextCard()">Next →</button>
+          </div>
+        </div>
+
+        <div class="flashcard" id="flashcard" onclick="flipCard()">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="fc-label">Question</div>
+              <div class="fc-question" id="fc-question">Loading...</div>
+              <div class="fc-hint">Click to reveal answer</div>
+            </div>
+            <div class="flashcard-back">
+              <div class="fc-label">Answer</div>
+              <div class="fc-answer" id="fc-answer">...</div>
+              <div class="difficulty-badge" id="fc-difficulty">...</div>
+              <div class="fc-hint">Click to go back</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION C ====================== -->
+    <section class="study-section" id="section-c">
+      <div class="section-header">
+        <div class="section-badge">C</div>
+        <div>
+          <div class="section-title">Feynman Technique Explanations</div>
+          <div class="section-description">The 4 hardest concepts, explained simply — then precisely</div>
+        </div>
+      </div>
+
+      <!-- Feynman 1 -->
+      <div class="feynman-card">
+        <div class="feynman-header">
+          <div class="feynman-num">1</div>
+          <div class="feynman-concept-title">What is a Derivative Security?</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Imagine you and a friend make a bet about tomorrow's weather. If it rains, you pay your friend $5. If it's sunny, your friend pays you $5. Notice what you've created: a financial agreement whose value depends entirely on something else (the weather). You didn't trade the weather itself — you traded a <em>contract about</em> the weather. That's basically a derivative.</p>
+            <p>Now replace "weather" with "Apple's stock price" and "bet" with "option contract," and you have a real financial derivative. The option doesn't give you Apple stock; it gives you a contract whose value depends on what Apple's stock does. The underlying asset is what matters; the derivative is just the contract on top of it.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>Unlike a casual weather bet, financial derivatives are standardized, legally binding, often traded on exchanges, and can involve enormous sums. They also serve purposes beyond pure gambling — corporations use them to reduce risk (hedging), not just to speculate. And some derivatives (like mortgage-backed securities) are considerably more complex than a simple two-party agreement.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p>A <strong>derivative security</strong> is a financial instrument whose payoff is linked to another, previously issued security or underlying asset (e.g., a stock, bond, currency, commodity, or index). Derivatives include futures (obligations to transact at a future date and price), options (rights but not obligations), swaps (exchanges of cash flows), and mortgage-backed securities (payoffs dependent on mortgage performance). They are traded in derivative security markets and generally involve bilateral agreements to exchange a standard quantity of an asset or cash flow at a predetermined price and at a specified future date.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feynman 2 -->
+      <div class="feynman-card">
+        <div class="feynman-header">
+          <div class="feynman-num">2</div>
+          <div class="feynman-concept-title">Foreign Exchange Risk</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Imagine you're selling lemonade at a school fair, and the price of lemons is set in British pounds. You sell in dollars. You make a great profit in pounds — but when you convert your pounds to dollars at the end of the day, you discover the exchange rate changed and your dollar profit is way less than expected. Nothing went wrong with your lemonade business. The currency just moved against you.</p>
+            <p>This is exactly what happens to U.S. companies earning money in foreign currencies. The business can be performing perfectly, but if the foreign currency weakens against the dollar, the dollar value of those earnings shrinks. That uncertainty is foreign exchange risk.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>Real foreign exchange risk is larger in scale and can be managed (hedged) using financial instruments. A lemonade stand can't easily hedge currency risk, but a multinational corporation can lock in a future exchange rate using currency futures or options. Also, exchange rates are driven by complex macroeconomic forces, not just supply and demand for one product.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p><strong>Foreign exchange risk</strong> is the sensitivity of the dollar value of cash flows on foreign investments to changes in the foreign currency's price relative to the dollar. U.S. investors receiving nondollar cash flows must convert them at the prevailing exchange rate, which can fluctuate due to interest rate differentials, inflation, political stability, and market forces. This risk can increase returns (if the foreign currency strengthens) or reduce them (if it weakens) independently of the underlying investment's performance.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feynman 3 -->
+      <div class="feynman-card">
+        <div class="feynman-header">
+          <div class="feynman-num">3</div>
+          <div class="feynman-concept-title">Why Financial Intermediaries (FIs) Exist</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Suppose every person who wanted a loan had to personally find someone willing to lend to them. And the lender would need to research whether the borrower is trustworthy. And they'd need to agree on exactly how long the loan lasts. And the lender would have to be okay with tying up their money for years. This would be a nightmare — most loans would never happen.</p>
+            <p>A bank solves all of this. It collects small deposits from millions of people (who want their money safe and accessible), and uses that pool to make large, long-term loans to businesses (who need big sums for a long time). The bank handles all the research, takes the risk, and pays depositors interest. It's a matchmaker that solves problems of size, timing, information, and risk all at once.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>Banks aren't perfect matchmakers — they can fail, misallocate capital, or take excessive risks (as in 2008). And they profit from the spread between what they pay depositors and what they charge borrowers, which creates incentives that don't always align with the economy's best interest.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p><strong>Financial institutions (FIs)</strong> act as intermediaries in the flow of funds from surplus-spending units (savers) to deficit-spending units (borrowers). They resolve market frictions including: information asymmetry (the FI has expertise to evaluate borrowers), maturity transformation (converting short-term deposits into long-term loans), and risk pooling (spreading individual default risks across a large portfolio). Without FIs, the direct finance model requires savers and borrowers to match their needs perfectly — an enormous inefficiency that would severely constrain capital allocation.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feynman 4 -->
+      <div class="feynman-card">
+        <div class="feynman-header">
+          <div class="feynman-num">4</div>
+          <div class="feynman-concept-title">Why Secondary Markets Matter If No Money Goes to Companies</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Imagine you bought a concert ticket but can't go. If no one ever allowed ticket resale, you'd be stuck. You'd lose all your money, and you might never buy advance tickets again because of the risk. But if there's a resale market, you buy the ticket knowing you can sell it later if plans change. The original ticket sale (primary) still happens — but <em>only because</em> the resale market (secondary) exists.</p>
+            <p>Stocks and bonds work the same way. Investors buy new shares from a company (primary market) because they know they can sell those shares later to other investors (secondary market) if they need cash. Take away the secondary market, and primary market fundraising collapses — nobody wants permanently illiquid assets.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>Concert tickets have simple, fixed value; financial securities have complex, continuously changing values based on company performance and economic conditions. Also, secondary markets serve the additional function of price discovery — they aggregate information from millions of investors to set prices that reflect collective wisdom about value. Ticket resale markets don't do this in the same sophisticated way.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p><strong>Secondary markets</strong> enable the trading of already-issued financial instruments and serve three critical functions: (1) <em>liquidity</em> — the ability to convert securities to cash quickly at fair market value, which lowers the risk premium investors demand on primary market purchases; (2) <em>price discovery</em> — continuous trading aggregates dispersed information into market prices that guide capital allocation; and (3) <em>low transaction costs</em> — liquid secondary markets enable efficient trading, reducing friction in the financial system. The existence of secondary markets is a prerequisite for functioning primary markets.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION D ====================== -->
+    <section class="study-section" id="section-d">
+      <div class="section-header">
+        <div class="section-badge">D</div>
+        <div>
+          <div class="section-title">Knowledge Graph</div>
+          <div class="section-description">How all the Chapter 1 concepts connect to each other</div>
+        </div>
+      </div>
+
+      <div class="graph-container">
+        <svg viewBox="0 0 820 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:480px;display:block;">
+          <!-- Definitions for arrowheads -->
+          <defs>
+            <marker id="arrow-gold" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="#c9a84c"/>
+            </marker>
+            <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="#4a9eda"/>
+            </marker>
+            <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="#4caf7d"/>
+            </marker>
+            <marker id="arrow-red" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="#e07070"/>
+            </marker>
+          </defs>
+
+          <!-- Central node: Financial Markets -->
+          <ellipse cx="410" cy="240" rx="80" ry="36" fill="#c9a84c" opacity="0.9"/>
+          <text x="410" y="236" text-anchor="middle" fill="#0d1b2a" font-size="13" font-weight="bold">Financial</text>
+          <text x="410" y="252" text-anchor="middle" fill="#0d1b2a" font-size="13" font-weight="bold">Markets</text>
+
+          <!-- Primary Markets -->
+          <ellipse cx="145" cy="130" rx="68" ry="28" fill="#243b55" opacity="0.95"/>
+          <text x="145" y="126" text-anchor="middle" fill="#e8c97a" font-size="11" font-weight="bold">Primary</text>
+          <text x="145" y="141" text-anchor="middle" fill="#e8c97a" font-size="11">Markets</text>
+
+          <!-- Secondary Markets -->
+          <ellipse cx="145" cy="350" rx="68" ry="28" fill="#243b55" opacity="0.95"/>
+          <text x="145" y="346" text-anchor="middle" fill="#e8c97a" font-size="11" font-weight="bold">Secondary</text>
+          <text x="145" y="361" text-anchor="middle" fill="#e8c97a" font-size="11">Markets</text>
+
+          <!-- Money Markets -->
+          <ellipse cx="675" cy="130" rx="68" ry="28" fill="#243b55" opacity="0.95"/>
+          <text x="675" y="126" text-anchor="middle" fill="#e8c97a" font-size="11" font-weight="bold">Money</text>
+          <text x="675" y="141" text-anchor="middle" fill="#e8c97a" font-size="11">Markets</text>
+
+          <!-- Capital Markets -->
+          <ellipse cx="675" cy="350" rx="68" ry="28" fill="#243b55" opacity="0.95"/>
+          <text x="675" y="346" text-anchor="middle" fill="#e8c97a" font-size="11" font-weight="bold">Capital</text>
+          <text x="675" y="361" text-anchor="middle" fill="#e8c97a" font-size="11">Markets</text>
+
+          <!-- FX Markets -->
+          <ellipse cx="260" cy="68" rx="62" ry="26" fill="#1a3a5c" opacity="0.95"/>
+          <text x="260" y="64" text-anchor="middle" fill="#7ec8e3" font-size="11" font-weight="bold">Foreign</text>
+          <text x="260" y="79" text-anchor="middle" fill="#7ec8e3" font-size="11">Exchange</text>
+
+          <!-- Derivative Markets -->
+          <ellipse cx="560" cy="68" rx="72" ry="26" fill="#1a3a5c" opacity="0.95"/>
+          <text x="560" y="64" text-anchor="middle" fill="#7ec8e3" font-size="11" font-weight="bold">Derivative</text>
+          <text x="560" y="79" text-anchor="middle" fill="#7ec8e3" font-size="11">Markets</text>
+
+          <!-- Financial Institutions -->
+          <ellipse cx="260" cy="412" rx="72" ry="26" fill="#1a3a5c" opacity="0.95"/>
+          <text x="260" y="408" text-anchor="middle" fill="#7ec8e3" font-size="11" font-weight="bold">Financial</text>
+          <text x="260" y="423" text-anchor="middle" fill="#7ec8e3" font-size="11">Institutions</text>
+
+          <!-- Fintech -->
+          <ellipse cx="560" cy="412" rx="62" ry="26" fill="#1a3a5c" opacity="0.95"/>
+          <text x="560" y="408" text-anchor="middle" fill="#7ec8e3" font-size="11" font-weight="bold">Fintech</text>
+          <text x="560" y="423" text-anchor="middle" fill="#7ec8e3" font-size="11">/ Blockchain</text>
+
+          <!-- Globalization -->
+          <ellipse cx="410" cy="430" rx="62" ry="22" fill="#1e3a2a" opacity="0.9"/>
+          <text x="410" y="427" text-anchor="middle" fill="#4caf7d" font-size="11" font-weight="bold">Globalization</text>
+          <text x="410" y="442" text-anchor="middle" fill="#4caf7d" font-size="11">of Markets</text>
+
+          <!-- Edges: Financial Markets → sub-markets (gold, "classifies into") -->
+          <line x1="335" y1="225" x2="215" y2="148" stroke="#c9a84c" stroke-width="1.8" marker-end="url(#arrow-gold)" stroke-dasharray="none"/>
+          <text x="258" y="175" text-anchor="middle" fill="#c9a84c" font-size="9">classifies into</text>
+
+          <line x1="335" y1="255" x2="215" y2="337" stroke="#c9a84c" stroke-width="1.8" marker-end="url(#arrow-gold)"/>
+          <text x="258" y="310" text-anchor="middle" fill="#c9a84c" font-size="9">classifies into</text>
+
+          <line x1="488" y1="225" x2="607" y2="148" stroke="#c9a84c" stroke-width="1.8" marker-end="url(#arrow-gold)"/>
+          <text x="558" y="175" text-anchor="middle" fill="#c9a84c" font-size="9">classifies into</text>
+
+          <line x1="488" y1="255" x2="607" y2="337" stroke="#c9a84c" stroke-width="1.8" marker-end="url(#arrow-gold)"/>
+          <text x="558" y="310" text-anchor="middle" fill="#c9a84c" font-size="9">classifies into</text>
+
+          <!-- Primary ↔ Secondary: enables -->
+          <line x1="145" y1="158" x2="145" y2="322" stroke="#4a9eda" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+          <text x="125" y="242" text-anchor="middle" fill="#4a9eda" font-size="9">enables</text>
+
+          <!-- FX → Derivatives: hedged by -->
+          <line x1="560" y1="94" x2="330" y2="94" stroke="#4a9eda" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+          <text x="445" y="88" text-anchor="middle" fill="#4a9eda" font-size="9">hedges FX risk</text>
+
+          <!-- FX → Financial Markets -->
+          <line x1="310" y1="80" x2="375" y2="215" stroke="#c9a84c" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#arrow-gold)"/>
+
+          <!-- Derivative → Financial Markets -->
+          <line x1="510" y1="82" x2="450" y2="215" stroke="#c9a84c" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#arrow-gold)"/>
+
+          <!-- FIs → Financial Markets: intermediates -->
+          <line x1="320" y1="400" x2="375" y2="270" stroke="#4a9eda" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+          <text x="318" y="340" text-anchor="middle" fill="#4a9eda" font-size="9">intermediates</text>
+
+          <!-- Fintech → FIs: disrupts -->
+          <line x1="498" y1="412" x2="330" y2="412" stroke="#e07070" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+          <text x="415" y="426" text-anchor="middle" fill="#e07070" font-size="9">disrupts</text>
+
+          <!-- Globalization → all markets -->
+          <line x1="410" y1="408" x2="410" y2="276" stroke="#4caf7d" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+          <text x="430" y="355" text-anchor="middle" fill="#4caf7d" font-size="9">expands</text>
+
+          <!-- Money ↔ Capital: contrasts -->
+          <line x1="675" y1="158" x2="675" y2="322" stroke="#4a9eda" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+          <text x="708" y="242" text-anchor="middle" fill="#4a9eda" font-size="9">contrasts</text>
+
+        </svg>
+      </div>
+
+      <div class="graph-legend">
+        <div class="legend-item"><div class="legend-line" style="background:#c9a84c;"></div> classifies into / belongs to</div>
+        <div class="legend-item"><div class="legend-line" style="background:#4a9eda;"></div> enables / connects to</div>
+        <div class="legend-item"><div class="legend-line" style="background:#4caf7d;"></div> expands / globalizes</div>
+        <div class="legend-item"><div class="legend-line" style="background:#e07070;"></div> disrupts / competes</div>
+      </div>
+
+      <div class="connection-cards">
+        <div class="connection-card">
+          <strong>Primary Markets → Secondary Markets (enables)</strong>
+          Primary markets can only function effectively <em>because</em> secondary markets provide liquidity. Investors are willing to buy new securities (primary market) knowing they can sell them later (secondary market). Remove secondary market liquidity and primary fundraising becomes extremely difficult.
+        </div>
+        <div class="connection-card">
+          <strong>Foreign Exchange → Derivative Markets (hedges)</strong>
+          Corporations and investors use derivative instruments (currency futures, options) specifically to hedge foreign exchange risk. FX markets create the exposure; derivative markets provide the tools to manage it. These two markets are deeply intertwined in practice.
+        </div>
+        <div class="connection-card">
+          <strong>Financial Institutions → Financial Markets (intermediates)</strong>
+          Banks and other FIs sit between savers and markets. They collect deposits, pool capital, evaluate risk, and deploy funds into financial markets. FIs are the primary mechanism by which household savings flow into productive investment through financial markets.
+        </div>
+        <div class="connection-card">
+          <strong>Fintech → Financial Institutions (disrupts)</strong>
+          Fintech enables peer-to-peer financial services that bypass traditional FIs. This threatens FI business models by siphoning customers and revenue. However, many FIs are responding by adopting fintech themselves, creating a complex coevolutionary relationship.
+        </div>
+        <div class="connection-card">
+          <strong>Globalization → All Markets (expands)</strong>
+          Globalization affects every type of financial market: primary markets now attract international investors; secondary markets are linked across time zones; FX markets grow in importance as cross-border flows increase; derivative markets develop global products; FIs operate internationally.
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION E ====================== -->
+    <section class="study-section" id="section-e">
+      <div class="section-header">
+        <div class="section-badge">E</div>
+        <div>
+          <div class="section-title">Chapter Exercises</div>
+          <div class="section-description">Click "Show Answer" to reveal — try answering first!</div>
+        </div>
+      </div>
+
+      <!-- TIER 1 -->
+      <div class="exercise-tier tier-1">
+        <div class="tier-header">
+          <span class="tier-badge">Tier 1</span>
+          <span class="tier-title">Recall — Can you remember the basics?</span>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q1 · Basic</div>
+          <div class="exercise-q">In a primary market transaction, who receives the proceeds from the sale of securities?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>The <strong>issuer</strong> (e.g., the corporation or government entity) receives the proceeds. The issuer is raising new capital by selling newly created securities. This distinguishes it from a secondary market transaction, where the selling <em>investor</em> receives the proceeds — not the original issuer.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q2 · Basic</div>
+          <div class="exercise-q">What is the maturity cutoff that distinguishes money market instruments from capital market instruments?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p><strong>One year (12 months).</strong> Money market instruments have maturities of <em>one year or less</em>. Capital market instruments have maturities of <em>more than one year</em> (including equity/stocks, which technically have no maturity date at all). This maturity distinction also explains why capital market instruments have wider price fluctuations — more uncertainty over longer time horizons.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q3 · Basic</div>
+          <div class="exercise-q">Name the four main types of derivative securities mentioned in your course material.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>The four main types are: <strong>(1) Futures</strong> — obligations to transact at a future date/price; <strong>(2) Options</strong> — rights but not obligations to buy/sell at a set price; <strong>(3) Swaps</strong> — agreements to exchange cash flows (e.g., fixed for floating interest rates); and <strong>(4) Mortgage-backed securities (MBS)</strong> — securities whose payoff is linked to mortgage loan payments.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q4 · Basic</div>
+          <div class="exercise-q">Define "liquidity" in the context of secondary financial markets.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p><strong>Liquidity</strong> is the ability to turn an asset into cash quickly at its fair market value. In secondary markets, liquidity means you can sell a security (stock, bond, etc.) rapidly without having to accept a price significantly below its true value. High liquidity is a major benefit of well-developed secondary markets and is one of the key reasons investors are willing to invest in primary markets in the first place.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q5 · Basic</div>
+          <div class="exercise-q">What government regulation caused a large drop in derivative market activity between 2013 and 2019, and what does it restrict?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>The <strong>Volcker Rule</strong>, implemented in 2014 as part of the Dodd-Frank Act. It restricts commercial banks from engaging in <em>proprietary trading</em> — using their own funds to trade securities, derivatives, and certain other instruments for profit. Since banks were major participants in derivative markets, this regulation significantly reduced derivative activity.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 2 -->
+      <div class="exercise-tier tier-2">
+        <div class="tier-header">
+          <span class="tier-badge">Tier 2</span>
+          <span class="tier-title">Application — Can you use what you know?</span>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q6 · Intermediate</div>
+          <div class="exercise-q">A U.S. tech company earns ¥500 million in Japan. The current exchange rate is ¥125/USD. Before they can convert the money, the yen weakens to ¥150/USD. Calculate the dollar difference this currency move caused and explain the type of risk this illustrates.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p><strong>Calculation:</strong><br>
+            At ¥125/USD: ¥500M ÷ 125 = <strong>$4,000,000</strong><br>
+            At ¥150/USD: ¥500M ÷ 150 = <strong>$3,333,333</strong><br>
+            <strong>Loss due to currency movement: $666,667</strong></p>
+            <p>This illustrates <strong>foreign exchange risk</strong> — the sensitivity of the dollar value of foreign cash flows to changes in exchange rates. The business performance was unchanged; the entire loss came from the yen weakening against the dollar. Companies can hedge this risk using currency futures or options in derivative markets.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q7 · Intermediate</div>
+          <div class="exercise-q">A startup called NovaTech wants to raise $50 million for expansion. It plans to issue new shares to the public for the first time. (a) What type of market event is this? (b) What is it specifically called when a company does this for the first time? (c) After these shares are issued, where will investors trade them?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>(a) This is a <strong>primary market</strong> transaction — NovaTech is issuing new securities and will receive the $50 million proceeds directly.</p>
+            <p>(b) It is specifically called an <strong>Initial Public Offering (IPO)</strong> — the first time a company sells equity to the public.</p>
+            <p>(c) After the IPO, investors will buy and sell NovaTech's existing shares in the <strong>secondary market</strong> (e.g., on a stock exchange like NASDAQ). NovaTech itself will not receive any money from these subsequent trades.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q8 · Intermediate</div>
+          <div class="exercise-q">Classify each of the following as either a money market or capital market instrument, and briefly justify your answer: (a) a 90-day U.S. Treasury Bill, (b) a 10-year corporate bond, (c) Apple common stock, (d) commercial paper with 60-day maturity.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>(a) <strong>Money market</strong> — 90-day maturity is well under one year.<br>
+            (b) <strong>Capital market</strong> — 10-year maturity is far over one year.<br>
+            (c) <strong>Capital market</strong> — common stock has no maturity date; it's an infinite-horizon equity instrument and belongs in the capital market category.<br>
+            (d) <strong>Money market</strong> — 60-day maturity is under one year. Commercial paper is a classic money market instrument issued by corporations for short-term financing.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q9 · Intermediate</div>
+          <div class="exercise-q">Explain why a saver (e.g., a retiree with $200,000 in savings) benefits from financial institutions existing, rather than having to find borrowers directly.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>Without FIs, the retiree would face major problems: (1) <strong>Information problem</strong> — they'd need to personally evaluate whether a borrower (say, a small business) is creditworthy; (2) <strong>Maturity mismatch</strong> — the retiree might need access to funds on short notice, but borrowers need long-term loans; (3) <strong>Risk concentration</strong> — lending all $200,000 to one borrower risks total loss if they default; (4) <strong>Search costs</strong> — finding a trustworthy borrower is time-consuming and expensive.</p>
+            <p>A bank solves all of this: it pools the retiree's savings with many others, makes many diversified loans (spreading risk), handles credit evaluation, and offers demand-deposit accounts so the retiree can withdraw anytime. FIs exist because they solve these frictions far more efficiently than individuals can on their own.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q10 · Intermediate</div>
+          <div class="exercise-q">A peer-to-peer lending platform lets individuals lend directly to small businesses, bypassing banks entirely. (a) What fintech concept does this represent? (b) What specific risk does your textbook associate with fintech firms? (c) How might a traditional bank respond to this competitive threat?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>(a) This represents <strong>peer-to-peer mass collaboration</strong> enabled by fintech — technology is matching individual lenders with individual borrowers directly, without a financial intermediary.</p>
+            <p>(b) The <strong>fintech risk</strong> to traditional FIs: fintech firms could disrupt FI business by attracting customers away and reducing revenue from lending, payments, or investment services.</p>
+            <p>(c) Banks can respond by: adopting fintech technology themselves (digital lending platforms), partnering with fintech firms, reducing fees to compete on cost, leveraging advantages fintech lacks (regulatory trust, deposit insurance, established customer relationships, full-service financial products).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 3 -->
+      <div class="exercise-tier tier-3">
+        <div class="tier-header">
+          <span class="tier-badge">Tier 3</span>
+          <span class="tier-title">Synthesis — Can you connect and create?</span>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q11 · Advanced</div>
+          <div class="exercise-q">During the 2008 financial crisis, mortgage-backed securities (MBS) — a type of derivative — spread losses from the U.S. housing market to financial institutions worldwide. Using the concepts from Chapter 1, explain how (a) primary and secondary markets, (b) derivative markets, and (c) globalization all contributed to making this crisis so severe and widespread.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>(a) <strong>Primary and secondary markets:</strong> Mortgage lenders issued millions of mortgages (primary market). These were then securitized into MBS and sold to investors (primary market for MBS). Secondary markets for MBS provided liquidity, encouraging more mortgage origination. When MBS values collapsed, secondary market liquidity vanished — prices became impossible to determine and sellers couldn't find buyers. This seized up the entire financial system.</p>
+            <p>(b) <strong>Derivative markets:</strong> MBS are derivatives whose value depends on mortgage repayment. When homeowners defaulted, MBS values collapsed. Credit default swaps (another derivative) had been sold in enormous quantities to insure against MBS defaults — when the payouts came due, institutions like AIG couldn't pay. The interconnected web of derivatives amplified and spread losses far beyond the original mortgages.</p>
+            <p>(c) <strong>Globalization:</strong> Because of globalized financial markets, foreign banks and institutions had purchased U.S. MBS for their higher yields. When U.S. mortgages failed, losses spread instantly to banks in Europe, Asia, and elsewhere. This financial contagion — the rapid international transmission of financial distress — is a direct consequence of the globalized capital markets described in Chapter 1.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q12 · Advanced</div>
+          <div class="exercise-q">Compare and contrast primary and secondary markets across three dimensions: (1) who receives the proceeds, (2) what function they serve in the financial system, and (3) what would happen to each if the other ceased to exist.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p><strong>(1) Who receives proceeds:</strong> In primary markets, the <em>issuer</em> (company or government) receives the capital raised. In secondary markets, the <em>selling investor</em> receives the proceeds — the issuer gets nothing from secondary trades.</p>
+            <p><strong>(2) Function:</strong> Primary markets serve capital formation — they channel new investment from savers to productive enterprises. Secondary markets serve liquidity, price discovery, and low-cost trading — they allow investors to manage their portfolios without being locked into positions.</p>
+            <p><strong>(3) Interdependence:</strong> If secondary markets ceased to exist, primary markets would essentially collapse. No rational investor would buy illiquid securities they could never sell — they'd demand enormous discounts or simply refuse. Without secondary markets, companies and governments couldn't raise capital at reasonable cost. Conversely, if primary markets ceased, secondary markets would wither too — there would be no new securities entering the system, and existing securities would gradually mature or be redeemed, leaving nothing to trade.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q13 · Advanced</div>
+          <div class="exercise-q">"Derivative markets are the newest of financial security markets and are also potentially the riskiest security." Do you agree? Construct an argument FOR and AGAINST this statement, then state your reasoned position.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p><strong>FOR (derivatives are riskiest):</strong> Derivatives allow enormous leverage — a small price movement in the underlying can cause outsized gains or losses. They are complex, often opaque instruments that are difficult to value. Counterparty risk (the risk the other party defaults) is significant, especially in OTC markets. The 2008 crisis demonstrated how derivative interconnections can amplify losses system-wide. Speculative use of derivatives can dwarf the underlying market in size.</p>
+            <p><strong>AGAINST (or nuance):</strong> Derivatives, when used correctly, actually <em>reduce</em> risk by allowing hedging. Airlines use oil futures to lock in fuel costs; exporters use currency options to eliminate FX risk. Without derivatives, these risks would be borne by operating companies. The risk is in how derivatives are used, not in their existence. Also, all financial instruments carry risk; equity markets also involve speculation and leverage.</p>
+            <p><strong>Reasoned position:</strong> Derivatives are potentially riskiest when used speculatively with high leverage, or when complex structured products obscure underlying risk. But labeling them categorically "riskiest" ignores their risk-reduction role. The danger lies in misuse, opacity, and the systemic interconnections they create — not in derivatives as a class of instruments.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q14 · Advanced</div>
+          <div class="exercise-q">A developing country is considering whether to deregulate its financial markets to attract foreign capital. Using the seven factors driving globalization from Chapter 1, what advice would you give? What are both the potential benefits and the risks?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p><strong>Potential benefits (drawing on the 7 globalization factors):</strong> Deregulation can attract foreign capital pools (Factor 1) seeking diversification (Factor 2). It expands the investor base (Factor 7), potentially lowering the cost of capital for domestic firms. Access to foreign financial institutions (Factor 4) can improve financial services quality. Integration into global capital markets increases liquidity and information transparency.</p>
+            <p><strong>Risks:</strong> Greater openness exposes the country to financial contagion — when global markets crash, foreign investors may rapidly withdraw capital ("sudden stops"), destabilizing the economy. Financial globalization can increase inequality if only wealthy or institutional investors benefit. Domestic financial institutions may lack the sophistication to compete or to manage new instruments and risks. Rapid capital inflows can create asset bubbles; rapid outflows can cause currency crises.</p>
+            <p><strong>Advice:</strong> Deregulate gradually, with strong domestic regulatory frameworks in place first. Build robust banking supervision, capital requirements, and crisis management mechanisms before fully opening capital accounts. Learn from the experiences of countries like South Korea (1997 currency crisis after rapid liberalization) and Chile (more gradual, successful liberalization).</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q15 · Advanced</div>
+          <div class="exercise-q">Is fintech a threat or an opportunity for traditional financial markets and institutions? Construct a nuanced argument that considers both perspectives and reaches a conclusion.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p><strong>Threat perspective:</strong> Fintech directly attacks FI revenue streams. P2P lending bypasses bank interest margins. Digital wallets and payment apps replace bank transaction fees. Robo-advisors undercut wealth management fees. Cryptocurrency potentially displaces bank deposits and central bank monetary policy. If fintech scales, traditional FIs face structural revenue decline and loss of their intermediary role.</p>
+            <p><strong>Opportunity perspective:</strong> Fintech can make financial markets more efficient, inclusive, and accessible. FIs can adopt fintech to cut costs, improve services, and reach underserved markets. Banks have regulatory advantages (deposit insurance, lender of last resort), established trust, and full-service capabilities that fintech startups lack. Many fintech companies ultimately seek banking licenses or partnerships, integrating into the traditional system rather than replacing it.</p>
+            <p><strong>Conclusion:</strong> Fintech is simultaneously a threat and an opportunity. It's a threat to FIs that fail to innovate and cling to legacy business models. It's an opportunity for adaptive FIs and for the financial system as a whole — fintech drives efficiency, reduces barriers to access, and forces competitive improvements. The most likely outcome is a hybrid financial system where traditional FIs and fintech coexist and increasingly converge, rather than one replacing the other.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION F ====================== -->
+    <section class="study-section" id="section-f">
+      <div class="section-header">
+        <div class="section-badge">F</div>
+        <div>
+          <div class="section-title">Quick-Reference Cheat Sheet</div>
+          <div class="section-description">Your one-stop review before the exam</div>
+        </div>
+      </div>
+
+      <div class="cheatsheet-grid">
+        <div class="cs-card">
+          <div class="cs-card-title">📌 Key Definitions</div>
+          <ul class="cs-list">
+            <li><span class="cs-term">Primary Mkt</span> New securities issued; issuer gets proceeds</li>
+            <li><span class="cs-term">Secondary Mkt</span> Trading of existing securities; seller gets proceeds</li>
+            <li><span class="cs-term">IPO</span> First public sale of equity by a company</li>
+            <li><span class="cs-term">Money Mkt</span> Debt instruments ≤1 year maturity</li>
+            <li><span class="cs-term">Capital Mkt</span> Debt/equity &gt;1 year maturity</li>
+            <li><span class="cs-term">OTC Market</span> Dealer-to-dealer, no centralized exchange</li>
+            <li><span class="cs-term">FX Risk</span> Value sensitivity to exchange rate changes</li>
+            <li><span class="cs-term">Derivative</span> Security whose payoff links to underlying asset</li>
+            <li><span class="cs-term">Fintech</span> Technology competing with traditional finance</li>
+            <li><span class="cs-term">Liquidity</span> Ability to convert to cash quickly at fair value</li>
+          </ul>
+        </div>
+
+        <div class="cs-card">
+          <div class="cs-card-title">📊 Market Classification Quick Map</div>
+          <ul class="cs-list">
+            <li><span class="cs-term">T-Bills</span> Money market (≤1 yr, gov't)</li>
+            <li><span class="cs-term">Comm. Paper</span> Money market (≤270 days, corp.)</li>
+            <li><span class="cs-term">Fed Funds</span> Money market (overnight)</li>
+            <li><span class="cs-term">Corp. Bonds</span> Capital market (&gt;1 yr debt)</li>
+            <li><span class="cs-term">Common Stock</span> Capital market (no maturity, equity)</li>
+            <li><span class="cs-term">T-Notes/Bonds</span> Capital market (2–30 yr, gov't)</li>
+            <li><span class="cs-term">Mortgages</span> Capital market (15–30 yr)</li>
+            <li><span class="cs-term">NYSE/NASDAQ</span> Secondary, exchange-traded</li>
+            <li><span class="cs-term">Bond mkt</span> Secondary (mostly OTC)</li>
+          </ul>
+        </div>
+
+        <div class="cs-card">
+          <div class="cs-card-title">⚠️ Common Pitfalls to Avoid</div>
+          <ul class="cs-list">
+            <li><span class="cs-term">Pitfall 1</span> Buying on NYSE gives money to company → FALSE. It goes to the seller (secondary mkt).</li>
+            <li><span class="cs-term">Pitfall 2</span> Stock = money market → FALSE. Stocks have no maturity; they're capital market.</li>
+            <li><span class="cs-term">Pitfall 3</span> Derivatives = always risky → FALSE. They're tools for risk reduction OR speculation.</li>
+            <li><span class="cs-term">Pitfall 4</span> FX risk only affects losses → FALSE. Currency moves can also generate gains.</li>
+            <li><span class="cs-term">Pitfall 5</span> Secondary mkt = unimportant → FALSE. It enables primary mkt to function.</li>
+          </ul>
+        </div>
+
+        <div class="cs-card">
+          <div class="cs-card-title">🏆 Before the Exam: Review These 5 Things</div>
+          <ol class="priority-list">
+            <li>The primary vs. secondary market distinction — especially who receives money in each case. This is a classic exam trap.</li>
+            <li>The one-year maturity rule for money vs. capital markets, and be able to classify any instrument by type.</li>
+            <li>The three functions of secondary markets: liquidity, price information, low transaction costs.</li>
+            <li>The definition of a derivative: payoff linked to an underlying previously issued security. Know all four types.</li>
+            <li>Foreign exchange risk definition and a simple numeric example of how currency movement affects dollar returns.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="cs-card" style="margin-top:16px;">
+        <div class="cs-card-title">🔑 7 Drivers of Globalization (Memory Hook: "PIIBEDG")</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:0.84rem;">
+          <div><strong style="color:var(--gold);">P</strong> — Pool of foreign savings growing</div>
+          <div><strong style="color:var(--gold);">I</strong> — International diversification seeking</div>
+          <div><strong style="color:var(--gold);">I</strong> — Information access improved</div>
+          <div><strong style="color:var(--gold);">B</strong> — Brokers/FIs offering global access</div>
+          <div><strong style="color:var(--gold);">E</strong> — Euro's global impact</div>
+          <div><strong style="color:var(--gold);">D</strong> — Development of Pacific Basin economies</div>
+          <div><strong style="color:var(--gold);">G</strong> — Global deregulation of foreign markets</div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</main>
+
+<!-- ====================== JAVASCRIPT ====================== -->
+<script>
+// ---- DARK MODE ----
+const darkBtn = document.getElementById('dark-icon');
+const darkLabel = document.getElementById('dark-label');
+
+function toggleDark() {
+  const html = document.documentElement;
+  if (html.getAttribute('data-theme') === 'dark') {
+    html.removeAttribute('data-theme');
+    darkBtn.textContent = '🌙';
+    darkLabel.textContent = 'Dark Mode';
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    darkBtn.textContent = '☀️';
+    darkLabel.textContent = 'Light Mode';
+  }
+}
+
+// ---- SIDEBAR MOBILE ----
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// ---- ACTIVE NAV ----
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('.study-section, h2[id]');
+
+function updateNav() {
+  let current = '';
+  document.querySelectorAll('section[id], [id]').forEach(el => {
+    if (el.getBoundingClientRect().top < 120) current = el.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+
+// ---- EXERCISES ----
+function toggleAnswer(btn) {
+  const panel = btn.nextElementSibling;
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  btn.classList.toggle('active', !isOpen);
+  btn.textContent = isOpen ? 'Show Answer' : 'Hide Answer';
+}
+
+// ---- FLASHCARDS ----
+const cards = [
+  { q: "What is a primary market?", a: "A market in which users of funds (corporations, governments) raise capital through new issues of financial instruments such as stocks and bonds.", diff: "basic" },
+  { q: "What is a secondary market?", a: "A market that trades financial instruments once they are issued. The issuer receives no money from secondary market transactions — only the selling investor does.", diff: "basic" },
+  { q: "What is an IPO?", a: "Initial Public Offering — the first time a private company sells equity (stock) to the public, raising capital in the primary market.", diff: "basic" },
+  { q: "What maturity threshold separates money markets from capital markets?", a: "One year (12 months). Money market instruments have maturities of ≤1 year; capital market instruments have maturities of >1 year.", diff: "basic" },
+  { q: "Name three benefits of secondary markets.", a: "(1) Liquidity — ability to convert to cash at fair value; (2) Price information — reveals value of investments; (3) Low transaction costs — efficient, accessible trading.", diff: "basic" },
+  { q: "What is foreign exchange risk?", a: "The sensitivity of the value of cash flows on foreign investments to changes in the foreign currency's price in terms of dollars.", diff: "intermediate" },
+  { q: "What is a derivative security?", a: "A financial security (future, option, swap, or MBS) whose payoff is linked to another previously issued security. It does not stand alone — its value derives from an underlying asset.", diff: "intermediate" },
+  { q: "What is the Volcker Rule and why does it matter for derivative markets?", a: "Part of the 2010 Dodd-Frank Act; prohibits commercial banks from proprietary trading (trading for their own account for profit). Since banks were major derivative market participants, this caused derivative activity to fall significantly after 2014.", diff: "intermediate" },
+  { q: "What is fintech?", a: "Financial technology — the use of technology to deliver financial solutions that compete with traditional financial methods. Examples: cryptocurrencies, blockchain, P2P lending, robo-advisors.", diff: "basic" },
+  { q: "What is fintech risk for traditional financial institutions?", a: "The risk that fintech firms could disrupt FI business by attracting customers and revenue away from traditional banks and financial services companies.", diff: "intermediate" },
+  { q: "How do financial institutions solve the 'maturity transformation' problem?", a: "FIs accept short-term deposits from savers and use that capital to fund long-term loans. This transforms the maturity of funds — short-term liabilities become long-term assets — which individual borrowers and lenders couldn't do efficiently on their own.", diff: "intermediate" },
+  { q: "Why do capital market instruments have wider price fluctuations than money market instruments?", a: "Longer time horizons create more uncertainty. A 30-year bond or no-maturity stock has enormous uncertainty about future interest rates, inflation, and company performance. A 3-month T-bill's value is nearly certain. More uncertainty = wider price swings.", diff: "intermediate" },
+  { q: "Name the four types of derivatives and briefly describe each.", a: "(1) Futures: obligation to transact at future date/price. (2) Options: right but not obligation to buy/sell. (3) Swaps: exchange of cash flows (e.g., fixed-for-floating interest). (4) MBS: securities whose payoff depends on mortgage repayments.", diff: "intermediate" },
+  { q: "If you buy Apple stock on NASDAQ, does Apple receive any money from that transaction?", a: "No. NASDAQ is a secondary market. The proceeds go to the investor who sold the shares, not to Apple. Apple only receives money when it issues new shares in a primary market transaction (like during an IPO or a secondary offering).", diff: "basic" },
+  { q: "What are the 7 factors driving globalization of financial markets?", a: "(1) Growing foreign savings pools; (2) International diversification seeking; (3) Better information access; (4) U.S. FIs offering global access; (5) The euro's global impact; (6) Pacific Basin & emerging market growth; (7) Deregulation in foreign countries. Memory hook: PIIBEDG", diff: "advanced" },
+  { q: "How does a blockchain prevent fraud without a central authority?", a: "Each block contains a cryptographic reference (hash) to the previous block. Altering any historical record would invalidate all subsequent blocks. The blockchain is stored across thousands of computers simultaneously — there's no single point of control or failure.", diff: "advanced" },
+  { q: "Why must secondary markets exist for primary markets to function?", a: "Investors will only buy new securities (primary market) if they can sell them later (secondary market) if they need cash or want to rebalance. Without secondary market liquidity, investors would demand huge discounts on primary issues or refuse to invest altogether.", diff: "intermediate" },
+  { q: "What is 'financial contagion' and how does globalization contribute to it?", a: "Financial contagion is the rapid spread of financial distress from one market or country to others. Globalization increases contagion because investors worldwide hold the same instruments, so losses in one country (e.g., U.S. MBS in 2008) immediately impact institutions in other countries.", diff: "advanced" },
+  { q: "What is an OTC (over-the-counter) market? Give an example.", a: "A market where trading occurs directly between parties without a centralized exchange. Dealers quote prices and transact directly. Most money markets and bond markets are OTC. Examples: federal funds market, most corporate bond trading, foreign exchange market.", diff: "intermediate" },
+  { q: "What does 'peer-to-peer mass collaboration' mean in the context of fintech?", a: "Technology enables direct connections between individuals for financial transactions — bypassing traditional intermediaries. Examples: P2P lending (individuals lending to individuals/businesses), crowdfunding, decentralized finance (DeFi).", diff: "intermediate" },
+  { q: "What were the primary effects of the 2008 financial crisis on primary markets?", a: "Banks stopped underwriting new stock and bond offerings because of massive losses. Companies couldn't raise new capital. This 'credit freeze' directly caused economic contraction — businesses couldn't fund operations or expansion when primary markets seized up.", diff: "advanced" },
+  { q: "Compare: how is fintech related to the concept of 'flow of funds without financial institutions'?", a: "Fintech recreates direct finance (flow of funds without FIs) using technology to solve the information problem. P2P platforms match lenders and borrowers directly — like a world without banks — but use algorithms and data to evaluate creditworthiness, making it feasible at scale.", diff: "advanced" },
+];
+
+let currentIndex = 0;
+let isFlipped = false;
+let order = [...Array(cards.length).keys()];
+
+function renderCard() {
+  const card = cards[order[currentIndex]];
+  document.getElementById('fc-question').textContent = card.q;
+  document.getElementById('fc-answer').textContent = card.a;
+  const diffEl = document.getElementById('fc-difficulty');
+  const map = { basic: ['🟢 Basic', 'diff-basic'], intermediate: ['🟡 Intermediate', 'diff-intermediate'], advanced: ['🔴 Advanced', 'diff-advanced'] };
+  const [label, cls] = map[card.diff];
+  diffEl.textContent = label;
+  diffEl.className = 'difficulty-badge ' + cls;
+  document.getElementById('fc-counter').textContent = `Card ${currentIndex + 1} of ${cards.length}`;
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('flipped');
+  isFlipped = false;
+}
+
+function flipCard() {
+  const fc = document.getElementById('flashcard');
+  fc.classList.toggle('flipped');
+  isFlipped = !isFlipped;
+}
+
+function nextCard() {
+  currentIndex = (currentIndex + 1) % cards.length;
+  renderCard();
+}
+
+function prevCard() {
+  currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+  renderCard();
+}
+
+function shuffleCards() {
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  currentIndex = 0;
+  renderCard();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') nextCard();
+  if (e.key === 'ArrowLeft') prevCard();
+  if (e.key === ' ') { e.preventDefault(); flipCard(); }
+});
+
+// Initialize
+renderCard();
+</script>
+
+</body>
+</html>
