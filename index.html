@@ -250,6 +250,49 @@
       margin: 0 auto;
     }
 
+    /* ========== SEARCH SETTINGS ========== */
+    .search-settings-toggle {
+      background: none;
+      border: none;
+      color: var(--gold);
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.7;
+      transition: opacity var(--transition);
+    }
+    .search-settings-toggle:hover { opacity: 1; }
+
+    .search-settings-panel {
+      display: none;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 12px;
+      text-align: left;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .search-settings-panel.open { display: block; }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .setting-group { margin-bottom: 12px; }
+    .setting-group label { display: block; margin-bottom: 6px; color: var(--gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    
+    .setting-input-row { display: flex; align-items: center; gap: 10px; }
+    .setting-input-row input[type="range"] { flex: 1; accent-color: var(--gold); }
+    .setting-value { min-width: 35px; font-family: 'JetBrains Mono', monospace; text-align: right; color: #fff; }
+
     /* ========== RESPONSIVE ========== */
     @media (max-width: 600px) {
       h1 { font-size: 2.2rem; }
@@ -269,6 +312,53 @@
         <span class="search-icon">🔍</span>
         <input type="text" id="search-input" placeholder="Search keywords, chapters, or concepts..." autocomplete="off">
         <div id="search-results"></div>
+        
+        <button class="search-settings-toggle" onclick="document.getElementById('search-settings-panel').classList.toggle('open')">
+          <span>⚙️</span> Advanced Search Settings
+        </button>
+
+        <div class="search-settings-panel" id="search-settings-panel">
+          <div class="settings-grid">
+            <div class="setting-group">
+              <label>Search Sensitivity (Threshold)</label>
+              <div class="setting-input-row">
+                <input type="range" id="setting-threshold" min="0" max="1" step="0.05" value="0.5">
+                <span class="setting-value" id="val-threshold">0.5</span>
+              </div>
+              <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 4px;">Lower = more precise. Higher = more results.</p>
+            </div>
+            
+            <div class="setting-group">
+              <label>Max Results</label>
+              <div class="setting-input-row">
+                <input type="range" id="setting-limit" min="1" max="50" step="1" value="10">
+                <span class="setting-value" id="val-limit">10</span>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <label>Title Importance (Weight)</label>
+              <div class="setting-input-row">
+                <input type="range" id="setting-w-title" min="0" max="1" step="0.1" value="0.7">
+                <span class="setting-value" id="val-w-title">0.7</span>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <label>Content Importance (Weight)</label>
+              <div class="setting-input-row">
+                <input type="range" id="setting-w-content" min="0" max="1" step="0.1" value="0.4">
+                <span class="setting-value" id="val-w-content">0.4</span>
+              </div>
+            </div>
+
+            <div class="setting-group" style="grid-column: span 2; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; margin-top: 4px;">
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="checkbox" id="setting-ignore-location" checked style="accent-color: var(--gold);"> Ignore Location (Search deep in sections)
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -324,38 +414,67 @@
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <script>
     let fuse;
+    let rawSearchData = [];
     const searchInput = document.getElementById('search-input');
     const resultsContainer = document.getElementById('search-results');
+
+    // Settings inputs
+    const setThreshold = document.getElementById('setting-threshold');
+    const setLimit = document.getElementById('setting-limit');
+    const setWTitle = document.getElementById('setting-w-title');
+    const setWContent = document.getElementById('setting-w-content');
+    const setIgnoreLocation = document.getElementById('setting-ignore-location');
+
+    function updateFuse() {
+      if (!rawSearchData.length) return;
+      
+      fuse = new Fuse(rawSearchData, {
+        keys: [
+          { name: 'title', weight: parseFloat(setWTitle.value) },
+          { name: 'content', weight: parseFloat(setWContent.value) },
+          { name: 'subtitle', weight: 0.1 }
+        ],
+        threshold: parseFloat(setThreshold.value),
+        includeMatches: true,
+        minMatchCharLength: 2,
+        ignoreLocation: setIgnoreLocation.checked,
+        distance: 10000
+      });
+      
+      // Update displayed values
+      document.getElementById('val-threshold').textContent = setThreshold.value;
+      document.getElementById('val-limit').textContent = setLimit.value;
+      document.getElementById('val-w-title').textContent = setWTitle.value;
+      document.getElementById('val-w-content').textContent = setWContent.value;
+
+      // Trigger search if input is not empty
+      if (searchInput.value.length >= 2) {
+        performSearch(searchInput.value);
+      }
+    }
+
+    // Attach listeners to settings
+    [setThreshold, setLimit, setWTitle, setWContent, setIgnoreLocation].forEach(el => {
+      el.addEventListener('input', updateFuse);
+    });
 
     // Fetch the generated search index
     fetch('search-index.json')
       .then(response => response.json())
       .then(data => {
-        fuse = new Fuse(data, {
-          keys: [
-            { name: 'title', weight: 0.7 },
-            { name: 'content', weight: 0.3 },
-            { name: 'subtitle', weight: 0.1 }
-          ],
-          threshold: 0.4,
-          includeMatches: true,
-          minMatchCharLength: 2
-        });
+        rawSearchData = data;
+        updateFuse();
       })
       .catch(err => console.error('Error loading search index:', err));
 
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value;
-      if (!fuse || query.length < 2) {
-        resultsContainer.style.display = 'none';
-        return;
-      }
-
+    function performSearch(query) {
       const results = fuse.search(query);
-      if (results.length > 0) {
-        resultsContainer.innerHTML = results.map(res => {
+      const limit = parseInt(setLimit.value);
+      const filteredResults = results.slice(0, limit);
+
+      if (filteredResults.length > 0) {
+        resultsContainer.innerHTML = filteredResults.map(res => {
           const item = res.item;
-          // Create a snippet from content if it matches
           let snippet = "";
           if (item.content) {
             const index = item.content.toLowerCase().indexOf(query.toLowerCase());
@@ -363,7 +482,6 @@
               const start = Math.max(0, index - 40);
               const end = Math.min(item.content.length, index + 80);
               snippet = (start > 0 ? "..." : "") + item.content.substring(start, end) + (end < item.content.length ? "..." : "");
-              // Simple highlighting
               const regex = new RegExp(`(${query})`, 'gi');
               snippet = snippet.replace(regex, '<mark style="background: var(--gold-light); border-radius: 2px; padding: 0 2px;">$1</mark>');
             } else {
@@ -384,10 +502,21 @@
         resultsContainer.innerHTML = '<div class="result-item">No matches found.</div>';
         resultsContainer.style.display = 'block';
       }
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value;
+      if (!fuse || query.length < 2) {
+        resultsContainer.style.display = 'none';
+        return;
+      }
+      performSearch(query);
     });
 
     document.addEventListener('click', (e) => {
-      if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
+      const panel = document.getElementById('search-settings-panel');
+      const toggle = document.querySelector('.search-settings-toggle');
+      if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target) && !panel.contains(e.target) && !toggle.contains(e.target)) {
         resultsContainer.style.display = 'none';
       }
     });
