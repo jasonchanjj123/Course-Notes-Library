@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4: The Federal Reserve &amp; Monetary Policy — Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ========== DESIGN SYSTEM ========== */
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1b2e45;
+  --navy-light: #243b55;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-pale: #f5e9c8;
+  --cream: #faf7f0;
+  --cream-dark: #f0ead8;
+  --text-dark: #1a1a2e;
+  --text-body: #2d3748;
+  --text-muted: #718096;
+  --green: #276749;
+  --green-light: #e6f4ed;
+  --amber: #b7791f;
+  --amber-light: #fefce8;
+  --red: #9b2335;
+  --red-light: #fff1f2;
+  --blue-accent: #2b6cb0;
+  --blue-light: #ebf4ff;
+  --sidebar-width: 270px;
+  --border: rgba(201, 168, 76, 0.25);
+  --shadow: 0 4px 24px rgba(13, 27, 42, 0.08);
+  --shadow-strong: 0 8px 40px rgba(13, 27, 42, 0.15);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --transition: 0.22s ease;
+}
+
+[data-theme="dark"] {
+  --cream: #111827;
+  --cream-dark: #1f2937;
+  --text-dark: #f0e6d3;
+  --text-body: #d1c9b8;
+  --text-muted: #9ca3af;
+  --border: rgba(201, 168, 76, 0.18);
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --green-light: #1a3329;
+  --amber-light: #2d2008;
+  --red-light: #2d0e14;
+  --blue-light: #0f1f35;
+  --gold-pale: #2a2010;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--text-body);
+  line-height: 1.75;
+  display: flex;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  background: var(--navy);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition);
+}
+
+.sidebar-header {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+
+.sidebar-course {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.sidebar-title {
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.sidebar-chapter {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 4px;
+}
+
+nav { padding: 16px 0; flex: 1; }
+
+.nav-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  padding: 12px 24px 6px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 24px;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 400;
+  transition: all var(--transition);
+  border-left: 3px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--gold-light);
+  background: rgba(201,168,76,0.08);
+  border-left-color: var(--gold);
+}
+
+.nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+.sidebar-footer {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.dark-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 8px 14px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.8rem;
+  width: 100%;
+  transition: all var(--transition);
+}
+
+.dark-toggle:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* ========== MAIN CONTENT ========== */
+.main {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  min-width: 0;
+}
+
+.page-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #1e3a5f 100%);
+  padding: 56px 60px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.page-hero::after {
+  content: '"';
+  position: absolute;
+  bottom: -20px; right: 60px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18rem;
+  color: rgba(201,168,76,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 5px 12px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  max-width: 600px;
+}
+
+.hero-subtitle {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.95rem;
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 16px;
+  border-radius: 6px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.82rem;
+}
+
+.hero-stat-icon { color: var(--gold); }
+
+/* ========== CONTENT AREA ========== */
+.content { padding: 48px 60px 80px; max-width: 960px; }
+
+/* ========== SECTION WRAPPER ========== */
+.study-section {
+  margin-bottom: 72px;
+  scroll-margin-top: 24px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--navy);
+  border-radius: 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+.section-description {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ========== TYPOGRAPHY ========== */
+h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--text-dark); }
+
+h2 { font-size: 1.45rem; margin: 36px 0 14px; }
+h3 { font-size: 1.15rem; margin: 26px 0 10px; color: var(--navy-light); }
+[data-theme="dark"] h3 { color: var(--gold-light); }
+
+h4 { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.06em; margin: 20px 0 8px; color: var(--text-muted); }
+
+p { margin-bottom: 1.1em; }
+
+strong { color: var(--text-dark); font-weight: 600; }
+[data-theme="dark"] strong { color: var(--gold-light); }
+
+em { color: var(--amber); font-style: italic; }
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82em;
+  background: var(--cream-dark);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--navy);
+}
+[data-theme="dark"] code { background: rgba(255,255,255,0.1); color: var(--gold-light); }
+
+blockquote {
+  border-left: 3px solid var(--gold);
+  background: var(--gold-pale);
+  padding: 14px 20px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 20px 0;
+  font-style: italic;
+  color: var(--text-body);
+}
+
+/* ========== CALLOUT BOXES ========== */
+.callout {
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  margin: 18px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.callout-icon { font-size: 1.1rem; margin-top: 1px; flex-shrink: 0; }
+.callout-body strong { display: block; margin-bottom: 4px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+.callout-note { background: var(--blue-light); border: 1px solid rgba(43,108,176,0.2); color: var(--text-body); }
+.callout-note .callout-icon { color: var(--blue-accent); }
+.callout-note strong { color: var(--blue-accent); }
+
+.callout-warn { background: var(--amber-light); border: 1px solid rgba(183,121,31,0.25); color: var(--text-body); }
+.callout-warn .callout-icon { color: var(--amber); }
+.callout-warn strong { color: var(--amber); }
+
+.callout-link { background: var(--green-light); border: 1px solid rgba(39,103,73,0.2); color: var(--text-body); }
+.callout-link .callout-icon { color: var(--green); }
+.callout-link strong { color: var(--green); }
+
+/* ========== CONCEPT CARDS ========== */
+.concept-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.concept-card {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.concept-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+.concept-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.concept-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.concept-card p { font-size: 0.88rem; margin: 0; }
+
+/* ========== COMPARISON TABLE ========== */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.88rem;
+}
+
+.compare-table th {
+  background: var(--navy);
+  color: var(--gold-light);
+  font-family: 'Playfair Display', serif;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.compare-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.compare-table tr:nth-child(even) td { background: var(--cream-dark); }
+
+.compare-table tr:hover td { background: var(--gold-pale); }
+
+/* ========== FLASHCARDS ========== */
+.flashcard-deck {
+  position: relative;
+  margin: 24px 0;
+}
+
+.flashcard-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.fc-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.fc-buttons { display: flex; gap: 10px; }
+
+.btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.btn-primary { background: var(--navy); color: var(--gold); }
+.btn-primary:hover { background: var(--navy-light); }
+.btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text-body); }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+.flashcard {
+  perspective: 1000px;
+  height: 220px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.flashcard-front {
+  background: var(--navy);
+  border: 1px solid rgba(201,168,76,0.3);
+}
+
+.flashcard-back {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  transform: rotateY(180deg);
+}
+
+.fc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.flashcard-front .fc-label { color: var(--gold); }
+.flashcard-back .fc-label { color: var(--text-muted); }
+
+.fc-question {
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.fc-answer {
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.fc-hint {
+  position: absolute;
+  bottom: 14px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+}
+
+.flashcard-back .fc-hint { color: var(--text-muted); }
+
+.difficulty-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.diff-basic { background: var(--green-light); color: var(--green); }
+.diff-intermediate { background: var(--amber-light); color: var(--amber); }
+.diff-advanced { background: var(--red-light); color: var(--red); }
+
+.flashcard-grid { display: none; }
+
+/* ========== FEYNMAN ========== */
+.feynman-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.feynman-header {
+  background: var(--navy);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+}
+
+.feynman-num {
+  width: 32px; height: 32px;
+  background: var(--gold);
+  color: var(--navy);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.feynman-concept-title {
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.feynman-body { padding: 24px; display: none; }
+.feynman-card.open .feynman-body { display: block; }
+
+.feynman-section { margin-bottom: 20px; }
+
+.feynman-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feynman-section-label::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: var(--border);
+}
+
+.feynman-section p { font-size: 0.92rem; margin: 0; line-height: 1.7; }
+
+/* ========== KNOWLEDGE GRAPH ========== */
+.graph-container {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 30px 20px;
+  margin: 20px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+svg text { font-family: 'Source Sans 3', sans-serif; }
+
+.kg-node { cursor: pointer; }
+.kg-node circle { stroke-width: 2; transition: r 0.2s; }
+.kg-node:hover circle { filter: brightness(1.2); }
+.kg-node text { font-family: 'Source Sans 3', sans-serif; font-size: 11px; fill: #fff; pointer-events: none; }
+.kg-link { stroke: rgba(255,255,255,0.15); stroke-width: 1.5; }
+.kg-link-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: rgba(255,255,255,0.4); }
+.kg-tooltip {
+  position: absolute; background: var(--navy-light); border: 1px solid var(--gold);
+  border-radius: var(--radius-sm); padding: 10px 12px; font-size: 0.8rem;
+  max-width: 220px; pointer-events: none; display: none;
+  box-shadow: var(--shadow-strong); color: #fff; z-index: 10;
+}
+
+/* ========== EXERCISES ========== */
+.exercise-tier {
+  margin-bottom: 36px;
+}
+
+.tier-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tier-badge {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.tier-1 .tier-badge { background: var(--green-light); color: var(--green); }
+.tier-2 .tier-badge { background: var(--amber-light); color: var(--amber); }
+.tier-3 .tier-badge { background: var(--red-light); color: var(--red); }
+
+.tier-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+}
+
+.exercise-item {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 12px;
+}
+
+.exercise-q {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.exercise-q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--gold);
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+}
+
+.show-answer-btn {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: 'Source Sans 3', sans-serif;
+  transition: all var(--transition);
+}
+
+.show-answer-btn:hover { border-color: var(--gold); color: var(--gold); }
+.show-answer-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+
+.answer-panel {
+  display: none;
+  margin-top: 14px;
+  padding: 14px 18px;
+  background: var(--gold-pale);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-body);
+  border-left: 3px solid var(--gold);
+}
+
+.answer-panel.open { display: block; }
+
+.answer-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* ========== CHEAT SHEET ========== */
+.cheatsheet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.cs-card {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.cs-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cs-list { list-style: none; }
+
+.cs-list li {
+  font-size: 0.83rem;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--border);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  line-height: 1.4;
+}
+
+.cs-list li:last-child { border-bottom: none; }
+
+.cs-term {
+  font-weight: 600;
+  color: var(--navy);
+  min-width: 90px;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+[data-theme="dark"] .cs-term { color: var(--gold-light); }
+
+.priority-list {
+  counter-reset: priority;
+  list-style: none;
+}
+
+.priority-list li {
+  counter-increment: priority;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.priority-list li::before {
+  content: counter(priority);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  background: var(--gold);
+  color: var(--navy);
+  border-radius: 50%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ========== TIMELINE ========== */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+  margin: 20px 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -28px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--cream);
+}
+
+.timeline-item p { font-size: 0.88rem; margin: 0; }
+.timeline-item strong { display: block; margin-bottom: 4px; }
+
+/* ========== FORMULA BOX ========== */
+.formula-box {
+  background: var(--navy-mid);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 20px 0;
+  text-align: center;
+  border-left: 4px solid var(--gold);
+}
+
+.formula-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.formula-content {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.25); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,0.5); }
+
+/* ========== MOBILE TOGGLE ========== */
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 16px; left: 16px;
+  z-index: 200;
+  background: var(--navy);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold);
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== PRINT ========== */
+@media print {
+  .sidebar, .mobile-menu-btn, .dark-toggle, .show-answer-btn, .fc-buttons { display: none !important; }
+  .main { margin-left: 0; }
+  .content { padding: 20px; }
+  .flashcard-front, .flashcard-back { position: relative; transform: none; backface-visibility: visible; page-break-inside: avoid; }
+  .flashcard-inner { transform: none !important; height: auto; }
+  .flashcard { height: auto; perspective: none; }
+  .answer-panel { display: block !important; }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .mobile-menu-btn { display: flex; }
+  .page-hero { padding: 60px 24px 40px; }
+  .content { padding: 32px 24px 60px; }
+  .concept-grid, .cheatsheet-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== DIVIDERS ========== */
+.ornament {
+  text-align: center;
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.5em;
+  margin: 28px 0;
+  opacity: 0.5;
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile toggle -->
+<button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Toggle menu">☰</button>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-course">Financial Markets</div>
+    <div class="sidebar-title">The Federal Reserve &amp; Monetary Policy</div>
+    <div class="sidebar-chapter">Chapter 4 · Study Guide</div>
+  </div>
+  <nav>
+    <a href="../../index.html" class="nav-link" style="border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 8px; color: var(--gold); font-weight: 600;"><span class="nav-icon">🏠</span> Back to Library</a>
+    <div class="nav-section-label">Sections</div>
+    <a href="#section-a" class="nav-link active"><span class="nav-icon">📖</span> A · Chapter Summary</a>
+    <a href="#section-b" class="nav-link"><span class="nav-icon">🃏</span> B · Flashcards</a>
+    <a href="#section-c" class="nav-link"><span class="nav-icon">🧠</span> C · Feynman Explanations</a>
+    <a href="#section-d" class="nav-link"><span class="nav-icon">🔗</span> D · Knowledge Graph</a>
+    <a href="#section-e" class="nav-link"><span class="nav-icon">✏️</span> E · Exercises</a>
+    <a href="#section-f" class="nav-link"><span class="nav-icon">⚡</span> F · Cheat Sheet</a>
+    <div class="nav-section-label" style="margin-top:12px;">Topics</div>
+    <a href="#fed-structure" class="nav-link"><span class="nav-icon">🏛️</span> Fed Structure</a>
+    <a href="#balance-sheet" class="nav-link"><span class="nav-icon">📊</span> Balance Sheet</a>
+    <a href="#omo" class="nav-link"><span class="nav-icon">🎯</span> Open Market Ops</a>
+    <a href="#discount-rate" class="nav-link"><span class="nav-icon">💸</span> Discount Rate</a>
+    <a href="#reserve-req" class="nav-link"><span class="nav-icon">🏦</span> Reserve Requirements</a>
+    <a href="#targeting" class="nav-link"><span class="nav-icon">📈</span> Policy Targeting</a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="dark-toggle" onclick="toggleDark()">
+      <span id="dark-icon">🌙</span>
+      <span id="dark-label">Dark Mode</span>
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="hero-badge">Chapter 4 · Study Guide</div>
+    <h1 class="hero-title">The Federal Reserve System, Monetary Policy &amp; Interest Rates</h1>
+    <p class="hero-subtitle">How the Fed is structured, what tools it uses to shape the economy, and how monetary policy flows through interest rates and the money supply.</p>
+    <div class="hero-meta">
+      <div class="hero-stat"><span class="hero-stat-icon">📄</span> 6 sections</div>
+      <div class="hero-stat"><span class="hero-stat-icon">🃏</span> 25 flashcards</div>
+      <div class="hero-stat"><span class="hero-stat-icon">✏️</span> 15 exercises</div>
+      <div class="hero-stat"><span class="hero-stat-icon">🧠</span> 4 Feynman explanations</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ====================== SECTION A ====================== -->
+    <section class="study-section" id="section-a">
+      <div class="section-header">
+        <div class="section-badge">A</div>
+        <div>
+          <div class="section-title">Chapter Summary</div>
+          <div class="section-description">Comprehensive reference — read this first, everything else reinforces it</div>
+        </div>
+      </div>
+
+      <h2 id="fed-structure">1. The Federal Reserve System: Structure and Purpose</h2>
+
+      <p>The <strong>Federal Reserve System (FRS)</strong>, commonly called "the Fed," is the central bank of the United States, established by Congress under the <strong>Federal Reserve Act of 1913</strong>. Its creation came after a series of devastating financial panics — most notably the Panic of 1907 — that exposed the fragility of the U.S. banking system and demonstrated the need for a lender of last resort that could inject liquidity into the system during crises.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Background: Why a Central Bank?</strong>
+          Before the Fed existed, bank runs were common. When depositors feared a bank was insolvent, they would rush to withdraw funds, causing healthy banks to fail too. A central bank solves this by standing ready to lend to banks that are fundamentally sound but temporarily illiquid — breaking the panic cycle.
+        </div>
+      </div>
+
+      <p>The Fed is designed as an <strong>independent central bank</strong>, meaning it operates free from day-to-day political pressure, even though it was created by Congress and remains accountable to it. This independence is crucial: a central bank that bows to political pressure might print money to finance government spending, causing inflation. The Fed's structure enforces a long-term orientation over short-term political considerations.</p>
+
+      <p>The Fed carries out <strong>four major functions</strong>: (1) conducting monetary policy, (2) supervising and regulating depository institutions, (3) maintaining the stability of the financial system, and (4) providing payment and other financial services to the U.S. government, the public, financial institutions, and foreign official institutions.</p>
+
+      <h3>The Three-Tier Structure</h3>
+
+      <p>The Fed is organized across three tiers. At the foundation are the <strong>12 Federal Reserve Banks (FRBs)</strong>, each serving a geographic district — located in Boston, New York, Philadelphia, Cleveland, Richmond, Atlanta, Chicago, St. Louis, Minneapolis, Kansas City, Dallas, and San Francisco. Each Reserve Bank acts as a depository institution for the commercial banks in its district, operates under general supervision of the Board of Governors, and has its own 9-member board of directors. Nationally chartered banks are required to become members of the FRS.</p>
+
+      <p>At the apex sits the <strong>Board of Governors</strong> in Washington, D.C., composed of seven members appointed by the President and confirmed by the Senate. Each member serves a single <strong>nonrenewable 14-year term</strong> — one expires every two years. The staggered, non-renewable structure is a deliberate design to insulate members from political pressure: they cannot be reappointed, so they have no incentive to please whoever appointed them. The Board's primary responsibilities are formulating and conducting monetary policy and supervising and regulating banks.</p>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Common misconception</strong>
+          Many students think the Chair of the Fed serves 14 years. In fact, the Chair is <em>a member of the Board</em> who serves a separate 4-year renewable term as Chair. The Board member's term is 14 years; the Chair designation rotates on a 4-year cycle.
+        </div>
+      </div>
+
+      <p>The third key body is the <strong>Federal Open Market Committee (FOMC)</strong>, the primary monetary policy-making body. It consists of all 7 Board of Governors members plus 5 of the 12 FRB presidents — the President of the New York Fed serves permanently (given New York's centrality to financial markets), and the other four seats rotate among the remaining 11 Reserve Bank presidents. The FOMC must meet at least four times per year in Washington, D.C., but in practice typically meets eight times annually. Its mandate is to promote full employment, economic growth, price stability, and a sustainable pattern of international trade.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>The Beige Book</strong>
+          Before each FOMC meeting, each Reserve Bank gathers qualitative economic intelligence from business contacts in its district. These reports are compiled into the <em>Beige Book</em>, which gives FOMC members a ground-level view of regional economic conditions to complement the quantitative data they review.
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <h3>2. Functions of Federal Reserve Banks</h3>
+
+      <p>Beyond their role in monetary policy, the 12 Federal Reserve Banks carry out a broad range of operational and regulatory functions that keep the financial system running smoothly.</p>
+
+      <p>On the <strong>monetary policy side</strong>, each FRB sets and changes the discount rate (subject to Board approval) and manages its discount window through which loans are made to depository institutions. For <strong>supervision and regulation</strong>, each FRB has supervisory and regulatory authority over state-chartered member banks and bank holding companies in its district — a shared responsibility with other regulators like the FDIC and OCC.</p>
+
+      <p>The FRBs also handle critical <strong>payment infrastructure</strong>: they issue new currency, operate the central check-clearing system that routes interbank transactions, and link member banks electronically through the <strong>Federal Reserve Communications System</strong> for wire transfers. They serve as the commercial bank for the <strong>U.S. Treasury</strong> — managing the government's checking account, issuing and redeeming Treasury securities, and processing tax payments. Finally, each FRB employs professional economists to conduct <strong>research services</strong> that inform both regional and national policy decisions.</p>
+
+      <div class="ornament">· · ·</div>
+
+      <h2 id="balance-sheet">3. The Federal Reserve's Balance Sheet</h2>
+
+      <p>Understanding the Fed's balance sheet is essential for grasping how monetary policy works mechanically. Like any bank, the Fed has both assets and liabilities, but they are unique because the Fed can create and destroy money.</p>
+
+      <h3>Liabilities: The Monetary Base</h3>
+
+      <p>The Fed's two major liabilities are <strong>currency in circulation</strong> (the paper money and coins in people's wallets and cash registers) and <strong>bank reserves</strong> (the deposits that commercial banks hold at their local Federal Reserve Bank). These two together constitute the <strong>monetary base</strong> (also called "high-powered money" or M0) — the raw foundation of the entire money supply.</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Monetary Base</div>
+        <div class="formula-content">Monetary Base = Currency in Circulation + Total Bank Reserves</div>
+      </div>
+
+      <p>Total reserves are divided into two categories: <strong>required reserves</strong> are the minimum amount the Fed legally mandates banks hold against their deposit liabilities, and <strong>excess reserves</strong> are any reserves held above and beyond that requirement. The distinction matters enormously for monetary policy, because only excess reserves are "available" for banks to lend out — and it is excess reserves that the Fed targets when implementing policy.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Supplementary context</strong>
+          In March 2020, the Fed reduced reserve requirements to 0% for all depository institutions, effectively eliminating required reserves as a binding constraint. This was partly a COVID-19 emergency measure and partly a recognition that banks already held massive excess reserves following the 2008–09 financial crisis. The concept still matters theoretically, and reserve requirements remain a policy tool, but they are no longer actively used to regulate credit creation.
+        </div>
+      </div>
+
+      <h3>Assets: What the Fed Owns</h3>
+
+      <p>The Fed's primary assets are <strong>Treasury and government agency securities</strong> — U.S. government bonds and the debt of government-sponsored enterprises like Fannie Mae and Freddie Mac. These are the securities the Fed buys and sells in open market operations. The Fed also holds <strong>Treasury currency</strong>, <strong>gold and foreign exchange</strong>, and a small amount of <strong>interbank loans</strong> (loans to commercial banks through the discount window). While interbank loans represent a small fraction of total assets, they play an outsized role in implementing monetary policy because they directly affect individual banks' reserve positions.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>Quantitative Easing (QE)</strong>
+          During the 2008 financial crisis and the COVID-19 pandemic, the Fed dramatically expanded its balance sheet through "large-scale asset purchases" — buying not just Treasury securities but also mortgage-backed securities. This is QE: the Fed creates new bank reserves and uses them to purchase assets, injecting liquidity into the financial system when conventional interest-rate policy hits the zero lower bound. QE expanded the Fed's balance sheet from roughly $900 billion in 2008 to over $8 trillion by 2022.
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <h2>4. Monetary Policy Tools</h2>
+
+      <p>The Fed has three primary instruments for implementing monetary policy, each operating through a different channel. All three ultimately work by influencing the level of bank reserves, which in turn affects the money supply and interest rates throughout the economy.</p>
+
+      <blockquote>
+        <strong>The core mechanism:</strong> The Fed influences either the <em>demand for</em> or the <em>supply of</em> excess reserves at depository institutions — and in turn, the money supply and interest rates.
+      </blockquote>
+
+      <h3 id="omo">Tool 1: Open Market Operations (Primary Tool)</h3>
+
+      <p><strong>Open market operations (OMOs)</strong> are the Fed's primary and most frequently used monetary policy instrument. They involve the purchase or sale of U.S. government securities (primarily Treasury bills and bonds) in the open market. When the FOMC decides on a monetary target or interest rate target, it issues a <strong>policy directive</strong> to the Federal Reserve Board <strong>Trading Desk</strong> at the Federal Reserve Bank of New York (FRBNY). The manager of the Trading Desk then instructs traders on the daily amounts of securities to buy or sell.</p>
+
+      <p>OMOs work by directly changing the level of bank excess reserves. When the Fed <strong>purchases</strong> securities from a bank or broker-dealer, it credits the seller's reserve account at the Fed — injecting reserves into the banking system. More reserves mean banks have more funds available to lend, expanding the money supply and pushing interest rates (especially the fed funds rate) down. Conversely, when the Fed <strong>sells</strong> securities, it debits the buyer's reserve account — draining reserves, tightening credit, and pushing interest rates up.</p>
+
+      <div class="callout callout-link">
+        <span class="callout-icon">🔗</span>
+        <div class="callout-body">
+          <strong>Connect to the Balance Sheet</strong>
+          When the Fed buys $1 billion in Treasury bonds, its <em>assets</em> increase by $1 billion (more securities), and its <em>liabilities</em> increase by $1 billion (more bank reserves). The monetary base expands. This is how the Fed literally creates money.
+        </div>
+      </div>
+
+      <p>OMOs are preferred over other tools for several reasons: they are flexible (small or large, easily reversed), frequent (daily adjustments are possible), and precise (the Fed knows exactly how many reserves will be affected). They are the <strong>primary determinant of changes in bank excess reserves</strong> in the banking system.</p>
+
+      <h3 id="discount-rate">Tool 2: The Discount Rate</h3>
+
+      <p>The <strong>discount rate</strong> is the interest rate that Federal Reserve Banks charge on loans to financial institutions in their districts, made through the <strong>discount window</strong>. Raising the discount rate signals a desire for tighter monetary conditions and higher market interest rates; lowering it signals an expansionary stance.</p>
+
+      <p>Despite its visibility, the Fed <strong>rarely uses the discount rate as an active policy tool</strong> for two reasons. First, it is difficult to predict how much discount window borrowing will change when the rate changes — banks may borrow more or less than expected. Second, because of its "signaling" importance, a discount rate change tends to have outsized and sometimes disruptive effects on financial markets, making it a blunt instrument.</p>
+
+      <p>Since January 2003, the Fed offers three distinct discount window lending programs:</p>
+
+      <table class="compare-table">
+        <tr><th>Program</th><th>Available To</th><th>Rate vs. Fed Funds Target</th><th>Purpose</th></tr>
+        <tr><td><strong>Primary Credit</strong></td><td>Generally sound DIs</td><td>Above target (penalty rate)</td><td>Very short-term (overnight) liquidity; no questions asked for healthy banks</td></tr>
+        <tr><td><strong>Secondary Credit</strong></td><td>DIs with liquidity needs</td><td>Even higher than primary</td><td>Backup liquidity for institutions working toward market reliance or orderly resolution</td></tr>
+        <tr><td><strong>Seasonal Credit</strong></td><td>Smaller DIs with seasonal patterns</td><td>Market-based rate</td><td>For institutions like agricultural banks that have predictable intrayear funding swings</td></tr>
+      </table>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Common misconception</strong>
+          The discount rate is NOT the same as the federal funds rate. The fed funds rate is the rate banks charge <em>each other</em> for overnight reserve loans in the private interbank market. The discount rate is what the Fed charges banks that borrow directly from the Fed. They move together directionally, but they are different rates — and the discount rate is typically set <em>above</em> the fed funds rate to discourage routine borrowing from the Fed.
+        </div>
+      </div>
+
+      <h3 id="reserve-req">Tool 3: Reserve Requirements</h3>
+
+      <p><strong>Reserve requirements</strong> (also called reserve ratios) specify the minimum percentage of transaction deposits (checking accounts) that depository institutions must hold as reserves — either as vault cash or as deposits at the Fed. Historically, this was a powerful lever: lowering the reserve requirement frees up funds for banks to lend, expanding the money supply through a multiplier process; raising it contracts lending and the money supply.</p>
+
+      <p>The <strong>money multiplier</strong> describes how an initial change in reserves propagates through the banking system. When a bank receives a $100 deposit and must hold 10% ($10) as a required reserve, it lends out $90 — which becomes a deposit at another bank, which then holds $9 and lends $81, and so on. The total expansion of deposits is:</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Money Multiplier</div>
+        <div class="formula-content">Money Multiplier = 1 / Reserve Requirement Ratio</div>
+        <div style="font-size:0.8rem; margin-top:8px; opacity:0.8;">Change in Money Supply = Change in Reserves × (1 / RRR)</div>
+      </div>
+
+      <p>The Fed <strong>very rarely uses reserve requirements</strong> as an active monetary policy tool because changes are disruptive (affecting all banks simultaneously) and because the full multiplier effect rarely materializes in practice (banks hold excess reserves, and not all loans become deposits in the same system).</p>
+
+      <div class="ornament">· · ·</div>
+
+      <h2>5. The Federal Funds Rate and Interest on Reserves</h2>
+
+      <p>Depository institutions with more reserves than they need at the end of the day lend those excess reserves overnight to banks that are short on reserves. This interbank market for reserves is the <strong>federal funds market</strong>, and the rate at which these overnight loans trade is the <strong>federal funds rate (fed funds rate)</strong> — one of the most closely watched interest rates in the world.</p>
+
+      <p>The fed funds rate is a <strong>benchmark interest rate</strong>: changes in it ripple through virtually all other interest rates in the economy — mortgages, car loans, credit cards, corporate borrowing — because it sets the baseline cost of short-term money.</p>
+
+      <p>The <strong>Financial Services Regulatory Relief Act of 2006</strong> authorized the Fed to pay interest on reserve balances, beginning in 2008. This created two key rates: <strong>Interest on Required Reserves (IORR)</strong> and <strong>Interest on Excess Reserves (IOER)</strong>. IOER functions as an effective floor for the fed funds rate: no bank will lend reserves at a rate below what the Fed itself pays to hold those reserves. This gave the Fed a new tool to keep the fed funds rate within its target range without having to drain all excess reserves from the system.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📝</span>
+        <div class="callout-body">
+          <strong>How the Fed Hits Its Rate Target</strong>
+          The Fed now uses a "corridor system" with IOER as the floor and the primary credit discount rate as the ceiling. The fed funds rate trades between these two bounds. The Fed adjusts both bounds when it wants to change its target range, making reserve management much more precise than under the old "scarce reserves" regime.
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <h2>6. Expansionary vs. Contractionary Monetary Policy</h2>
+
+      <p>The Fed's three tools work in both directions. Understanding which combinations of actions constitute easing vs. tightening is fundamental to this chapter.</p>
+
+      <div class="concept-grid">
+        <div class="concept-card" style="border-top: 4px solid var(--green);">
+          <div class="concept-card-label">Expansionary (Accommodative)</div>
+          <div class="concept-card-title">Lowering Rates</div>
+          <p>
+            • Open market <strong>purchases</strong> of securities<br>
+            • Discount rate <strong>decreases</strong><br>
+            • Reserve requirement ratio <strong>decreases</strong><br>
+            <strong>Result:</strong> Money supply ↑, interest rates ↓, credit availability ↑, economic activity ↑
+          </p>
+        </div>
+        <div class="concept-card" style="border-top: 4px solid var(--red);">
+          <div class="concept-card-label">Contractionary (Restrictive/Tightening)</div>
+          <div class="concept-card-title">Raising Rates</div>
+          <p>
+            • Open market <strong>sales</strong> of securities<br>
+            • Discount rate <strong>increases</strong><br>
+            • Reserve requirement ratio <strong>increases</strong><br>
+            <strong>Result:</strong> Money supply ↓, interest rates ↑, credit tightens, inflation pressure ↓
+          </p>
+        </div>
+      </div>
+
+      <p>The transmission from policy action to economic outcome is not instantaneous — economists estimate that monetary policy operates with "<strong>long and variable lags</strong>" of 12–18 months before its full effects are felt. This makes central banking as much an art as a science: the Fed must act today based on where it expects the economy to be a year or more from now.</p>
+
+      <div class="ornament">· · ·</div>
+
+      <h2 id="targeting">7. Money Supply vs. Interest Rate Targeting</h2>
+
+      <p>A fundamental constraint in monetary policy is that the Fed <strong>cannot simultaneously control both the money supply and the interest rate</strong> — it must choose one as its operating target, allowing the other to fluctuate freely. This is because money supply and interest rates are linked through money demand: for a given demand curve, fixing the quantity of money determines the price (rate), and fixing the price requires letting the quantity adjust.</p>
+
+      <p>If the Fed targets the <strong>money supply</strong> (a quantity target), it sets a specific level or growth rate for a monetary aggregate and lets market forces determine the interest rate. Interest rates will fluctuate with shifts in money demand.</p>
+
+      <p>If the Fed targets an <strong>interest rate</strong> (a price target, e.g., the fed funds rate), it stands ready to buy or sell as many securities as needed to keep rates at the target. Bank reserves and the money supply must adjust freely to keep rates on target.</p>
+
+      <p>In <strong>1993, the Fed formally adopted the federal funds rate as its primary target variable</strong>. After each FOMC meeting, the Fed simply announces whether the target range has been raised, lowered, or held — a simple, transparent communication that financial markets can quickly price in.</p>
+
+      <h3>The Taylor Rule</h3>
+
+      <p>The guiding principle behind how the Fed sets its interest rate target is the <strong>Taylor Rule</strong>, named after economist John Taylor. It prescribes what the short-term interest rate should be based on three conditions:</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Taylor Rule (conceptual form)</div>
+        <div class="formula-content">Federal Funds Rate Target = r* + π + 0.5(π − π*) + 0.5(Y − Y*)</div>
+        <div style="font-size:0.8rem; margin-top:8px; opacity:0.8;">r* = equilibrium real rate, π = actual inflation, π* = target inflation,<br>Y = actual output, Y* = potential output (full employment level)</div>
+      </div>
+
+      <p>In plain English: if inflation is running above target, the Fed should raise rates. If the economy is operating below full employment (a negative output gap), the Fed should cut rates. The rule gives equal weight (0.5) to both the inflation gap and the output gap — reflecting the Fed's <strong>dual mandate</strong> of price stability and maximum employment.</p>
+
+      <div class="ornament">· · ·</div>
+
+      <h2>8. Money Market Equilibrium and Interest Rates</h2>
+
+      <p>The aggregate demand for real money balances can be expressed as:</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Money Demand Function</div>
+        <div class="formula-content">M<sup>d</sup>/P = L(R, Y)</div>
+        <div style="font-size:0.8rem; margin-top:8px; opacity:0.8;">P = price level, R = interest rate on non-monetary assets, Y = real national income</div>
+      </div>
+
+      <p>Three factors shift money demand: a <strong>higher interest rate (R)</strong> reduces money demand (higher opportunity cost of holding non-interest-bearing cash), a <strong>higher price level (P)</strong> increases nominal money demand (more cash needed for the same transactions), and a <strong>higher real income (Y)</strong> increases money demand (more transactions to finance).</p>
+
+      <p>Money market equilibrium is achieved when <code>M<sup>s</sup>/P = L(R, Y)</code>. The interest rate adjusts to clear the market: an excess supply of money drives rates down (people dump money for bonds, bidding bond prices up and yields down); an excess demand for money drives rates up (people sell bonds to get cash, pushing bond prices down and yields up).</p>
+
+    </section>
+
+    <!-- ====================== SECTION B ====================== -->
+    <section class="study-section" id="section-b">
+      <div class="section-header">
+        <div class="section-badge">B</div>
+        <div>
+          <div class="section-title">Flashcard Deck</div>
+          <div class="section-description">Click a card to flip it. Use arrow buttons to navigate.</div>
+        </div>
+      </div>
+
+      <div class="flashcard-deck">
+        <div class="flashcard-controls">
+          <span class="fc-counter" id="fc-counter">Card 1 of 25</span>
+          <div class="fc-buttons">
+            <button class="btn btn-outline" onclick="prevCard()">← Prev</button>
+            <button class="btn btn-outline" onclick="shuffleCards()">⇌ Shuffle</button>
+            <button class="btn btn-primary" onclick="nextCard()">Next →</button>
+          </div>
+        </div>
+
+        <div class="flashcard" id="flashcard" onclick="flipCard()">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="fc-label">Question</div>
+              <div class="fc-question" id="fc-question">Loading...</div>
+              <div class="fc-hint">Click to reveal answer</div>
+            </div>
+            <div class="flashcard-back">
+              <div class="fc-label">Answer</div>
+              <div class="fc-answer" id="fc-answer">...</div>
+              <div class="difficulty-badge" id="fc-difficulty">...</div>
+              <div class="fc-hint">Click to go back</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION C ====================== -->
+    <section class="study-section" id="section-c">
+      <div class="section-header">
+        <div class="section-badge">C</div>
+        <div>
+          <div class="section-title">Feynman Technique Explanations</div>
+          <div class="section-description">Hard concepts made simple — then precise</div>
+        </div>
+      </div>
+
+      <!-- Feynman 1 -->
+      <div class="feynman-card" id="feynman-1">
+        <div class="feynman-header" onclick="toggleFeynman('feynman-1')">
+          <div class="feynman-num">1</div>
+          <div class="feynman-concept-title">How Open Market Operations Create Money</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Imagine you and your friends are all playing a board game with Monopoly money. The bank (the Fed) decides to buy one of your houses — your "Treasury bond" — and pays you with freshly printed Monopoly bills. You now have more cash. You can spend it, or lend it to a friend who then spends it. Suddenly, more money is flowing around the table than before. That's it — the Fed "buys" something real (a bond) and pays with new money it creates out of thin air.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>The Monopoly bank has a fixed pile of bills. The real Fed doesn't — it can create reserves electronically, limitlessly. Also, Monopoly money doesn't cause inflation because it can't buy real goods. In the real world, too much money chasing too few goods does cause inflation.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p>When the Fed buys a Treasury security from a bank, it credits that bank's reserve account at the Fed — increasing the bank's excess reserves. No physical currency changes hands; the Fed simply types a larger number into the bank's reserve ledger. These new reserves are a liability on the Fed's balance sheet and an asset on the bank's. The bank now has more excess reserves available to lend, expanding the money supply through the deposit multiplier process.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feynman 2 -->
+      <div class="feynman-card" id="feynman-2">
+        <div class="feynman-header" onclick="toggleFeynman('feynman-2')">
+          <div class="feynman-num">2</div>
+          <div class="feynman-concept-title">The Money Multiplier</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>You deposit $100 at Bank A. Bank A has to keep $10 (10%) but lends out $90 to someone. That someone deposits $90 at Bank B. Bank B keeps $9 and lends out $81. Bank C gets $81, keeps $8.10, lends $72.90... This chain goes on and on. By the end, your original $100 deposit has supported $1,000 worth of deposits in the banking system. The whole system expanded because banks keep recycling the money. That's the multiplier — one dollar of new reserves supports many dollars of deposits.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>The theoretical multiplier assumes (1) banks lend out every dollar of excess reserves and (2) all loans return to the banking system as deposits. Neither is always true. Banks hold excess reserves as a safety cushion, and some money "leaks" into cash holdings outside banks.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p>The money multiplier is <code>1 / RRR</code>. With a 10% reserve requirement, a $1 billion open market purchase can theoretically expand the money supply by $10 billion through repeated rounds of lending and deposit creation. A decrease in the reserve requirement increases the multiplier (and thus money supply); an increase decreases it.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feynman 3 -->
+      <div class="feynman-card" id="feynman-3">
+        <div class="feynman-header" onclick="toggleFeynman('feynman-3')">
+          <div class="feynman-num">3</div>
+          <div class="feynman-concept-title">Why the Fed Can't Control Both Ms and Interest Rates</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Imagine a water tank (the money supply) connected to a hose (interest rates). The water pressure in the hose depends on how much water is in the tank. If you fix the amount of water, the pressure is determined by physics — you can't also independently fix the pressure. OR: you can set the pressure (interest rate) and let as much water in as needed to maintain that pressure — but then you lose control of how much water is in the tank. You control ONE thing: either the amount, or the pressure. Not both simultaneously.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>Money demand isn't fixed like water physics — it shifts with income, prices, and expectations. So the "pressure" (interest rate) can change even if the Fed doesn't change the money supply. This makes the trade-off even harder to manage.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p>Money supply (Ms) and interest rates (R) are linked through money demand: <code>Ms/P = L(R,Y)</code>. For a given demand curve, fixing Ms pins R; fixing R requires Ms to adjust. If the Fed targets the money supply, it sets a quantity and lets the market discover the price (interest rate). Since 1993, the Fed has chosen to target the federal funds rate, accepting fluctuations in bank reserves and the money supply.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feynman 4 -->
+      <div class="feynman-card" id="feynman-4">
+        <div class="feynman-header" onclick="toggleFeynman('feynman-4')">
+          <div class="feynman-num">4</div>
+          <div class="feynman-concept-title">The Taylor Rule</div>
+        </div>
+        <div class="feynman-body">
+          <div class="feynman-section">
+            <div class="feynman-section-label">Simple Explanation</div>
+            <p>Picture a car cruise control. If you're going too fast (too much inflation), it slows you down (raises interest rates). If you're going too slow (unemployment too high, economy underperforming), it speeds you up (cuts rates). The Taylor Rule is just a formula for the cruise control — it tells the Fed driver how much to press the gas or brake based on two readings: the speedometer (inflation) and whether you're behind or ahead of schedule (jobs/output).</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">Where the analogy breaks down</div>
+            <p>Cruise control responds immediately; monetary policy has lags of 12–18 months. Also, cruise control doesn't have a "zero" problem — rates can't go below zero (in normal times), so when the Taylor Rule prescribes a negative rate, the Fed is "stuck" and must use unconventional tools like QE.</p>
+          </div>
+          <div class="feynman-section">
+            <div class="feynman-section-label">The precise version</div>
+            <p>The Taylor Rule: <code>i = r* + π + 0.5(π − π*) + 0.5(Y − Y*)</code>. The fed funds rate target (i) equals the equilibrium real rate (r*) plus actual inflation (π), plus half the inflation gap (actual minus target), plus half the output gap (actual minus potential). It provides a systematic framework for evaluating whether monetary policy is too tight or too loose.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION D ====================== -->
+    <section class="study-section" id="section-d">
+      <div class="section-header">
+        <div class="section-badge">D</div>
+        <div>
+          <div class="section-title">Knowledge Graph</div>
+          <div class="section-description">How Chapter 4 concepts connect to each other</div>
+        </div>
+      </div>
+
+      <div class="graph-container" id="kg-container">
+        <svg id="kg-svg" viewBox="0 0 800 480" style="width:100%;max-height:480px;display:block;"></svg>
+        <div class="kg-tooltip" id="kg-tooltip"></div>
+      </div>
+
+      <div class="connection-cards">
+        <div class="connection-card">
+          <strong>The Fed Structure → Monetary Policy Tools</strong>
+          The Fed's three-tier organizational structure (Board of Governors, FOMC, 12 FRBs) exists to implement monetary policy. The Board sets reserve requirements and approves discount rate changes; the FOMC directs open market operations.
+        </div>
+        <div class="connection-card">
+          <strong>Open Market Operations → Monetary Base → Money Supply</strong>
+          OMOs are the most direct route from Fed action to monetary outcomes. When the Fed buys securities, bank reserves increase, expanding the monetary base. The money multiplier then amplifies this base expansion into a larger increase in the broader money supply.
+        </div>
+        <div class="connection-card">
+          <strong>Money Supply → Interest Rates (Money Market Model)</strong>
+          Changes in money supply disturb money market equilibrium. An increase in money supply creates an excess supply of money, pushing people toward interest-bearing assets, driving up bond prices and driving down yields — a fall in interest rates.
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION E ====================== -->
+    <section class="study-section" id="section-e">
+      <div class="section-header">
+        <div class="section-badge">E</div>
+        <div>
+          <div class="section-title">Chapter Exercises</div>
+          <div class="section-description">Click "Show Answer" to reveal — try answering first!</div>
+        </div>
+      </div>
+
+      <!-- TIER 1 -->
+      <div class="exercise-tier tier-1">
+        <div class="tier-header">
+          <span class="tier-badge">Tier 1</span>
+          <span class="tier-title">Recall — Can you remember the basics?</span>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q1 · Basic</div>
+          <div class="exercise-q">The Federal Reserve was established in ________ under the ________ Act. Its creation was largely a response to the ________ of 1907.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p><strong>1913 / Federal Reserve Act / Panic.</strong> The Panic of 1907 caused massive bank failures and a severe credit crunch, convincing Congress that a central banking institution was needed to prevent future catastrophes.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q2 · Basic</div>
+          <div class="exercise-q">What is the monetary base, and what two components make it up?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>The monetary base = <strong>currency in circulation + total bank reserves</strong> (required + excess). It represents the fundamental "raw material" of the money supply — before the multiplier effect.</p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟢 Q3 · Basic</div>
+          <div class="exercise-q">True or False: The federal funds rate is the rate the Federal Reserve charges banks for discount window loans.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p><strong>FALSE.</strong> The federal funds rate is the rate banks charge <em>each other</em> in the private interbank overnight lending market. The rate the Fed charges banks is the <strong>discount rate</strong>, which is typically set <em>above</em> the fed funds rate.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 2 -->
+      <div class="exercise-tier tier-2">
+        <div class="tier-header">
+          <span class="tier-badge">Tier 2</span>
+          <span class="tier-title">Application — Can you use what you know?</span>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q4 · Intermediate</div>
+          <div class="exercise-q">The reserve requirement ratio is currently 8%. The Fed conducts an open market purchase of $200 million in Treasury securities. (a) What is the money multiplier? (b) What is the theoretical maximum increase in the money supply?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>(a) Multiplier = 1/0.08 = <strong>12.5</strong><br>(b) Theoretical max = $200M × 12.5 = <strong>$2.5 billion</strong></p>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🟡 Q5 · Intermediate</div>
+          <div class="exercise-q">The economy is experiencing high inflation (5%, target is 2%) and is running slightly above full employment (+1% output gap). Using the Taylor Rule framework, should the Fed raise or lower interest rates?</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>Both gaps point toward <strong>raising rates</strong>. The inflation gap premium would be 0.5 × (5% - 2%) = +1.5%, and the output gap premium would be 0.5 × (+1%) = +0.5%. Total premium over neutral rate = +2.0 percentage points.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 3 -->
+      <div class="exercise-tier tier-3">
+        <div class="tier-header">
+          <span class="tier-badge">Tier 3</span>
+          <span class="tier-title">Synthesis — Can you connect and create?</span>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-q-num">🔴 Q6 · Advanced</div>
+          <div class="exercise-q">Design a monetary policy response package for a severe recession with rising unemployment, falling inflation, and freezing credit markets.</div>
+          <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+          <div class="answer-panel">
+            <div class="answer-label">Answer</div>
+            <p>1. <strong>Cut the fed funds rate target</strong> (OMOs) to reduce borrowing costs.<br>2. <strong>Cut the discount rate</strong> to encourage bank borrowing.<br>3. <strong>Large-scale OMO purchases</strong> to inject massive reserves.<br>4. <strong>Quantitative Easing (QE)</strong> if rates hit zero to push down long-term rates.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION F ====================== -->
+    <section class="study-section" id="section-f">
+      <div class="section-header">
+        <div class="section-badge">F</div>
+        <div>
+          <div class="section-title">Quick-Reference Cheat Sheet</div>
+          <div class="section-description">Your one-stop review before the exam</div>
+        </div>
+      </div>
+
+      <div class="cheatsheet-grid">
+        <div class="cs-card">
+          <div class="cs-card-title">📌 Key Definitions</div>
+          <ul class="cs-list">
+            <li><span class="cs-term">Monetary Base</span> Currency + bank reserves</li>
+            <li><span class="cs-term">Excess Reserves</span> Reserves above required minimum</li>
+            <li><span class="cs-term">Fed Funds Rate</span> Interbank overnight rate</li>
+            <li><span class="cs-term">IOER</span> Interest on excess reserves (floor)</li>
+            <li><span class="cs-term">OMOs</span> Primary tool (buy/sell securities)</li>
+            <li><span class="cs-term">Taylor Rule</span> framework for setting rates</li>
+          </ul>
+        </div>
+
+        <div class="cs-card">
+          <div class="cs-card-title">🏆 Before the Exam: Review These</div>
+          <ol class="priority-list">
+            <li>The three monetary policy tools and their directions.</li>
+            <li>Fed funds rate vs. discount rate (bank-to-bank vs. Fed-to-bank).</li>
+            <li>Money multiplier formula: 1/RRR.</li>
+            <li>Taylor Rule structure (inflation gap + output gap).</li>
+            <li>Money supply vs. interest rate targeting trade-off.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</main>
+
+<!-- ====================== JAVASCRIPT ====================== -->
+<script>
+// ---- DARK MODE ----
+const darkBtn = document.getElementById('dark-icon');
+const darkLabel = document.getElementById('dark-label');
+
+function toggleDark() {
+  const html = document.documentElement;
+  if (html.getAttribute('data-theme') === 'dark') {
+    html.removeAttribute('data-theme');
+    darkBtn.textContent = '🌙';
+    darkLabel.textContent = 'Dark Mode';
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    darkBtn.textContent = '☀️';
+    darkLabel.textContent = 'Light Mode';
+  }
+}
+
+// ---- SIDEBAR MOBILE ----
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// ---- ACTIVE NAV ----
+const navLinks = document.querySelectorAll('.nav-link');
+
+function updateNav() {
+  let current = '';
+  document.querySelectorAll('section[id], h2[id], h3[id]').forEach(el => {
+    if (el.getBoundingClientRect().top < 120) current = el.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+
+// ---- EXERCISES ----
+function toggleAnswer(btn) {
+  const panel = btn.nextElementSibling;
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  btn.classList.toggle('active', !isOpen);
+  btn.textContent = isOpen ? 'Show Answer' : 'Hide Answer';
+}
+
+// ---- FEYNMAN ----
+function toggleFeynman(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+// ---- FLASHCARDS ----
+const cards = [
+  { q: "What year was the Federal Reserve Act passed?", a: "1913. It was a response to the Panic of 1907.", diff: "basic" },
+  { q: "How many members are on the Board of Governors?", a: "7 members, each serving a 14-year nonrenewable term.", diff: "basic" },
+  { q: "What is the monetary base?", a: "Currency in circulation + Total bank reserves.", diff: "basic" },
+  { q: "What are the three main tools of monetary policy?", a: "1. Open Market Operations, 2. Discount Rate, 3. Reserve Requirements.", diff: "basic" },
+  { q: "What happens to reserves when the Fed buys securities?", a: "Bank reserves increase (injection of liquidity).", diff: "intermediate" },
+  { q: "What is the federal funds rate?", a: "The rate banks charge each other for overnight loans in the private interbank market.", diff: "basic" },
+  { q: "What is the Taylor Rule?", a: "A framework for setting the fed funds rate target based on inflation and output gaps.", diff: "intermediate" },
+  { q: "Why can't the Fed target both Ms and Interest Rates?", a: "They are linked through money demand; fixing one determines the other.", diff: "advanced" },
+  { q: "What is the IOER?", a: "Interest on Excess Reserves — acts as a floor for the fed funds rate.", diff: "intermediate" },
+  { q: "What is the money multiplier formula?", a: "Multiplier = 1 / Reserve Requirement Ratio.", diff: "basic" }
+];
+
+let currentIndex = 0;
+let isFlipped = false;
+let order = [...Array(cards.length).keys()];
+
+function renderCard() {
+  const card = cards[order[currentIndex]];
+  document.getElementById('fc-question').textContent = card.q;
+  document.getElementById('fc-answer').textContent = card.a;
+  const diffEl = document.getElementById('fc-difficulty');
+  const map = { basic: ['🟢 Basic', 'diff-basic'], intermediate: ['🟡 Intermediate', 'diff-intermediate'], advanced: ['🔴 Advanced', 'diff-advanced'] };
+  const [label, cls] = map[card.diff];
+  diffEl.textContent = label;
+  diffEl.className = 'difficulty-badge ' + cls;
+  document.getElementById('fc-counter').textContent = `Card ${currentIndex + 1} of ${cards.length}`;
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('flipped');
+  isFlipped = false;
+}
+
+function flipCard() {
+  const fc = document.getElementById('flashcard');
+  fc.classList.toggle('flipped');
+  isFlipped = !isFlipped;
+}
+
+function nextCard() {
+  currentIndex = (currentIndex + 1) % cards.length;
+  renderCard();
+}
+
+function prevCard() {
+  currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+  renderCard();
+}
+
+function shuffleCards() {
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  currentIndex = 0;
+  renderCard();
+}
+
+// ---- KNOWLEDGE GRAPH ----
+(function() {
+  const svg = document.getElementById('kg-svg');
+  const tooltip = document.getElementById('kg-tooltip');
+  const container = document.getElementById('kg-container');
+
+  const nodes = [
+    { id: 'fed', label: 'Federal Reserve\nSystem', x: 400, y: 240, r: 36, color: '#c9a84c', desc: 'Central bank of the U.S., established 1913. Conducts monetary policy, supervises banks, maintains financial stability.' },
+    { id: 'bog', label: 'Board of\nGovernors', x: 200, y: 120, r: 28, color: '#243b55', desc: '7 members, 14-yr nonrenewable terms. Formulates monetary policy and supervises banks.' },
+    { id: 'fomc', label: 'FOMC', x: 400, y: 80, r: 28, color: '#243b55', desc: '12 voters: 7 BoG + NY Fed (permanent) + 4 rotating. Primary monetary policy decision-making body.' },
+    { id: 'frb', label: '12 Reserve\nBanks', x: 600, y: 120, r: 28, color: '#243b55', desc: 'Implement policy, manage discount window, clear checks, provide financial services, issue currency.' },
+    { id: 'omo', label: 'Open Market\nOperations', x: 160, y: 280, r: 30, color: '#1b2e45', desc: 'Primary tool. Buy securities → reserves increase → money supply up → rates down. Vice versa for sales.' },
+    { id: 'dr', label: 'Discount\nRate', x: 400, y: 380, r: 26, color: '#1b2e45', desc: 'Rate Fed charges banks. Rarely used as active tool due to signaling effects and unpredictable response.' },
+    { id: 'rr', label: 'Reserve\nRequirements', x: 630, y: 280, r: 26, color: '#1b2e45', desc: 'Min reserves banks must hold. Rarely changed. Directly affects the money multiplier (1/RRR).' },
+    { id: 'reserves', label: 'Bank\nReserves', x: 260, y: 380, r: 26, color: '#276749', desc: 'Required + excess reserves. Excess reserves = loanable funds. Fed targets these through OMOs.' },
+    { id: 'multiplier', label: 'Money\nMultiplier', x: 540, y: 390, r: 24, color: '#276749', desc: '1/RRR. Amplifies reserve changes into larger money supply changes through sequential lending.' },
+    { id: 'ms', label: 'Money\nSupply', x: 180, y: 440, r: 24, color: '#276749', desc: 'Total money in circulation. Expands when reserves increase × multiplier. Tracked as M1, M2.' },
+    { id: 'rates', label: 'Interest\nRates', x: 620, y: 430, r: 28, color: '#b7791f', desc: 'Fed funds rate is the benchmark. Falls when money supply rises; rises when money supply falls.' },
+    { id: 'taylor', label: 'Taylor\nRule', x: 680, y: 200, r: 24, color: '#2b6cb0', desc: 'Framework for setting fed funds rate target since 1993.' },
+    { id: 'ffr', label: 'Fed Funds\nRate Target', x: 520, y: 200, r: 26, color: '#2b6cb0', desc: 'Primary policy target since 1993. Interbank overnight rate.' },
+  ];
+
+  const links = [
+    { from: 'bog', to: 'fed', label: 'governs' },
+    { from: 'fomc', to: 'fed', label: 'part of' },
+    { from: 'frb', to: 'fed', label: 'implements' },
+    { from: 'fomc', to: 'omo', label: 'directs' },
+    { from: 'frb', to: 'dr', label: 'manages' },
+    { from: 'bog', to: 'rr', label: 'sets' },
+    { from: 'omo', to: 'reserves', label: 'changes' },
+    { from: 'rr', to: 'multiplier', label: 'determines' },
+    { from: 'reserves', to: 'ms', label: 'base for' },
+    { from: 'multiplier', to: 'ms', label: 'amplifies' },
+    { from: 'ms', to: 'rates', label: 'affects' },
+    { from: 'dr', to: 'reserves', label: 'affects' },
+    { from: 'taylor', to: 'ffr', label: 'prescribes' },
+    { from: 'ffr', to: 'rates', label: 'is key' },
+    { from: 'fomc', to: 'ffr', label: 'targets' },
+  ];
+
+  // Draw links
+  links.forEach(link => {
+    const from = nodes.find(n => n.id === link.from);
+    const to = nodes.find(n => n.id === link.to);
+    if (!from || !to) return;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', from.x); line.setAttribute('y1', from.y);
+    line.setAttribute('x2', to.x); line.setAttribute('y2', to.y);
+    line.setAttribute('class', 'kg-link');
+    svg.appendChild(line);
+    // Label
+    const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2;
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', mx); text.setAttribute('y', my - 4);
+    text.setAttribute('class', 'kg-link-label'); text.setAttribute('text-anchor', 'middle');
+    text.textContent = link.label;
+    svg.appendChild(text);
+  });
+
+  // Draw nodes
+  nodes.forEach(node => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'kg-node');
+    g.setAttribute('transform', `translate(${node.x},${node.y})`);
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('r', node.r);
+    circle.setAttribute('fill', node.color);
+    circle.setAttribute('stroke', 'rgba(255,255,255,0.2)');
+    circle.setAttribute('fill-opacity', '0.9');
+    g.appendChild(circle);
+
+    const lines = node.label.split('\n');
+    lines.forEach((line, i) => {
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('dominant-baseline', 'middle');
+      text.setAttribute('fill', '#fff');
+      text.setAttribute('font-weight', '500');
+      text.setAttribute('y', (i - (lines.length-1)/2) * 13);
+      text.textContent = line;
+      g.appendChild(text);
+    });
+
+    g.addEventListener('mouseenter', (e) => {
+      tooltip.style.display = 'block';
+      tooltip.innerHTML = `<strong>${node.label.replace('\n',' ')}</strong><br>${node.desc}`;
+    });
+    g.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      let left = e.clientX - rect.left + 12;
+      let top = e.clientY - rect.top + 12;
+      if (left + 220 > rect.width) left = e.clientX - rect.left - 232;
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    });
+    g.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+
+    svg.appendChild(g);
+  });
+})();
+
+// Initialize
+renderCard();
+</script>
+
+<script src="../../highlight.js"></script>
+</body>
+</html>
