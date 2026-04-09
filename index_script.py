@@ -130,7 +130,12 @@ def index_notes():
                     
                     # Inject highlight script if not present
                     if 'highlight.js' not in html:
-                        script_tag = '\n<script src="../../highlight.js"></script>\n'
+                        # Calculate relative path to root from notes/<course_dir>/<filename>
+                        # Path: notes/ (1) + course_dir/ (2) + filename (3) - wait,
+                        # File is notes/course/file.html
+                        # dirname is notes/course (2 levels from root)
+                        rel_to_root = "../../"
+                        script_tag = f'\n<script src="{rel_to_root}highlight.js"></script>\n'
                         if '</body>' in html:
                             html = html.replace('</body>', f'{script_tag}</body>')
                             f.seek(0)
