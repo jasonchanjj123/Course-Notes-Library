@@ -490,7 +490,7 @@
           }
 
           return `
-            <a href="${item.url}" class="result-item">
+            <a href="${item.url}?h=${encodeURIComponent(query)}" class="result-item">
               <div class="result-title">${item.title}</div>
               <div class="result-meta">${item.subtitle}</div>
               ${snippet ? `<div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; line-height: 1.4;">${snippet}</div>` : ''}

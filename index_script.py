@@ -125,9 +125,23 @@ def index_notes():
         for filename in sorted(os.listdir(course_path)):
             if filename.endswith('.html'):
                 filepath = os.path.join(course_path, filename)
-                with open(filepath, 'r', encoding='utf-8') as f:
+                with open(filepath, 'r+', encoding='utf-8') as f:
                     html = f.read()
                     
+                    # Inject highlight script if not present
+                    if 'highlight.js' not in html:
+                        script_tag = '\n<script src="../../highlight.js"></script>\n'
+                        if '</body>' in html:
+                            html = html.replace('</body>', f'{script_tag}</body>')
+                            f.seek(0)
+                            f.write(html)
+                            f.truncate()
+                        elif '</html>' in html:
+                            html = html.replace('</html>', f'{script_tag}</html>')
+                            f.seek(0)
+                            f.write(html)
+                            f.truncate()
+
                     # Extract title
                     title_match = re.search(r'<title>(.*?)</title>', html)
                     full_title = title_match.group(1) if title_match else filename
