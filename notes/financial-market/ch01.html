@@ -1524,118 +1524,9 @@ svg text { font-family: 'Source Sans 3', sans-serif; }
         </div>
       </div>
 
-      <div class="graph-container">
-        <svg viewBox="0 0 820 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:480px;display:block;">
-          <!-- Definitions for arrowheads -->
-          <defs>
-            <marker id="arrow-gold" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-              <polygon points="0 0, 8 3, 0 6" fill="#c9a84c"/>
-            </marker>
-            <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-              <polygon points="0 0, 8 3, 0 6" fill="#4a9eda"/>
-            </marker>
-            <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-              <polygon points="0 0, 8 3, 0 6" fill="#4caf7d"/>
-            </marker>
-            <marker id="arrow-red" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-              <polygon points="0 0, 8 3, 0 6" fill="#e07070"/>
-            </marker>
-          </defs>
-
-          <!-- Central node: Financial Markets -->
-          <ellipse cx="410" cy="240" rx="80" ry="36" fill="#c9a84c" opacity="0.9"/>
-          <text x="410" y="236" text-anchor="middle" fill="#0d1b2a" font-size="13" font-weight="bold">Financial</text>
-          <text x="410" y="252" text-anchor="middle" fill="#0d1b2a" font-size="13" font-weight="bold">Markets</text>
-
-          <!-- Primary Markets -->
-          <ellipse cx="145" cy="130" rx="68" ry="28" fill="#243b55" opacity="0.95"/>
-          <text x="145" y="126" text-anchor="middle" fill="#e8c97a" font-size="11" font-weight="bold">Primary</text>
-          <text x="145" y="141" text-anchor="middle" fill="#e8c97a" font-size="11">Markets</text>
-
-          <!-- Secondary Markets -->
-          <ellipse cx="145" cy="350" rx="68" ry="28" fill="#243b55" opacity="0.95"/>
-          <text x="145" y="346" text-anchor="middle" fill="#e8c97a" font-size="11" font-weight="bold">Secondary</text>
-          <text x="145" y="361" text-anchor="middle" fill="#e8c97a" font-size="11">Markets</text>
-
-          <!-- Money Markets -->
-          <ellipse cx="675" cy="130" rx="68" ry="28" fill="#243b55" opacity="0.95"/>
-          <text x="675" y="126" text-anchor="middle" fill="#e8c97a" font-size="11" font-weight="bold">Money</text>
-          <text x="675" y="141" text-anchor="middle" fill="#e8c97a" font-size="11">Markets</text>
-
-          <!-- Capital Markets -->
-          <ellipse cx="675" cy="350" rx="68" ry="28" fill="#243b55" opacity="0.95"/>
-          <text x="675" y="346" text-anchor="middle" fill="#e8c97a" font-size="11" font-weight="bold">Capital</text>
-          <text x="675" y="361" text-anchor="middle" fill="#e8c97a" font-size="11">Markets</text>
-
-          <!-- FX Markets -->
-          <ellipse cx="260" cy="68" rx="62" ry="26" fill="#1a3a5c" opacity="0.95"/>
-          <text x="260" y="64" text-anchor="middle" fill="#7ec8e3" font-size="11" font-weight="bold">Foreign</text>
-          <text x="260" y="79" text-anchor="middle" fill="#7ec8e3" font-size="11">Exchange</text>
-
-          <!-- Derivative Markets -->
-          <ellipse cx="560" cy="68" rx="72" ry="26" fill="#1a3a5c" opacity="0.95"/>
-          <text x="560" y="64" text-anchor="middle" fill="#7ec8e3" font-size="11" font-weight="bold">Derivative</text>
-          <text x="560" y="79" text-anchor="middle" fill="#7ec8e3" font-size="11">Markets</text>
-
-          <!-- Financial Institutions -->
-          <ellipse cx="260" cy="412" rx="72" ry="26" fill="#1a3a5c" opacity="0.95"/>
-          <text x="260" y="408" text-anchor="middle" fill="#7ec8e3" font-size="11" font-weight="bold">Financial</text>
-          <text x="260" y="423" text-anchor="middle" fill="#7ec8e3" font-size="11">Institutions</text>
-
-          <!-- Fintech -->
-          <ellipse cx="560" cy="412" rx="62" ry="26" fill="#1a3a5c" opacity="0.95"/>
-          <text x="560" y="408" text-anchor="middle" fill="#7ec8e3" font-size="11" font-weight="bold">Fintech</text>
-          <text x="560" y="423" text-anchor="middle" fill="#7ec8e3" font-size="11">/ Blockchain</text>
-
-          <!-- Globalization -->
-          <ellipse cx="410" cy="430" rx="62" ry="22" fill="#1e3a2a" opacity="0.9"/>
-          <text x="410" y="427" text-anchor="middle" fill="#4caf7d" font-size="11" font-weight="bold">Globalization</text>
-          <text x="410" y="442" text-anchor="middle" fill="#4caf7d" font-size="11">of Markets</text>
-
-          <!-- Edges: Financial Markets → sub-markets (gold, "classifies into") -->
-          <line x1="335" y1="225" x2="215" y2="148" stroke="#c9a84c" stroke-width="1.8" marker-end="url(#arrow-gold)" stroke-dasharray="none"/>
-          <text x="258" y="175" text-anchor="middle" fill="#c9a84c" font-size="9">classifies into</text>
-
-          <line x1="335" y1="255" x2="215" y2="337" stroke="#c9a84c" stroke-width="1.8" marker-end="url(#arrow-gold)"/>
-          <text x="258" y="310" text-anchor="middle" fill="#c9a84c" font-size="9">classifies into</text>
-
-          <line x1="488" y1="225" x2="607" y2="148" stroke="#c9a84c" stroke-width="1.8" marker-end="url(#arrow-gold)"/>
-          <text x="558" y="175" text-anchor="middle" fill="#c9a84c" font-size="9">classifies into</text>
-
-          <line x1="488" y1="255" x2="607" y2="337" stroke="#c9a84c" stroke-width="1.8" marker-end="url(#arrow-gold)"/>
-          <text x="558" y="310" text-anchor="middle" fill="#c9a84c" font-size="9">classifies into</text>
-
-          <!-- Primary ↔ Secondary: enables -->
-          <line x1="145" y1="158" x2="145" y2="322" stroke="#4a9eda" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
-          <text x="125" y="242" text-anchor="middle" fill="#4a9eda" font-size="9">enables</text>
-
-          <!-- FX → Derivatives: hedged by -->
-          <line x1="560" y1="94" x2="330" y2="94" stroke="#4a9eda" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
-          <text x="445" y="88" text-anchor="middle" fill="#4a9eda" font-size="9">hedges FX risk</text>
-
-          <!-- FX → Financial Markets -->
-          <line x1="310" y1="80" x2="375" y2="215" stroke="#c9a84c" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#arrow-gold)"/>
-
-          <!-- Derivative → Financial Markets -->
-          <line x1="510" y1="82" x2="450" y2="215" stroke="#c9a84c" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#arrow-gold)"/>
-
-          <!-- FIs → Financial Markets: intermediates -->
-          <line x1="320" y1="400" x2="375" y2="270" stroke="#4a9eda" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
-          <text x="318" y="340" text-anchor="middle" fill="#4a9eda" font-size="9">intermediates</text>
-
-          <!-- Fintech → FIs: disrupts -->
-          <line x1="498" y1="412" x2="330" y2="412" stroke="#e07070" stroke-width="1.5" marker-end="url(#arrow-red)"/>
-          <text x="415" y="426" text-anchor="middle" fill="#e07070" font-size="9">disrupts</text>
-
-          <!-- Globalization → all markets -->
-          <line x1="410" y1="408" x2="410" y2="276" stroke="#4caf7d" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
-          <text x="430" y="355" text-anchor="middle" fill="#4caf7d" font-size="9">expands</text>
-
-          <!-- Money ↔ Capital: contrasts -->
-          <line x1="675" y1="158" x2="675" y2="322" stroke="#4a9eda" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
-          <text x="708" y="242" text-anchor="middle" fill="#4a9eda" font-size="9">contrasts</text>
-
-        </svg>
+      <div class="graph-container" id="kg-container">
+        <svg id="kg-svg" viewBox="0 0 820 480" style="width:100%;max-height:480px;display:block;"></svg>
+        <div class="kg-tooltip" id="kg-tooltip"></div>
       </div>
 
       <div class="graph-legend">
@@ -2084,6 +1975,105 @@ document.addEventListener('keydown', (e) => {
 
 // Initialize
 renderCard();
+
+// ---- KNOWLEDGE GRAPH ----
+(function() {
+  const svg = document.getElementById('kg-svg');
+  const tooltip = document.getElementById('kg-tooltip');
+  const container = document.getElementById('kg-container');
+
+  const nodes = [
+    { id: 'fm', label: 'Financial\nMarkets', x: 410, y: 240, r: 36, color: '#c9a84c', desc: 'Structures through which funds flow from savers to users of capital.' },
+    { id: 'primary', label: 'Primary\nMarkets', x: 145, y: 130, r: 28, color: '#243b55', desc: 'Where users of funds raise money by issuing new stocks or bonds. Money goes to the issuer.' },
+    { id: 'secondary', label: 'Secondary\nMarkets', x: 145, y: 350, r: 28, color: '#243b55', desc: 'Where existing securities are traded. Money goes to the selling investor, not the issuer.' },
+    { id: 'money', label: 'Money\nMarkets', x: 675, y: 130, r: 28, color: '#243b55', desc: 'Trade debt instruments with maturities of one year or less (e.g., T-bills).' },
+    { id: 'capital', label: 'Capital\nMarkets', x: 675, y: 350, r: 28, color: '#243b55', desc: 'Trade debt and equity with maturities of more than one year (e.g., stocks, bonds).' },
+    { id: 'fx', label: 'Foreign\nExchange', x: 260, y: 68, r: 26, color: '#1b2e45', desc: 'Markets where currencies are traded and exchange rate risk is managed.' },
+    { id: 'derivatives', label: 'Derivative\nMarkets', x: 560, y: 68, r: 26, color: '#1b2e45', desc: 'Markets for instruments whose value derives from an underlying asset (e.g., futures, options).' },
+    { id: 'fis', label: 'Financial\nInstitutions', x: 260, y: 412, r: 26, color: '#1b2e45', desc: 'Intermediaries that channel funds between savers and borrowers.' },
+    { id: 'fintech', label: 'Fintech /\nBlockchain', x: 560, y: 412, r: 26, color: '#1b2e45', desc: 'Technological innovations that provide financial solutions or disrupt traditional FIs.' },
+    { id: 'global', label: 'Globalization\nof Markets', x: 410, y: 430, r: 22, color: '#276749', desc: 'The trend toward international growth and blurring of national financial system boundaries.' },
+  ];
+
+  const links = [
+    { from: 'fm', to: 'primary', label: 'classifies' },
+    { from: 'fm', to: 'secondary', label: 'classifies' },
+    { from: 'fm', to: 'money', label: 'classifies' },
+    { from: 'fm', to: 'capital', label: 'classifies' },
+    { from: 'primary', to: 'secondary', label: 'enables' },
+    { from: 'fx', to: 'derivatives', label: 'hedges' },
+    { from: 'fis', to: 'fm', label: 'intermediates' },
+    { from: 'fintech', to: 'fis', label: 'disrupts' },
+    { from: 'global', to: 'fm', label: 'expands' },
+    { from: 'money', to: 'capital', label: 'contrasts' },
+  ];
+
+  // Draw links
+  links.forEach(link => {
+    const from = nodes.find(n => n.id === link.from);
+    const to = nodes.find(n => n.id === link.to);
+    if (!from || !to) return;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', from.x); line.setAttribute('y1', from.y);
+    line.setAttribute('x2', to.x); line.setAttribute('y2', to.y);
+    line.setAttribute('class', 'kg-link');
+    line.setAttribute('stroke', '#c9a84c');
+    line.setAttribute('stroke-width', '1.5');
+    svg.appendChild(line);
+    
+    const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2;
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', mx); text.setAttribute('y', my - 4);
+    text.setAttribute('class', 'kg-link-label'); text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', 'rgba(255,255,255,0.4)');
+    text.setAttribute('font-size', '9px');
+    text.textContent = link.label;
+    svg.appendChild(text);
+  });
+
+  // Draw nodes
+  nodes.forEach(node => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'kg-node');
+    g.setAttribute('transform', `translate(${node.x},${node.y})`);
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('r', node.r);
+    circle.setAttribute('fill', node.color);
+    circle.setAttribute('stroke', 'rgba(255,255,255,0.2)');
+    circle.setAttribute('fill-opacity', '0.9');
+    g.appendChild(circle);
+
+    const lines = node.label.split('\n');
+    lines.forEach((line, i) => {
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('dominant-baseline', 'middle');
+      text.setAttribute('fill', '#fff');
+      text.setAttribute('font-weight', '500');
+      text.setAttribute('font-size', '11px');
+      text.setAttribute('y', (i - (lines.length-1)/2) * 13);
+      text.textContent = line;
+      g.appendChild(text);
+    });
+
+    g.addEventListener('mouseenter', (e) => {
+      tooltip.style.display = 'block';
+      tooltip.innerHTML = `<strong>${node.label.replace('\n',' ')}</strong><br>${node.desc}`;
+    });
+    g.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      let left = e.clientX - rect.left + 12;
+      let top = e.clientY - rect.top + 12;
+      if (left + 220 > rect.width) left = e.clientX - rect.left - 232;
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    });
+    g.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+
+    svg.appendChild(g);
+  });
+})();
 </script>
 
 

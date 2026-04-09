@@ -828,104 +828,9 @@ code{font-family:'JetBrains Mono',monospace;font-size:0.82em;background:var(--cr
     </div>
   </div>
 
-  <div class="graph-container">
-    <svg viewBox="0 0 860 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:500px;display:block;">
-      <defs>
-        <marker id="a1" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#34d399"/></marker>
-        <marker id="a2" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#c9a84c"/></marker>
-        <marker id="a3" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#f87171"/></marker>
-        <marker id="a4" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#818cf8"/></marker>
-      </defs>
-
-      <!-- Central: Security Valuation -->
-      <ellipse cx="430" cy="250" rx="88" ry="36" fill="#065f46" opacity="0.9"/>
-      <text x="430" y="245" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Security</text>
-      <text x="430" y="262" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Valuation</text>
-
-      <!-- Bond Valuation -->
-      <ellipse cx="150" cy="160" rx="74" ry="28" fill="#1b2e45"/>
-      <text x="150" y="156" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">Bond</text>
-      <text x="150" y="171" text-anchor="middle" fill="#34d399" font-size="11">Valuation</text>
-
-      <!-- Stock Valuation -->
-      <ellipse cx="710" cy="160" rx="74" ry="28" fill="#1b2e45"/>
-      <text x="710" y="156" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">Equity</text>
-      <text x="710" y="171" text-anchor="middle" fill="#34d399" font-size="11">Valuation (DDM)</text>
-
-      <!-- Required Rate of Return -->
-      <ellipse cx="150" cy="340" rx="74" ry="28" fill="#1b2e45"/>
-      <text x="150" y="336" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">Required Rate</text>
-      <text x="150" y="351" text-anchor="middle" fill="#34d399" font-size="11">of Return (r)</text>
-
-      <!-- YTM / Expected Return -->
-      <ellipse cx="710" cy="340" rx="74" ry="28" fill="#1b2e45"/>
-      <text x="710" y="336" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">YTM / E(r)</text>
-      <text x="710" y="351" text-anchor="middle" fill="#34d399" font-size="11">Expected Return</text>
-
-      <!-- Duration -->
-      <ellipse cx="430" cy="90" rx="68" ry="26" fill="#1a3a28"/>
-      <text x="430" y="86" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="bold">Duration (D)</text>
-      <text x="430" y="101" text-anchor="middle" fill="#6ee7b7" font-size="11">&amp; Modified Duration</text>
-
-      <!-- Convexity -->
-      <ellipse cx="430" cy="430" rx="68" ry="26" fill="#1a3a28"/>
-      <text x="430" y="426" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="bold">Convexity</text>
-      <text x="430" y="441" text-anchor="middle" fill="#6ee7b7" font-size="11">Price Curvature</text>
-
-      <!-- Market Efficiency -->
-      <ellipse cx="430" cy="160" rx="68" ry="26" fill="#2a1a0a"/>
-      <text x="430" y="156" text-anchor="middle" fill="#c9a84c" font-size="11" font-weight="bold">Market</text>
-      <text x="430" y="171" text-anchor="middle" fill="#c9a84c" font-size="11">Efficiency</text>
-
-      <!-- Interest Rates (Ch2 link) -->
-      <ellipse cx="250" cy="430" rx="68" ry="26" fill="#0a1a2a"/>
-      <text x="250" y="426" text-anchor="middle" fill="#818cf8" font-size="11" font-weight="bold">Interest Rates</text>
-      <text x="250" y="441" text-anchor="middle" fill="#818cf8" font-size="11">(from Ch. 2)</text>
-
-      <!-- TVM (Ch2 link) -->
-      <ellipse cx="610" cy="430" rx="68" ry="26" fill="#0a1a2a"/>
-      <text x="610" y="426" text-anchor="middle" fill="#818cf8" font-size="11" font-weight="bold">Time Value</text>
-      <text x="610" y="441" text-anchor="middle" fill="#818cf8" font-size="11">of Money (Ch. 2)</text>
-
-      <!-- Edges -->
-      <!-- Req rate → bond, equity valuation -->
-      <line x1="220" y1="335" x2="355" y2="268" stroke="#34d399" stroke-width="1.6" marker-end="url(#a1)"/>
-      <text x="270" y="308" fill="#34d399" font-size="9" text-anchor="middle">inputs to</text>
-
-      <line x1="640" y1="335" x2="505" y2="268" stroke="#34d399" stroke-width="1.6" marker-end="url(#a1)"/>
-
-      <!-- Bond, Equity → Valuation -->
-      <line x1="224" y1="168" x2="347" y2="236" stroke="#34d399" stroke-width="1.6" marker-end="url(#a1)"/>
-      <text x="270" y="196" fill="#34d399" font-size="9" text-anchor="middle">feeds into</text>
-
-      <line x1="636" y1="168" x2="513" y2="236" stroke="#34d399" stroke-width="1.6" marker-end="url(#a1)"/>
-
-      <!-- Duration → Valuation -->
-      <line x1="430" y1="116" x2="430" y2="214" stroke="#6ee7b7" stroke-width="1.6" marker-end="url(#a1)"/>
-      <text x="450" y="165" fill="#6ee7b7" font-size="9">measures sensitivity</text>
-
-      <!-- Convexity → Duration -->
-      <line x1="430" y1="404" x2="430" y2="286" stroke="#6ee7b7" stroke-width="1.6" marker-end="url(#a1)"/>
-      <text x="450" y="350" fill="#6ee7b7" font-size="9">refines</text>
-
-      <!-- Market Efficiency links r and E(r) -->
-      <line x1="362" y1="168" x2="224" y2="330" stroke="#c9a84c" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a2)"/>
-      <text x="270" y="248" fill="#c9a84c" font-size="9" text-anchor="middle">when efficient:</text>
-      <text x="270" y="260" fill="#c9a84c" font-size="9" text-anchor="middle">r ≈ E(r)</text>
-      <line x1="498" y1="168" x2="636" y2="330" stroke="#c9a84c" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a2)"/>
-
-      <!-- Ch.2 links -->
-      <line x1="315" y1="420" x2="355" y2="270" stroke="#818cf8" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a4)"/>
-      <text x="310" y="360" fill="#818cf8" font-size="9" text-anchor="middle">determines</text>
-
-      <line x1="545" y1="420" x2="510" y2="280" stroke="#818cf8" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a4)"/>
-      <text x="590" y="360" fill="#818cf8" font-size="9" text-anchor="middle">enables</text>
-
-      <!-- YTM applied to bond -->
-      <line x1="710" y1="312" x2="710" y2="188" stroke="#34d399" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a1)"/>
-      <text x="728" y="250" fill="#34d399" font-size="9">bond-specific</text>
-
-    </svg>
+  <div class="graph-container" id="kg-container">
+    <svg id="kg-svg" viewBox="0 0 860 500" style="width:100%;max-height:500px;display:block;"></svg>
+    <div class="kg-tooltip" id="kg-tooltip"></div>
   </div>
 
   <div class="graph-legend">
@@ -1306,6 +1211,105 @@ function prevCard(){idx=(idx-1+cards.length)%cards.length;renderCard();}
 function shuffleCards(){for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}idx=0;renderCard();}
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextCard();if(e.key==='ArrowLeft')prevCard();if(e.key===' '){e.preventDefault();flipCard();}});
 renderCard();
+
+// ---- KNOWLEDGE GRAPH ----
+(function() {
+  const svg = document.getElementById('kg-svg');
+  const tooltip = document.getElementById('kg-tooltip');
+  const container = document.getElementById('kg-container');
+
+  const nodes = [
+    { id: 'valuation', label: 'Security\nValuation', x: 430, y: 250, r: 38, color: '#065f46', desc: 'The process of determining the fair market value of financial assets.' },
+    { id: 'bond', label: 'Bond\nValuation', x: 150, y: 160, r: 28, color: '#1b2e45', desc: 'Determining the fair price of debt by discounting promised coupons and face value.' },
+    { id: 'equity', label: 'Equity\nValuation (DDM)', x: 710, y: 160, r: 28, color: '#1b2e45', desc: 'Determining the fair price of stock by discounting all future expected dividends.' },
+    { id: 'req', label: 'Required Rate\nof Return (r)', x: 150, y: 340, r: 28, color: '#1b2e45', desc: 'The discount rate used in valuation models, reflecting the security\'s risk.' },
+    { id: 'ytm', label: 'YTM / E(r)', x: 710, y: 340, r: 28, color: '#1b2e45', desc: 'The interest rate implied by the current market price of a security.' },
+    { id: 'duration', label: 'Duration (D)', x: 430, y: 90, r: 26, color: '#1a3a28', desc: 'A measure of the sensitivity of a security\'s price to changes in interest rates.' },
+    { id: 'convexity', label: 'Convexity', x: 430, y: 430, r: 26, color: '#1a3a28', desc: 'The degree of curvature in the price-rate relationship; refines the duration approximation.' },
+    { id: 'efficiency', label: 'Market\nEfficiency', x: 430, y: 160, r: 26, color: '#c9a84c', desc: 'The speed at which prices adjust to maintain equality with fair present value.' },
+    { id: 'rates', label: 'Interest Rates\n(Ch. 2)', x: 250, y: 430, r: 26, color: '#2b6cb0', desc: 'Fundamental determinants of the required rate of return.' },
+    { id: 'tvm', label: 'Time Value\nof Money', x: 610, y: 430, r: 26, color: '#2b6cb0', desc: 'The mathematical foundation for all valuation formulas.' },
+  ];
+
+  const links = [
+    { from: 'req', to: 'bond', label: 'inputs to' },
+    { from: 'req', to: 'equity', label: 'inputs to' },
+    { from: 'bond', to: 'valuation', label: 'feeds into' },
+    { from: 'equity', to: 'valuation', label: 'feeds into' },
+    { from: 'duration', to: 'valuation', label: 'measures sensitivity' },
+    { from: 'convexity', to: 'duration', label: 'refines' },
+    { from: 'efficiency', to: 'valuation', label: 'links r and E(r)' },
+    { from: 'rates', to: 'valuation', label: 'determines' },
+    { from: 'tvm', to: 'valuation', label: 'enables' },
+    { from: 'ytm', to: 'bond', label: 'bond-specific' },
+  ];
+
+  // Draw links
+  links.forEach(link => {
+    const from = nodes.find(n => n.id === link.from);
+    const to = nodes.find(n => n.id === link.to);
+    if (!from || !to) return;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', from.x); line.setAttribute('y1', from.y);
+    line.setAttribute('x2', to.x); line.setAttribute('y2', to.y);
+    line.setAttribute('class', 'kg-link');
+    line.setAttribute('stroke', '#34d399');
+    line.setAttribute('stroke-width', '1.5');
+    svg.appendChild(line);
+    
+    const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2;
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', mx); text.setAttribute('y', my - 4);
+    text.setAttribute('class', 'kg-link-label'); text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', 'rgba(255,255,255,0.4)');
+    text.setAttribute('font-size', '9px');
+    text.textContent = link.label;
+    svg.appendChild(text);
+  });
+
+  // Draw nodes
+  nodes.forEach(node => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'kg-node');
+    g.setAttribute('transform', `translate(${node.x},${node.y})`);
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('r', node.r);
+    circle.setAttribute('fill', node.color);
+    circle.setAttribute('stroke', 'rgba(255,255,255,0.2)');
+    circle.setAttribute('fill-opacity', '0.9');
+    g.appendChild(circle);
+
+    const lines = node.label.split('\n');
+    lines.forEach((line, i) => {
+      const text = document.createElementNS('http://www.w3.org/2000/svg', text);
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('dominant-baseline', 'middle');
+      text.setAttribute('fill', '#fff');
+      text.setAttribute('font-weight', '500');
+      text.setAttribute('font-size', '11px');
+      text.setAttribute('y', (i - (lines.length-1)/2) * 13);
+      text.textContent = line;
+      g.appendChild(text);
+    });
+
+    g.addEventListener('mouseenter', (e) => {
+      tooltip.style.display = 'block';
+      tooltip.innerHTML = `<strong>${node.label.replace('\n',' ')}</strong><br>${node.desc}`;
+    });
+    g.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      let left = e.clientX - rect.left + 12;
+      let top = e.clientY - rect.top + 12;
+      if (left + 220 > rect.width) left = e.clientX - rect.left - 232;
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    });
+    g.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+
+    svg.appendChild(g);
+  });
+})();
 </script>
 
 <script src="../../highlight.js"></script>
