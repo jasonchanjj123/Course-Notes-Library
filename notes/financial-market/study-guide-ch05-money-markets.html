@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 5: Money Markets — Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ========== DESIGN SYSTEM ========== */
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1b2e45;
+  --navy-light: #243b55;
+  /* Ch5 Accent: Copper */
+  --accent: #b5541a;
+  --accent-light: #e07540;
+  --accent-pale: #fdf4ee;
+  --accent-border: rgba(181, 84, 26, 0.22);
+  --cream: #faf7f0;
+  --cream-dark: #f0ead8;
+  --text-dark: #1a1a2e;
+  --text-body: #2d3748;
+  --text-muted: #718096;
+  --green: #276749;
+  --green-light: #e6f4ed;
+  --amber: #b7791f;
+  --amber-light: #fefce8;
+  --red: #9b2335;
+  --red-light: #fff1f2;
+  --blue-accent: #2b6cb0;
+  --blue-light: #ebf4ff;
+  --sidebar-width: 270px;
+  --shadow: 0 4px 24px rgba(13, 27, 42, 0.08);
+  --shadow-strong: 0 8px 40px rgba(13, 27, 42, 0.15);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --transition: 0.22s ease;
+}
+
+[data-theme="dark"] {
+  --cream: #111827;
+  --cream-dark: #1f2937;
+  --text-dark: #f0e6d3;
+  --text-body: #d1c9b8;
+  --text-muted: #9ca3af;
+  --accent-border: rgba(181, 84, 26, 0.30);
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --green-light: #1a3329;
+  --amber-light: #2d2008;
+  --red-light: #2d0e14;
+  --blue-light: #0f1f35;
+  --accent-pale: #2a1508;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--text-body);
+  line-height: 1.75;
+  display: flex;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  background: var(--navy);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition);
+}
+
+.sidebar-header {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(181,84,26,0.2);
+}
+
+.sidebar-course {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 6px;
+}
+
+.sidebar-title {
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.sidebar-chapter {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 4px;
+}
+
+nav { padding: 16px 0; flex: 1; }
+
+.nav-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  padding: 12px 24px 6px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 24px;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: all var(--transition);
+  border-left: 3px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--accent-light);
+  background: rgba(181,84,26,0.10);
+  border-left-color: var(--accent);
+}
+
+.nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+.sidebar-footer {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.dark-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 8px 14px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.8rem;
+  width: 100%;
+  transition: all var(--transition);
+}
+
+.dark-toggle:hover { background: rgba(255,255,255,0.10); color: #fff; }
+
+/* ========== MAIN ========== */
+.main { margin-left: var(--sidebar-width); flex: 1; min-width: 0; }
+
+.hero {
+  background: linear-gradient(135deg, #0d1b2a 0%, #2d1508 55%, #1a0e05 100%);
+  padding: 80px 60px 60px;
+  color: white;
+}
+
+.hero-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.7);
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.hero-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 5px 14px;
+  color: rgba(255,255,255,0.6);
+}
+
+.content { padding: 48px 60px 80px; max-width: 960px; }
+
+/* ========== SECTION HEADERS ========== */
+.study-section { margin-bottom: 72px; scroll-margin-top: 24px; }
+
+.section-header {
+  margin: 0 0 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--accent-border);
+}
+
+.section-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 600; color: var(--text-dark); margin: 0 0 8px; }
+h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--text-dark); margin: 36px 0 14px; }
+h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text-dark); margin: 20px 0 8px; }
+p { margin-bottom: 1.1em; }
+strong { color: var(--text-dark); font-weight: 600; }
+[data-theme="dark"] strong { color: var(--accent-light); }
+ul, ol { padding-left: 1.5em; margin-bottom: 1.1em; }
+li { margin-bottom: 0.4em; }
+
+/* ========== CALLOUTS ========== */
+.callout {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid;
+  margin: 24px 0;
+}
+.callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.callout-body h4 { margin: 0 0 4px; font-size: 0.9rem; }
+.callout-body p { margin: 0; font-size: 0.9rem; }
+.callout-info { background: var(--blue-light); border-color: var(--blue-accent); }
+.callout-warning { background: var(--amber-light); border-color: var(--amber); }
+.callout-success { background: var(--green-light); border-color: var(--green); }
+.callout-danger { background: var(--red-light); border-color: var(--red); }
+.callout-accent { background: var(--accent-pale); border-color: var(--accent); }
+
+/* ========== CONCEPT CARDS ========== */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  margin: 24px 0;
+}
+
+.concept-card {
+  background: var(--cream-dark);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.concept-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.concept-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.concept-card h4 { margin: 0 0 10px; font-size: 1rem; }
+.concept-card p { font-size: 0.9rem; color: var(--text-body); margin: 0; }
+
+/* ========== FORMULA BOX ========== */
+.formula-box {
+  background: var(--navy);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  margin: 24px 0;
+  color: #e8e4d9;
+}
+
+.formula-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 10px;
+}
+
+.formula-eq {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  color: #fff;
+  line-height: 1.8;
+}
+
+.formula-note {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+  margin-top: 10px;
+}
+
+/* ========== COMPARISON TABLE ========== */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.comparison-table th {
+  background: var(--navy);
+  color: var(--accent-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.comparison-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--accent-border);
+  color: var(--text-body);
+  background: var(--cream-dark);
+}
+
+.comparison-table tr:last-child td { border-bottom: none; }
+.comparison-table tr:hover td { background: var(--accent-pale); }
+
+/* ========== FLASHCARDS ========== */
+.flashcard-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.flashcard-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.flashcard-controls { display: flex; gap: 10px; }
+
+.fc-btn {
+  background: var(--cream-dark);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  padding: 8px 18px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-body);
+  transition: all var(--transition);
+}
+
+.fc-btn:hover { background: var(--accent-pale); border-color: var(--accent); color: var(--accent); }
+.fc-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.fc-btn.primary:hover { background: var(--accent-light); border-color: var(--accent-light); }
+
+.flashcard-viewport {
+  perspective: 1000px;
+  height: 240px;
+  cursor: pointer;
+  margin: 0 0 16px;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius);
+}
+
+.flashcard-inner.flipped { transform: rotateY(180deg); }
+
+.fc-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 48px;
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.fc-front {
+  background: var(--cream-dark);
+  border: 1px solid var(--accent-border);
+}
+
+.fc-back {
+  background: var(--accent-pale);
+  border: 1px solid var(--accent-border);
+  transform: rotateY(180deg);
+}
+
+.fc-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.fc-question {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+
+.fc-answer {
+  font-size: 0.95rem;
+  color: var(--text-body);
+  line-height: 1.7;
+}
+
+.fc-progress {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.fc-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent-border);
+  border: 1px solid var(--accent-border);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.fc-dot.seen { background: var(--accent-light); }
+.fc-dot.current { background: var(--accent); transform: scale(1.3); }
+
+/* ========== FEYNMAN CARDS ========== */
+.feynman-card {
+  background: var(--cream-dark);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+.feynman-header {
+  padding: 18px 24px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background var(--transition);
+}
+
+.feynman-header:hover { background: var(--accent-pale); }
+
+.feynman-title-group { display: flex; align-items: center; gap: 14px; }
+.feynman-icon { font-size: 1.4rem; }
+
+.feynman-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+
+.feynman-concept {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+}
+
+.feynman-chevron {
+  color: var(--text-muted);
+  transition: transform var(--transition);
+  font-size: 1.2rem;
+}
+
+.feynman-card.open .feynman-chevron { transform: rotate(180deg); }
+
+.feynman-body {
+  padding: 0 24px 28px;
+  display: none;
+  border-top: 1px solid var(--accent-border);
+}
+
+.feynman-card.open .feynman-body { display: block; }
+
+.feynman-body h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 20px 0 8px;
+}
+
+.feynman-body p { font-size: 0.95rem; margin-bottom: 0.9em; }
+
+/* ========== KNOWLEDGE GRAPH ========== */
+.graph-container {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 8px;
+  margin: 24px 0;
+  overflow: hidden;
+}
+
+#ch5-graph {
+  width: 100%;
+  height: 480px;
+  display: block;
+}
+
+.graph-legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.55);
+}
+
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+
+/* ========== EXERCISES ========== */
+.tier-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  margin: 28px 0 16px;
+}
+
+.tier-1 { background: var(--green-light); border-left: 4px solid var(--green); }
+.tier-2 { background: var(--amber-light); border-left: 4px solid var(--amber); }
+.tier-3 { background: var(--red-light); border-left: 4px solid var(--red); }
+
+.tier-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tier-1 .tier-badge { color: var(--green); }
+.tier-2 .tier-badge { color: var(--amber); }
+.tier-3 .tier-badge { color: var(--red); }
+
+.exercise-item {
+  background: var(--cream-dark);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  padding: 18px 22px;
+  margin-bottom: 12px;
+}
+
+.exercise-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.exercise-q { font-size: 0.95rem; margin: 0 0 10px; }
+
+.exercise-toggle {
+  background: none;
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.exercise-toggle:hover { background: var(--accent-pale); }
+
+.exercise-answer {
+  display: none;
+  margin-top: 14px;
+  padding: 14px 18px;
+  background: var(--accent-pale);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--text-body);
+  border-left: 3px solid var(--accent);
+}
+
+/* ========== CHEAT SHEET ========== */
+.cheat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+  margin: 24px 0;
+}
+
+.cheat-card {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  color: #e8e4d9;
+}
+
+.cheat-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 10px;
+}
+
+.cheat-card h4 { color: #fff; font-size: 1rem; margin: 0 0 12px; }
+
+.cheat-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.cheat-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--accent-light);
+  min-width: 90px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.cheat-val { color: rgba(255,255,255,0.75); line-height: 1.5; }
+
+/* ========== MOBILE ========== */
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 16px; left: 16px;
+  z-index: 200;
+  background: var(--navy);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+}
+
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.open { display: block; }
+  .mobile-menu-btn { display: flex; align-items: center; }
+  .main { margin-left: 0; }
+  .hero { padding: 60px 24px 40px; }
+  .hero h1 { font-size: 1.9rem; }
+  .content { padding: 32px 24px 60px; }
+  .concept-grid, .cheat-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile -->
+<button class="mobile-menu-btn" onclick="ch5ToggleSidebar()" aria-label="Open menu">☰</button>
+<div class="sidebar-overlay" id="ch5-overlay" onclick="ch5ToggleSidebar()"></div>
+
+<!-- ========== SIDEBAR ========== -->
+<aside class="sidebar" id="ch5-sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-course">Financial Markets</div>
+    <div class="sidebar-title">Money Markets</div>
+    <div class="sidebar-chapter">Chapter 5</div>
+  </div>
+
+  <nav>
+    <div class="nav-section-label">Sections</div>
+    <a href="#ch5-summary" class="nav-link active" onclick="ch5SetActive(this)">
+      <span class="nav-icon">📖</span> A · Summary
+    </a>
+    <a href="#ch5-flashcards" class="nav-link" onclick="ch5SetActive(this)">
+      <span class="nav-icon">🃏</span> B · Flashcards
+    </a>
+    <a href="#ch5-feynman" class="nav-link" onclick="ch5SetActive(this)">
+      <span class="nav-icon">💡</span> C · Feynman
+    </a>
+    <a href="#ch5-graph" class="nav-link" onclick="ch5SetActive(this)">
+      <span class="nav-icon">🕸</span> D · Knowledge Graph
+    </a>
+    <a href="#ch5-exercises" class="nav-link" onclick="ch5SetActive(this)">
+      <span class="nav-icon">✏️</span> E · Exercises
+    </a>
+    <a href="#ch5-cheatsheet" class="nav-link" onclick="ch5SetActive(this)">
+      <span class="nav-icon">📋</span> F · Cheat Sheet
+    </a>
+
+    <div class="nav-section-label">Key Topics</div>
+    <a href="#ch5-tbills" class="nav-link" onclick="ch5SetActive(this)">
+      <span class="nav-icon">🏛</span> T-Bills
+    </a>
+    <a href="#ch5-fedfunds" class="nav-link" onclick="ch5SetActive(this)">
+      <span class="nav-icon">🏦</span> Federal Funds
+    </a>
+    <a href="#ch5-repos" class="nav-link" onclick="ch5SetActive(this)">
+      <span class="nav-icon">🔄</span> Repos
+    </a>
+    <a href="#ch5-commpaper" class="nav-link" onclick="ch5SetActive(this)">
+      <span class="nav-icon">📄</span> Commercial Paper
+    </a>
+    <a href="#ch5-yields" class="nav-link" onclick="ch5SetActive(this)">
+      <span class="nav-icon">📐</span> Yield Formulas
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="dark-toggle" onclick="ch5ToggleDark()">
+      <span id="ch5-dark-icon">🌙</span>
+      <span id="ch5-dark-label">Dark Mode</span>
+    </button>
+  </div>
+</aside>
+
+<!-- ========== MAIN ========== -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">Financial Markets · Chapter 5</div>
+    <h1>Money Markets</h1>
+    <p class="hero-subtitle">Short-term debt securities, yield mechanics, and the instruments that keep the financial system liquid — from T-Bills to repos and commercial paper.</p>
+    <div class="hero-meta">
+      <span class="hero-tag">22 Slides</span>
+      <span class="hero-tag">6 Instruments</span>
+      <span class="hero-tag">Yield Formulas</span>
+      <span class="hero-tag">McGraw-Hill © 2022</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== SECTION A: SUMMARY ===== -->
+    <section class="study-section" id="ch5-summary">
+      <div class="section-header">
+        <div class="section-badge">Section A</div>
+        <h2>Chapter Summary</h2>
+        <p style="color:var(--text-muted);font-size:0.9rem;">Core concepts, definitions, and key mechanics from the lecture slides.</p>
+      </div>
+
+      <h3>What Are Money Markets?</h3>
+      <p><strong>Money markets</strong> are financial markets that trade debt securities or instruments with maturities of <em>less than one year</em>. They arise because the immediate cash needs of individuals, corporations, and governments do not always coincide with their cash receipts. Once issued, money market instruments trade in active secondary markets, giving investors the ability to convert holdings to cash quickly.</p>
+
+      <div class="callout callout-accent">
+        <span class="callout-icon">🔑</span>
+        <div class="callout-body">
+          <h4>Three Universal Characteristics</h4>
+          <p>All money market instruments share: (1) generally sold in large denominations ($1M–$10M); (2) low default risk; (3) original maturity of one year or less.</p>
+        </div>
+      </div>
+
+      <h3 id="ch5-yields">Yield Conventions</h3>
+      <p>Money market yields are quoted in two different ways, and understanding the distinction is critical for comparing instruments.</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Bond Equivalent Yield (BEY)</div>
+        <div class="formula-eq">P₀ = Pf / (1 + i_bey × n/365)</div>
+        <div class="formula-note">Uses a 365-day year. Represents the annualized return on securities priced below face value.</div>
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Discount Yield (Discount Basis)</div>
+        <div class="formula-eq">P₀ = Pf / (1 + i_d × n/360)</div>
+        <div class="formula-note">Uses a 360-day year. Used for T-Bills and commercial paper. Tends to understate true return vs. BEY.</div>
+      </div>
+
+      <div class="callout callout-info">
+        <span class="callout-icon">ℹ️</span>
+        <div class="callout-body">
+          <h4>Why Two Conventions?</h4>
+          <p>The discount yield (360-day) is a market convention inherited from pre-computer banking. The BEY (365-day) is considered more accurate for comparing with bond returns. The BEY is always slightly <em>higher</em> than the discount yield for the same security.</p>
+        </div>
+      </div>
+
+      <h3 id="ch5-tbills">Treasury Bills (T-Bills)</h3>
+      <p><strong>Treasury Bills</strong> are short-term U.S. government obligations sold to fund government budget deficits and refinance maturing debt. They are also the primary tool the Federal Reserve uses to implement monetary policy via open market operations.</p>
+
+      <ul>
+        <li>Original maturities: 4, 13, 26, and 52 weeks</li>
+        <li>Issued in multiples of $100</li>
+        <li>Virtually default-risk free; minimal interest rate and liquidity risk</li>
+        <li>Sold at a discount from face value; return comes from the difference between purchase price and face value at maturity</li>
+      </ul>
+
+      <h4>T-Bill Auction Process</h4>
+      <p>The U.S. Treasury sells new T-Bills through a formal auction. Bids may be <strong>competitive</strong> — specifying the desired amount and discount yield, typically used by large investors and government securities dealers — or <strong>noncompetitive</strong>, limited to $5M per bidder, specifying only the desired face value. Noncompetitive bidders accept whatever yield clears the auction.</p>
+
+      <h4>Secondary Market for T-Bills</h4>
+      <p>The secondary market for T-Bills is the largest of any U.S. money market security. <strong>24 primary government securities dealers</strong> are designated to purchase most competitively bid T-Bills and maintain an active secondary market. Transactions between primary dealers are conducted over the Federal Reserve's wire transfer service — <strong>Fedwire</strong>. Around 500 smaller dealers also trade in this market.</p>
+
+      <h3 id="ch5-fedfunds">Federal Funds</h3>
+      <p><strong>Federal funds (fed funds)</strong> are short-term funds transferred between financial institutions, usually overnight. Commercial banks trade excess reserves held at their local Federal Reserve Bank. The <strong>fed funds rate</strong> is determined by supply and demand for these reserves, as well as the Federal Reserve's FOMC operations.</p>
+
+      <div class="callout callout-warning">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <h4>Counterparty Risk in Fed Funds</h4>
+          <p>The primary risk of the interbank lending system is that the borrowing bank does not pledge collateral. Loans are typically oral agreements between correspondent banks for millions of dollars — entirely unsecured.</p>
+        </div>
+      </div>
+
+      <h3 id="ch5-repos">Repurchase Agreements (Repos)</h3>
+      <p>A <strong>repurchase agreement (repo or RP)</strong> involves the sale of securities by one party to another with a promise to repurchase them at a specified price on a specified date. Repos are collateralized — the seller holds securities to back the transaction — and a <strong>haircut</strong> is applied, meaning the loan is slightly smaller than the market value of pledged collateral.</p>
+
+      <ul>
+        <li><strong>Overnight repos</strong>: one-day maturity</li>
+        <li><strong>Term repos</strong>: longer maturities</li>
+        <li><strong>Reverse repo</strong>: the purchase side — the party buying the securities with a promise to sell them back</li>
+      </ul>
+
+      <h3 id="ch5-commpaper">Commercial Paper</h3>
+      <p><strong>Commercial paper (CP)</strong> is an unsecured short-term promissory note issued by a company to raise short-term cash, commonly for working capital. It is one of the largest money market instruments by dollar volume (~$1.1 trillion outstanding as of Dec 2019). Companies with strong credit ratings can borrow more cheaply via CP than bank loans.</p>
+
+      <ul>
+        <li>Denominations: $100,000; $250,000; $500,000; $1M</li>
+        <li>Maturities: 1–270 days (most common: 20–45 days)</li>
+        <li>Quoted on a discount basis (360-day year)</li>
+        <li>Sold directly via issuer's sales force or indirectly through brokers/dealers (more expensive)</li>
+      </ul>
+
+      <div class="callout callout-danger">
+        <span class="callout-icon">🚨</span>
+        <div class="callout-body">
+          <h4>Asset-Backed Commercial Paper (ABCP) &amp; the 2008 Crisis</h4>
+          <p>In July 2007, $1.19T of $2.16T total CP outstanding was ABCP — collateralized by financial assets, largely mortgage-backed securities. When subprime mortgages deteriorated, billions in ABCP were tainted, and outstanding CP levels continued to fall even after markets stabilized.</p>
+        </div>
+      </div>
+
+      <h3>Negotiable Certificates of Deposit (CDs)</h3>
+      <p>A <strong>negotiable CD</strong> is a bank-issued, fixed-maturity, interest-bearing time deposit that is <em>negotiable</em> — it can be traded in secondary markets any number of times. It is a bearer instrument, meaning whoever holds it at maturity receives principal and interest.</p>
+
+      <ul>
+        <li>Denominations: $100,000–$10M (most common: $1M)</li>
+        <li>Common maturities: 1, 2, 3, 6, and 12 months</li>
+        <li>Interest rates quoted using a 360-day year</li>
+        <li>Large, well-known banks offer slightly lower rates than smaller banks</li>
+      </ul>
+
+      <h3>Banker's Acceptances (BAs)</h3>
+      <p>A <strong>banker's acceptance</strong> is a time draft payable to a seller of goods, with payment guaranteed by a bank. BAs often arise from international trade transactions. They are payable to the bearer at maturity and trade in secondary markets in round lots of $100,000 and $500,000. Since June 2002, BA levels are included in commercial paper statistics.</p>
+
+      <h3>Money Market Instruments at a Glance</h3>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Instrument</th>
+            <th>Issuer</th>
+            <th>Maturity</th>
+            <th>Default Risk</th>
+            <th>Yield Basis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>T-Bills</strong></td>
+            <td>U.S. Government</td>
+            <td>4–52 weeks</td>
+            <td>Virtually zero</td>
+            <td>Discount (360)</td>
+          </tr>
+          <tr>
+            <td><strong>Federal Funds</strong></td>
+            <td>Commercial Banks</td>
+            <td>Overnight (typical)</td>
+            <td>Low–Medium (unsecured)</td>
+            <td>Simple interest</td>
+          </tr>
+          <tr>
+            <td><strong>Repos</strong></td>
+            <td>Dealers/Institutions</td>
+            <td>1 day to several months</td>
+            <td>Low (collateralized)</td>
+            <td>Simple interest</td>
+          </tr>
+          <tr>
+            <td><strong>Commercial Paper</strong></td>
+            <td>Corporations</td>
+            <td>1–270 days</td>
+            <td>Low–Medium (unsecured)</td>
+            <td>Discount (360)</td>
+          </tr>
+          <tr>
+            <td><strong>Negotiable CDs</strong></td>
+            <td>Banks</td>
+            <td>1–12 months</td>
+            <td>Low</td>
+            <td>Add-on (360)</td>
+          </tr>
+          <tr>
+            <td><strong>Banker's Acceptances</strong></td>
+            <td>Bank-guaranteed</td>
+            <td>30–180 days</td>
+            <td>Very low (bank-backed)</td>
+            <td>Discount (360)</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </section>
+
+    <!-- ===== SECTION B: FLASHCARDS ===== -->
+    <section class="study-section" id="ch5-flashcards">
+      <div class="section-header">
+        <div class="section-badge">Section B</div>
+        <h2>Flashcards</h2>
+        <p style="color:var(--text-muted);font-size:0.9rem;">Click a card to reveal the answer. Use ← → to navigate all 20 cards.</p>
+      </div>
+
+      <div class="flashcard-nav">
+        <div class="flashcard-counter">Card <span id="ch5-fc-num">1</span> of 20</div>
+        <div class="flashcard-controls">
+          <button class="fc-btn" onclick="ch5FcNav(-1)">← Prev</button>
+          <button class="fc-btn primary" onclick="ch5FcFlip()">Flip</button>
+          <button class="fc-btn" onclick="ch5FcNav(1)">Next →</button>
+        </div>
+      </div>
+
+      <div class="flashcard-viewport" onclick="ch5FcFlip()">
+        <div class="flashcard-inner" id="ch5-fc-inner">
+          <div class="fc-face fc-front">
+            <div class="fc-hint">Tap to reveal answer</div>
+            <div class="fc-question" id="ch5-fc-q">What are money markets, and why do they exist?</div>
+          </div>
+          <div class="fc-face fc-back">
+            <div class="fc-hint">Answer</div>
+            <div class="fc-answer" id="ch5-fc-a">Financial markets that trade debt instruments with maturities under one year. They exist because the immediate cash needs of individuals, corporations, and governments do not always coincide with their cash receipts.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fc-progress" id="ch5-fc-dots"></div>
+    </section>
+
+    <!-- ===== SECTION C: FEYNMAN ===== -->
+    <section class="study-section" id="ch5-feynman">
+      <div class="section-header">
+        <div class="section-badge">Section C</div>
+        <h2>Feynman Explanations</h2>
+        <p style="color:var(--text-muted);font-size:0.9rem;">Complex concepts explained as if teaching a friend. Click any card to expand.</p>
+      </div>
+
+      <!-- Feynman 1 -->
+      <div class="feynman-card" id="ch5-fey-1">
+        <div class="feynman-header" onclick="ch5ToggleFeynman('ch5-fey-1')">
+          <div class="feynman-title-group">
+            <span class="feynman-icon">🎯</span>
+            <div>
+              <div class="feynman-label">Feynman Explanation</div>
+              <div class="feynman-concept">Discount Yield vs. Bond Equivalent Yield</div>
+            </div>
+          </div>
+          <span class="feynman-chevron">▾</span>
+        </div>
+        <div class="feynman-body">
+          <h4>The Simple Version</h4>
+          <p>Imagine you buy a $1,000 T-Bill for $980. After 90 days, you get back $1,000 — earning $20. But <em>how do you express that as a yearly rate?</em> That's where the two conventions differ.</p>
+          <h4>Discount Yield: The "Old School" Way</h4>
+          <p>The discount yield says: "Your $20 profit, divided by the $1,000 face value (not what you paid!), scaled to a 360-day year." This gives a <em>smaller</em> number than reality because you divide by the larger face value and use only 360 days.</p>
+          <h4>Bond Equivalent Yield: The "Accurate" Way</h4>
+          <p>The BEY says: "Your $20 profit, divided by the $980 you actually paid, scaled to a 365-day year." Since you divide by a smaller number (your actual investment) and use 365 days, BEY is always <em>higher</em> than the discount yield for the same instrument.</p>
+          <h4>Why It Matters</h4>
+          <p>When comparing a T-Bill to a corporate bond, you must convert the T-Bill's discount yield to BEY — otherwise you're comparing apples to oranges. The BEY is the apples-to-apples number.</p>
+        </div>
+      </div>
+
+      <!-- Feynman 2 -->
+      <div class="feynman-card" id="ch5-fey-2">
+        <div class="feynman-header" onclick="ch5ToggleFeynman('ch5-fey-2')">
+          <div class="feynman-title-group">
+            <span class="feynman-icon">🏛</span>
+            <div>
+              <div class="feynman-label">Feynman Explanation</div>
+              <div class="feynman-concept">How the T-Bill Auction Works</div>
+            </div>
+          </div>
+          <span class="feynman-chevron">▾</span>
+        </div>
+        <div class="feynman-body">
+          <h4>The Setup</h4>
+          <p>The U.S. Treasury needs cash and decides to sell $10 billion of 13-week T-Bills. It announces the auction, and investors line up to buy.</p>
+          <h4>Two Kinds of Bidders</h4>
+          <p><strong>Competitive bidders</strong> (big banks, hedge funds) say: "I'll buy $500 million — but only if the yield is at least 4.95%." They're naming their price. If the auction clears at 4.90%, their bid might not be filled. <strong>Noncompetitive bidders</strong> (small investors) say: "I want $50,000 worth — I'll take whatever yield the auction produces." They're guaranteed to get their allocation, limited to $5 million per person.</p>
+          <h4>How It Clears</h4>
+          <p>The Treasury sorts all competitive bids from lowest yield (highest price) to highest yield (lowest price). It accepts bids starting from the lowest yield until it has raised the $10 billion it needs. The <em>highest yield accepted</em> is the "stop-out rate" — everyone gets that yield, whether they bid higher or lower.</p>
+          <h4>After the Auction</h4>
+          <p>Primary dealers buy most of the bills, then sell them to other investors in the secondary market — creating the most liquid money market in the world.</p>
+        </div>
+      </div>
+
+      <!-- Feynman 3 -->
+      <div class="feynman-card" id="ch5-fey-3">
+        <div class="feynman-header" onclick="ch5ToggleFeynman('ch5-fey-3')">
+          <div class="feynman-title-group">
+            <span class="feynman-icon">🔄</span>
+            <div>
+              <div class="feynman-label">Feynman Explanation</div>
+              <div class="feynman-concept">Repurchase Agreements (Repos) Explained</div>
+            </div>
+          </div>
+          <span class="feynman-chevron">▾</span>
+        </div>
+        <div class="feynman-body">
+          <h4>Think of It as a Collateralized Loan</h4>
+          <p>A repo is essentially a short-term loan dressed up as a sale-and-repurchase. Here's the mechanic: Bank A needs cash overnight. It sells $100M of T-Bills to Investor B for $99.9M, and simultaneously signs a contract saying "I'll buy them back tomorrow for $100M."</p>
+          <h4>Who Gets What</h4>
+          <p>Investor B gets securities (collateral) plus a small return ($0.1M) overnight. Bank A gets the $99.9M cash it needs. The "haircut" — the difference between market value of collateral ($100M) and the loan amount ($99.9M) — protects Investor B if Bank A defaults.</p>
+          <h4>The Reverse Repo</h4>
+          <p>The same transaction looks like a "reverse repo" from Investor B's perspective: they're <em>buying</em> securities with a promise to sell them back. One party's repo is always the other party's reverse repo.</p>
+          <h4>Why It Matters Systemically</h4>
+          <p>Repos are how large financial institutions manage daily cash balances. The repo market is enormous — trillions of dollars daily — and its stability is crucial to the functioning of bond markets.</p>
+        </div>
+      </div>
+
+      <!-- Feynman 4 -->
+      <div class="feynman-card" id="ch5-fey-4">
+        <div class="feynman-header" onclick="ch5ToggleFeynman('ch5-fey-4')">
+          <div class="feynman-title-group">
+            <span class="feynman-icon">🏦</span>
+            <div>
+              <div class="feynman-label">Feynman Explanation</div>
+              <div class="feynman-concept">Federal Funds &amp; the Overnight Market</div>
+            </div>
+          </div>
+          <span class="feynman-chevron">▾</span>
+        </div>
+        <div class="feynman-body">
+          <h4>The Reserve Requirement Problem</h4>
+          <p>Every commercial bank must hold a certain level of reserves at the Fed. At the end of each day, some banks find they have <em>more</em> reserves than required; others find they have <em>too few</em>.</p>
+          <h4>The Solution: Trading Reserves Overnight</h4>
+          <p>A bank with excess reserves will call a "correspondent bank" — a bank it has a relationship with — and offer to lend those reserves overnight. The borrowing bank pays the <em>fed funds rate</em> for the use of the money, then returns the reserves the next morning.</p>
+          <h4>What Makes It Unique</h4>
+          <p>These loans are typically <strong>completely unsecured</strong> — no collateral, just a phone call or electronic instruction. Amounts are often in the millions. The trust between correspondent banks is the only guarantee. This is why the fed funds market is considered a measure of financial system confidence.</p>
+          <h4>The Fed's Role</h4>
+          <p>The Federal Reserve influences the fed funds rate by adding or draining reserves from the system through open market operations. When the Fed buys T-Bills, it adds reserves (pushing the rate down). When it sells T-Bills, it drains reserves (pushing the rate up).</p>
+        </div>
+      </div>
+
+      <!-- Feynman 5 -->
+      <div class="feynman-card" id="ch5-fey-5">
+        <div class="feynman-header" onclick="ch5ToggleFeynman('ch5-fey-5')">
+          <div class="feynman-title-group">
+            <span class="feynman-icon">💥</span>
+            <div>
+              <div class="feynman-label">Feynman Explanation</div>
+              <div class="feynman-concept">ABCP and Why It Collapsed in 2007–2008</div>
+            </div>
+          </div>
+          <span class="feynman-chevron">▾</span>
+        </div>
+        <div class="feynman-body">
+          <h4>The Idea Behind ABCP</h4>
+          <p>Regular commercial paper is just an IOU from a company. <strong>Asset-backed commercial paper</strong> adds a twist: a special vehicle issues the paper, and the collateral backing it is a pool of other financial assets — theoretically reducing risk by diversification.</p>
+          <h4>The Mid-2000s Explosion</h4>
+          <p>By mid-2007, ABCP had grown to $1.19 trillion of the $2.16 trillion CP market. The collateral backing this paper was heavily concentrated in mortgage-backed securities, many tied to subprime home loans.</p>
+          <h4>The Collapse</h4>
+          <p>When U.S. housing prices started falling in 2006–2007, those subprime mortgages began defaulting. Suddenly nobody knew what ABCP was really worth — the assets backing it were toxic. Investors refused to roll over (renew) their ABCP holdings. The market froze almost overnight.</p>
+          <h4>The Lesson</h4>
+          <p>Money market instruments are supposed to be boring — short-term, low-risk, liquid. ABCP violated that promise by stuffing long-duration, high-risk, illiquid assets into a short-term wrapper. The mismatch between the instrument's apparent safety and the actual risk of its collateral was catastrophic.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===== SECTION D: KNOWLEDGE GRAPH ===== -->
+    <section class="study-section" id="ch5-graph">
+      <div class="section-header">
+        <div class="section-badge">Section D</div>
+        <h2>Knowledge Graph</h2>
+        <p style="color:var(--text-muted);font-size:0.9rem;">Interactive concept map. Hover over nodes to highlight connections.</p>
+      </div>
+
+      <div class="graph-container">
+        <svg id="ch5-graph" viewBox="0 0 900 480" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="graph-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#b5541a"></div> Core Concept</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#e07540"></div> Instrument</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#4a90d9"></div> Mechanism</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div> Participant</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION E: EXERCISES ===== -->
+    <section class="study-section" id="ch5-exercises">
+      <div class="section-header">
+        <div class="section-badge">Section E</div>
+        <h2>Practice Exercises</h2>
+        <p style="color:var(--text-muted);font-size:0.9rem;">15 questions across three difficulty tiers. Click "Show Answer" to reveal.</p>
+      </div>
+
+      <!-- Tier 1 -->
+      <div class="tier-header tier-1">
+        <div>
+          <div class="tier-badge">Tier 1 · Recall</div>
+          <div style="font-size:0.9rem;color:var(--green);margin-top:2px;">Definitions, facts, and basic identification</div>
+        </div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 1</div>
+        <div class="exercise-q">List three characteristics shared by all money market instruments.</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">(1) Generally sold in large denominations ($1M–$10M); (2) low default risk — low risk of late or nonpayment of principal/interest; (3) original maturity of one year or less.</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 2</div>
+        <div class="exercise-q">What are the four original maturities available for U.S. Treasury Bills?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">4 weeks, 13 weeks (3 months), 26 weeks (6 months), and 52 weeks (1 year).</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 3</div>
+        <div class="exercise-q">What is a repurchase agreement (repo)? Name the two parties and their roles.</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">A repo is an agreement where one party (the seller/borrower) sells securities to another party (the buyer/lender) with a promise to repurchase them at a specified price on a specified future date. The seller obtains short-term financing; the buyer earns a short-term return on collateralized funds.</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 4</div>
+        <div class="exercise-q">What is commercial paper, and what type of company can issue it?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">Commercial paper is an unsecured short-term promissory note issued by companies to raise short-term cash (typically for working capital). Only companies with strong credit ratings typically issue it, as it is unsecured — investors rely on the issuer's creditworthiness.</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 5</div>
+        <div class="exercise-q">What is the difference between overnight repos and term repos?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">Overnight repos have a one-day maturity — the securities are repurchased the next day. Term repos have longer maturities, ranging from several days to months, used when the borrower needs funding for an extended period.</div>
+      </div>
+
+      <!-- Tier 2 -->
+      <div class="tier-header tier-2">
+        <div>
+          <div class="tier-badge">Tier 2 · Application</div>
+          <div style="font-size:0.9rem;color:var(--amber);margin-top:2px;">Calculations and concept application</div>
+        </div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 6</div>
+        <div class="exercise-q">A 90-day T-Bill with a $10,000 face value is purchased at a discount yield of 4.8%. Calculate the purchase price P₀. (Use the discount yield formula with a 360-day year.)</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">P₀ = Pf / (1 + i_d × n/360) = $10,000 / (1 + 0.048 × 90/360) = $10,000 / (1 + 0.012) = $10,000 / 1.012 ≈ $9,881.42. The investor pays approximately $9,881.42 and receives $10,000 at maturity.</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 7</div>
+        <div class="exercise-q">Using the same T-Bill from Exercise 6 (purchase price $9,881.42, face value $10,000, 90-day maturity), calculate the Bond Equivalent Yield (BEY). Is it higher or lower than the 4.8% discount yield? Why?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">BEY: P₀ = Pf / (1 + i_bey × n/365) → $9,881.42 = $10,000 / (1 + i_bey × 90/365). Rearranging: (1 + i_bey × 0.2466) = $10,000 / $9,881.42 = 1.01201. So i_bey × 0.2466 = 0.01201, i_bey ≈ 4.87%. The BEY (≈4.87%) is higher than the discount yield (4.8%) because: (1) BEY divides by the actual purchase price (smaller denominator) rather than face value, and (2) BEY scales to 365 days rather than 360.</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 8</div>
+        <div class="exercise-q">A company issues 30-day commercial paper with a face value of $1,000,000 at a discount yield of 5.2%. What is the issue price? What is the dollar return to the investor?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">P₀ = $1,000,000 / (1 + 0.052 × 30/360) = $1,000,000 / (1 + 0.004333) = $1,000,000 / 1.004333 ≈ $995,683. Dollar return = $1,000,000 − $995,683 = $4,317. The investor earns approximately $4,317 over 30 days on a ~$995,683 investment.</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 9</div>
+        <div class="exercise-q">Explain the difference between a competitive and a noncompetitive bid in a T-Bill auction. What is the maximum noncompetitive bid allowed?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">Competitive bids specify both the desired par value and the discount yield the bidder requires; they may not be filled if the yield is too high relative to what the market clears at. They are used by large investors and dealers. Noncompetitive bids specify only the desired face value amount and accept whatever yield the auction produces — they are always filled. The maximum noncompetitive bid is $5 million for a single bidder.</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 10</div>
+        <div class="exercise-q">Bank A has $50M in excess reserves and calls its correspondent Bank B to offer an overnight fed funds loan. Bank B accepts at the fed funds rate of 5.33%. What is the dollar amount of interest Bank B pays for this one-day loan?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">Fed funds are quoted on a simple interest basis. One day's interest = $50,000,000 × 0.0533 × (1/360) = $50,000,000 × 0.0001481 ≈ $7,403. Bank B pays approximately $7,403 in interest for the overnight use of $50M. (Note: fed funds use a 360-day convention.)</div>
+      </div>
+
+      <!-- Tier 3 -->
+      <div class="tier-header tier-3">
+        <div>
+          <div class="tier-badge">Tier 3 · Analysis</div>
+          <div style="font-size:0.9rem;color:var(--red);margin-top:2px;">Critical thinking and comparative analysis</div>
+        </div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 11</div>
+        <div class="exercise-q">📝 Compare repos and fed funds as short-term borrowing mechanisms. What are two advantages repos have over fed funds from a lender's perspective?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">From a lender's perspective, repos have two key advantages over fed funds: (1) <strong>Collateralization</strong> — repos are backed by securities (usually T-Bills or agency bonds), so if the borrower defaults, the lender holds collateral. Fed funds loans are completely unsecured. (2) <strong>Haircut protection</strong> — the collateral in a repo exceeds the loan amount (a "haircut"), providing a buffer even if collateral value drops slightly. These protections make repos lower-risk, which is why repos typically trade at rates slightly below the fed funds rate. 📝 (Enriched beyond slides)</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 12</div>
+        <div class="exercise-q">Why would a corporation prefer to issue commercial paper rather than obtain a short-term bank loan, assuming it has a strong credit rating?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">Companies with strong credit ratings can borrow at lower rates via CP than through bank loans because: (1) CP eliminates bank intermediation costs — banks profit from the spread between deposit rates and loan rates; (2) the CP market is competitive, so rates closely reflect market conditions; (3) large investors (money market funds, corporations) buy directly, cutting out the middleman. The tradeoff is that CP is unsecured, so only creditworthy companies can access the market — a company with weaker credit must pay higher yields or rely on bank lines of credit.</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 13</div>
+        <div class="exercise-q">Explain how the 2007–2008 financial crisis illustrated the danger of maturity transformation in the ABCP market. What structural mismatch caused the collapse?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">The core problem was a maturity mismatch: ABCP vehicles funded long-duration, illiquid assets (30-year mortgage-backed securities) with short-term paper (20–45 day CP). This is called "maturity transformation." As long as investors rolled over (renewed) the CP at maturity, the vehicle could function. But when subprime mortgage defaults rose and MBS values collapsed, investors lost confidence and refused to roll over their CP. The ABCP vehicles suddenly had long-term illiquid assets but no short-term funding — a classic liquidity crisis. This shows why money market instruments must be backed by genuinely short-term, high-quality, liquid assets — not repackaged versions of risky long-term securities.</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 14</div>
+        <div class="exercise-q">A negotiable CD and a T-Bill both have 6-month maturities and similar yields. Why might a money market mutual fund prefer one over the other?</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">📝 Key considerations: <strong>T-Bills</strong> have essentially zero default risk (backed by the U.S. government), higher liquidity (largest secondary market of any money market security), and are used in the Fed's repo operations. <strong>Negotiable CDs</strong> carry slight bank credit risk (though low for large banks), but may offer slightly higher yields as compensation. A very conservative fund (e.g., a government money market fund) would prefer T-Bills. A prime money market fund might prefer CDs if the yield premium is sufficient. 📝 (Enriched beyond slides)</div>
+      </div>
+
+      <div class="exercise-item">
+        <div class="exercise-num">Exercise 15</div>
+        <div class="exercise-q">The Federal Reserve wants to lower the fed funds rate. Using your knowledge of T-Bills and open market operations, explain the transmission mechanism by which open market purchases reduce the fed funds rate.</div>
+        <button class="exercise-toggle" onclick="ch5ToggleAnswer(this)">Show Answer</button>
+        <div class="exercise-answer">📝 The transmission mechanism works as follows: (1) The Fed's FOMC directs the Federal Reserve Bank of New York to purchase T-Bills from primary dealers in the open market. (2) The Fed pays for these T-Bills by crediting the dealers' reserve accounts at the Fed — this creates new reserves in the banking system. (3) With more reserves available, banks that hold excess reserves are eager to lend them overnight in the fed funds market. The supply of lendable reserves increases. (4) With supply up and demand roughly constant, the price of overnight reserves (the fed funds rate) falls. The rate drops toward the FOMC's new target. This is the primary channel through which monetary policy is transmitted to the broader economy. 📝 (Enriched beyond slides)</div>
+      </div>
+
+    </section>
+
+    <!-- ===== SECTION F: CHEAT SHEET ===== -->
+    <section class="study-section" id="ch5-cheatsheet">
+      <div class="section-header">
+        <div class="section-badge">Section F</div>
+        <h2>Cheat Sheet</h2>
+        <p style="color:var(--text-muted);font-size:0.9rem;">Quick-reference cards for exam day.</p>
+      </div>
+
+      <div class="cheat-grid">
+
+        <div class="cheat-card">
+          <div class="cheat-card-label">Yield Formulas</div>
+          <h4>Key Equations</h4>
+          <div class="cheat-item">
+            <span class="cheat-key">BEY</span>
+            <span class="cheat-val">P₀ = Pf / (1 + i_bey × n/365)</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Discount</span>
+            <span class="cheat-val">P₀ = Pf / (1 + i_d × n/360)</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">CP Discount</span>
+            <span class="cheat-val">P₀ = Pf / (1 + i_cp,d × n/360)</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">CP BEY</span>
+            <span class="cheat-val">P₀ = Pf / (1 + i_cp,bey × n/365)</span>
+          </div>
+          <div style="margin-top:10px;font-size:0.78rem;color:rgba(255,255,255,0.4);">BEY always &gt; Discount Yield</div>
+        </div>
+
+        <div class="cheat-card">
+          <div class="cheat-card-label">T-Bill Facts</div>
+          <h4>Treasury Bills</h4>
+          <div class="cheat-item">
+            <span class="cheat-key">Maturities</span>
+            <span class="cheat-val">4, 13, 26, 52 weeks</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Min. Denom.</span>
+            <span class="cheat-val">Multiples of $100</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Risk</span>
+            <span class="cheat-val">Virtually zero default risk</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Primary Dlrs</span>
+            <span class="cheat-val">24 designated dealers</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Non-comp Max</span>
+            <span class="cheat-val">$5M per bidder</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Settlement</span>
+            <span class="cheat-val">Fedwire (dealers)</span>
+          </div>
+        </div>
+
+        <div class="cheat-card">
+          <div class="cheat-card-label">Instrument Summary</div>
+          <h4>At a Glance</h4>
+          <div class="cheat-item">
+            <span class="cheat-key">T-Bills</span>
+            <span class="cheat-val">Govt; 4–52 wk; discount; zero risk</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Fed Funds</span>
+            <span class="cheat-val">Banks; overnight; unsecured</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Repos</span>
+            <span class="cheat-val">Dealers; 1 day+; collateralized</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Comm. Paper</span>
+            <span class="cheat-val">Corps; 1–270 days; unsecured</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Neg. CDs</span>
+            <span class="cheat-val">Banks; 1–12 mo; bearer; tradeable</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">BAs</span>
+            <span class="cheat-val">Bank-backed; trade finance</span>
+          </div>
+        </div>
+
+        <div class="cheat-card">
+          <div class="cheat-card-label">Key People &amp; Mechanics</div>
+          <h4>Exam Watch</h4>
+          <div class="cheat-item">
+            <span class="cheat-key">FOMC</span>
+            <span class="cheat-val">Sets fed funds target; uses T-Bill OMOs</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Haircut</span>
+            <span class="cheat-val">Repo loan &lt; collateral value</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Correspondent</span>
+            <span class="cheat-val">Banks with reciprocal fed funds accounts</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">ABCP Risk</span>
+            <span class="cheat-val">Maturity transformation; 2007 collapse</span>
+          </div>
+          <div class="cheat-item">
+            <span class="cheat-key">Bearer Inst.</span>
+            <span class="cheat-val">Whoever holds it at maturity gets paid (CDs, BAs)</span>
+          </div>
+        </div>
+
+        <div class="cheat-card" style="grid-column: 1 / -1;">
+          <div class="cheat-card-label">Common Pitfalls</div>
+          <h4>Watch Out For These</h4>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;">
+            <div class="cheat-item">
+              <span class="cheat-key">Yield basis</span>
+              <span class="cheat-val">Discount uses 360-day year; BEY uses 365-day year</span>
+            </div>
+            <div class="cheat-item">
+              <span class="cheat-key">Comp. bids</span>
+              <span class="cheat-val">May NOT be filled; noncompetitive bids always are</span>
+            </div>
+            <div class="cheat-item">
+              <span class="cheat-key">Repos</span>
+              <span class="cheat-val">From the seller's view = repo; from buyer's view = reverse repo</span>
+            </div>
+            <div class="cheat-item">
+              <span class="cheat-key">Fed funds</span>
+              <span class="cheat-val">No collateral required — purely unsecured interbank lending</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /.content -->
+</main>
+
+<script>
+// ===== CH5 NAMESPACE =====
+
+// --- Dark Mode ---
+function ch5ToggleDark() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? '' : 'dark');
+  document.getElementById('ch5-dark-icon').textContent = isDark ? '🌙' : '☀️';
+  document.getElementById('ch5-dark-label').textContent = isDark ? 'Dark Mode' : 'Light Mode';
+}
+
+// --- Sidebar ---
+function ch5ToggleSidebar() {
+  document.getElementById('ch5-sidebar').classList.toggle('open');
+  document.getElementById('ch5-overlay').classList.toggle('open');
+}
+
+function ch5SetActive(el) {
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// --- Flashcard Data ---
+const ch5Cards = [
+  { q: "What are money markets, and why do they exist?", a: "Financial markets trading debt instruments with maturities under one year. They exist because the immediate cash needs of individuals, corporations, and governments do not always coincide with their cash receipts." },
+  { q: "List the three universal characteristics of all money market instruments.", a: "1) Generally sold in large denominations ($1M–$10M); 2) Low default risk; 3) Original maturity of one year or less." },
+  { q: "What is the Bond Equivalent Yield (BEY) formula?", a: "P₀ = Pf / (1 + i_bey × n/365). Uses a 365-day year. Divides by the actual purchase price, not face value — giving a higher (more accurate) yield than the discount method." },
+  { q: "What is the discount yield formula and when is it used?", a: "P₀ = Pf / (1 + i_d × n/360). Uses a 360-day year. Used for T-Bills and commercial paper. Slightly understates true return compared to BEY." },
+  { q: "What are Treasury Bills (T-Bills) and who issues them?", a: "Short-term U.S. government debt obligations issued by the U.S. Treasury to cover budget deficits and refinance maturing debt. Also the Federal Reserve's primary tool for monetary policy implementation." },
+  { q: "What are the four original maturities of T-Bills?", a: "4 weeks, 13 weeks, 26 weeks, and 52 weeks." },
+  { q: "What is the difference between competitive and noncompetitive T-Bill bids?", a: "Competitive: specify both amount and discount yield; used by large investors; may not be filled. Noncompetitive: specify only desired face value (max $5M); always filled at the auction's clearing yield." },
+  { q: "Who are primary government securities dealers, and what role do they play?", a: "24 designated financial institutions that purchase most T-Bills at auction and maintain an active secondary market. They 'make a market' by buying and selling T-Bills for their own account and for customers. Transactions settled via Fedwire." },
+  { q: "What are federal funds (fed funds)?", a: "Short-term funds (usually overnight) transferred between financial institutions. Commercial banks trade excess reserves held at their Federal Reserve Bank. The fed funds rate is set by supply/demand and FOMC policy." },
+  { q: "What is the primary risk of the interbank fed funds lending system?", a: "The borrowing bank does not pledge collateral. Fed funds loans are typically unsecured oral agreements between correspondent banks for millions of dollars — entirely dependent on trust between institutions." },
+  { q: "What is a repurchase agreement (repo)? What is a 'haircut'?", a: "A repo is the sale of securities with a promise to repurchase them at a specified price and date. A haircut means the loan amount is slightly less than the market value of the pledged collateral, protecting the lender." },
+  { q: "Distinguish between overnight repos and term repos. What is a reverse repo?", a: "Overnight repos mature in one day. Term repos have longer maturities. A reverse repo is the same transaction from the buyer's perspective — they're buying securities with a promise to sell them back." },
+  { q: "What is commercial paper (CP)? Who issues it?", a: "An unsecured short-term promissory note issued by companies (with strong credit ratings) to raise short-term cash, typically for working capital. Maturities: 1–270 days; most common 20–45 days." },
+  { q: "What happened to Asset-Backed Commercial Paper (ABCP) in 2007?", a: "In July 2007, $1.19T of $2.16T total CP was ABCP, backed heavily by mortgage-backed securities. When subprime mortgages collapsed, billions of ABCP were tainted. Investors refused to roll over holdings, and the market froze." },
+  { q: "What is a negotiable certificate of deposit (CD)?", a: "A bank-issued, fixed-maturity, interest-bearing time deposit that is negotiable (tradeable in secondary markets). It is a bearer instrument — whoever holds it at maturity receives principal and interest. Denominations: $100K–$10M." },
+  { q: "What is a banker's acceptance (BA)?", a: "A time draft payable to a seller of goods, with payment guaranteed by a bank. Often arises from international trade transactions. Payable to the bearer at maturity; trades in secondary markets in $100K and $500K round lots." },
+  { q: "Why is the BEY always higher than the discount yield for the same security?", a: "Two reasons: (1) BEY divides by the actual purchase price (smaller than face value), giving a larger return rate; (2) BEY scales to 365 days while the discount yield uses only 360, amplifying the annual rate slightly more." },
+  { q: "Who are the main participants in money markets?", a: "Issuers: U.S. Treasury, corporations, commercial banks, dealers. Investors: money market mutual funds, corporations with excess cash, banks, insurance companies. Intermediaries: primary dealers, broker-dealers, the Federal Reserve." },
+  { q: "What is Fedwire, and what role does it play in T-Bill markets?", a: "Fedwire is the Federal Reserve's wire transfer service. It is used to settle secondary market T-bill transactions between primary government securities dealers — enabling the large, rapid transfers of funds and securities." },
+  { q: "How does commercial paper differ from a negotiable CD?", a: "Commercial paper is issued by corporations (unsecured); CDs are issued by banks. CP is quoted on a 360-day discount basis; CDs use add-on interest with a 360-day year. CDs are negotiable (tradeable); most CP is held to maturity." }
+];
+
+let ch5FcIndex = 0;
+let ch5FcSeen = new Set([0]);
+
+function ch5RenderCard() {
+  const card = ch5Cards[ch5FcIndex];
+  document.getElementById('ch5-fc-q').textContent = card.q;
+  document.getElementById('ch5-fc-a').textContent = card.a;
+  document.getElementById('ch5-fc-num').textContent = ch5FcIndex + 1;
+  document.getElementById('ch5-fc-inner').classList.remove('flipped');
+  ch5RenderDots();
+}
+
+function ch5RenderDots() {
+  const container = document.getElementById('ch5-fc-dots');
+  container.innerHTML = '';
+  ch5Cards.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'fc-dot' + (ch5FcSeen.has(i) ? ' seen' : '') + (i === ch5FcIndex ? ' current' : '');
+    dot.onclick = () => { ch5FcIndex = i; ch5FcSeen.add(i); ch5RenderCard(); };
+    container.appendChild(dot);
+  });
+}
+
+function ch5FcFlip() {
+  document.getElementById('ch5-fc-inner').classList.toggle('flipped');
+}
+
+function ch5FcNav(dir) {
+  ch5FcIndex = (ch5FcIndex + dir + ch5Cards.length) % ch5Cards.length;
+  ch5FcSeen.add(ch5FcIndex);
+  ch5RenderCard();
+}
+
+// --- Feynman ---
+function ch5ToggleFeynman(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+// --- Exercises ---
+function ch5ToggleAnswer(btn) {
+  const ans = btn.nextElementSibling;
+  const isOpen = ans.style.display === 'block';
+  ans.style.display = isOpen ? 'none' : 'block';
+  btn.textContent = isOpen ? 'Show Answer' : 'Hide Answer';
+}
+
+// --- Knowledge Graph ---
+function ch5InitGraph() {
+  const svg = document.getElementById('ch5-graph');
+  const W = svg.viewBox.baseVal.width;
+  const H = svg.viewBox.baseVal.height;
+
+  const nodes = [
+    { id: 0, label: "Money Markets", x: 450, y: 240, r: 38, color: "#b5541a", textColor: "#fff", bold: true },
+    { id: 1, label: "Treasury Bills", x: 180, y: 100, r: 30, color: "#e07540", textColor: "#fff" },
+    { id: 2, label: "Federal Funds", x: 450, y: 60, r: 30, color: "#e07540", textColor: "#fff" },
+    { id: 3, label: "Repos", x: 720, y: 100, r: 28, color: "#e07540", textColor: "#fff" },
+    { id: 4, label: "Commercial Paper", x: 760, y: 300, r: 32, color: "#e07540", textColor: "#fff" },
+    { id: 5, label: "Negotiable CDs", x: 600, y: 410, r: 30, color: "#e07540", textColor: "#fff" },
+    { id: 6, label: "Banker's Acceptances", x: 300, y: 410, r: 30, color: "#e07540", textColor: "#fff" },
+    { id: 7, label: "Discount Yield", x: 100, y: 300, r: 26, color: "#4a90d9", textColor: "#fff" },
+    { id: 8, label: "Bond Equiv. Yield", x: 155, y: 420, r: 26, color: "#4a90d9", textColor: "#fff" },
+    { id: 9, label: "U.S. Treasury", x: 80, y: 180, r: 26, color: "#34d399", textColor: "#111" },
+    { id: 10, label: "Commercial Banks", x: 360, y: 60, r: 26, color: "#34d399", textColor: "#111" },
+    { id: 11, label: "Corporations", x: 820, y: 200, r: 26, color: "#34d399", textColor: "#111" },
+    { id: 12, label: "Fed Reserve\n(FOMC)", x: 540, y: 60, r: 26, color: "#34d399", textColor: "#111" },
+    { id: 13, label: "Haircut", x: 780, y: 420, r: 22, color: "#4a90d9", textColor: "#fff" },
+    { id: 14, label: "Primary Dealers", x: 80, y: 80, r: 24, color: "#34d399", textColor: "#111" },
+  ];
+
+  const edges = [
+    { s: 0, t: 1 }, { s: 0, t: 2 }, { s: 0, t: 3 }, { s: 0, t: 4 },
+    { s: 0, t: 5 }, { s: 0, t: 6 }, { s: 1, t: 7 }, { s: 1, t: 8 },
+    { s: 4, t: 7 }, { s: 4, t: 8 }, { s: 1, t: 9 }, { s: 2, t: 10 },
+    { s: 2, t: 12 }, { s: 4, t: 11 }, { s: 3, t: 13 }, { s: 1, t: 14 },
+    { s: 7, t: 8, dashed: true },
+  ];
+
+  // Draw edges
+  edges.forEach(e => {
+    const a = nodes[e.s], b = nodes[e.t];
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', a.x); line.setAttribute('y1', a.y);
+    line.setAttribute('x2', b.x); line.setAttribute('y2', b.y);
+    line.setAttribute('stroke', e.dashed ? 'rgba(74,144,217,0.4)' : 'rgba(181,84,26,0.3)');
+    line.setAttribute('stroke-width', '1.5');
+    if (e.dashed) line.setAttribute('stroke-dasharray', '5,4');
+    svg.appendChild(line);
+  });
+
+  // Draw nodes
+  nodes.forEach(n => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('transform', `translate(${n.x},${n.y})`);
+    g.style.cursor = 'pointer';
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('r', n.r);
+    circle.setAttribute('fill', n.color);
+    circle.setAttribute('opacity', '0.9');
+    circle.setAttribute('stroke', 'rgba(255,255,255,0.15)');
+    circle.setAttribute('stroke-width', '1.5');
+
+    const lines = n.label.split('\n');
+    const texts = lines.map((line, i) => {
+      const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('dominant-baseline', 'middle');
+      t.setAttribute('fill', n.textColor);
+      t.setAttribute('font-size', n.bold ? '11' : '9.5');
+      t.setAttribute('font-weight', n.bold ? '700' : '500');
+      t.setAttribute('font-family', 'Source Sans 3, sans-serif');
+      t.setAttribute('dy', lines.length > 1 ? (i === 0 ? '-6' : '8') : '0');
+      t.textContent = line;
+      return t;
+    });
+
+    g.appendChild(circle);
+    texts.forEach(t => g.appendChild(t));
+
+    // Hover effect
+    g.addEventListener('mouseenter', () => {
+      circle.setAttribute('opacity', '1');
+      circle.setAttribute('stroke', '#fff');
+      circle.setAttribute('stroke-width', '2.5');
+      // Highlight connected edges
+      edges.forEach(e => {
+        if (e.s === n.id || e.t === n.id) {
+          const a = nodes[e.s], b = nodes[e.t];
+          svg.querySelectorAll('line').forEach(l => {
+            if ((+l.getAttribute('x1') === a.x && +l.getAttribute('y1') === a.y) ||
+                (+l.getAttribute('x1') === b.x && +l.getAttribute('y1') === b.y)) {
+              l.setAttribute('stroke', 'rgba(224,117,64,0.85)');
+              l.setAttribute('stroke-width', '2.5');
+            }
+          });
+        }
+      });
+    });
+
+    g.addEventListener('mouseleave', () => {
+      circle.setAttribute('opacity', '0.9');
+      circle.setAttribute('stroke', 'rgba(255,255,255,0.15)');
+      circle.setAttribute('stroke-width', '1.5');
+      svg.querySelectorAll('line').forEach(l => {
+        const isDashed = l.getAttribute('stroke-dasharray');
+        l.setAttribute('stroke', isDashed ? 'rgba(74,144,217,0.4)' : 'rgba(181,84,26,0.3)');
+        l.setAttribute('stroke-width', '1.5');
+      });
+    });
+
+    svg.appendChild(g);
+  });
+}
+
+// --- Active Section Tracking ---
+function ch5TrackScroll() {
+  const sections = ['ch5-summary','ch5-flashcards','ch5-feynman','ch5-graph','ch5-exercises','ch5-cheatsheet','ch5-tbills','ch5-fedfunds','ch5-repos','ch5-commpaper','ch5-yields'];
+  let current = 'ch5-summary';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 120) current = id;
+  });
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+}
+
+// --- Init ---
+document.addEventListener('DOMContentLoaded', () => {
+  ch5RenderCard();
+  ch5InitGraph();
+  window.addEventListener('scroll', ch5TrackScroll, { passive: true });
+});
+</script>
+
+<script src="../../highlight.js"></script>
+</body>
+</html>
