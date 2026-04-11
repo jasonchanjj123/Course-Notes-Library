@@ -1,5 +1,191 @@
 [
   {
+    "title": "Ch 01: The Role of Algorithms & NP-Completeness",
+    "subtitle": "Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Computer Algorithm \u00b7 Foundation of Computational Complexity & Problem Hardness"
+  },
+  {
+    "title": "Chapter Summary",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Core concepts distilled from lecture slides \u2014 read first."
+  },
+  {
+    "title": "Definition and Correctness",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " An algorithm is any well-defined computational procedure that takes some value, or set of values, as input and produces some value, or set of values, as output. Essentially, it is a tool for solving a well-specified computational problem. Correctness: An algorithm is said to be correct if, for every input instance, it halts with the correct output. An incorrect algorithm might not halt at all on some input instances, or it might halt with an answer other than the desired one."
+  },
+  {
+    "title": "Algorithm Efficiency",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Efficiency is primarily measured in terms of Time (speed) and Space (memory usage). While many problems have efficient solutions, others do not yet have an efficient (polynomial-time) solution known to exist. These are often referred to as \"hard\" problems. Donald Knuth is credited with founding the field of analysis of algorithms, while Niklaus Wirth famously stated: Algorithms + Data Structures = Programs."
+  },
+  {
+    "title": "Algorithms and Data Structures",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " A Data Structure is a way to store and organize data to facilitate access and modifications. One of the basic techniques for improving algorithms is to structure the data appropriately. Usually, the choice of data structure involves a time-space trade-off, where optimizing for speed may require more memory, and vice-versa."
+  },
+  {
+    "title": "The Theory of NP-Completeness",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Understanding NP-completeness is crucial for an algorithm designer. If you can show that a problem is NP-complete, you can spend your time developing an efficient approximation algorithm rather than searching for a non-existent (or at least undiscovered) optimal polynomial-time solution. Decision problems solvable in polynomial time (e.g., O(nk)). These are considered tractable. Nondeterministic Polynomial time. Problems whose solutions can be verified in polynomial time given a certificate. NP-complete. A subset of NP that is at least as hard as any other problem in NP."
+  },
+  {
+    "title": "Problem Reduction",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Reduction is a technique used to show that a new problem A is NP-complete by transforming a known NP-complete problem B into problem A in polynomial time (B \u2264p A). If we can solve A efficiently, we can solve B efficiently. Since B is hard, A must also be hard. \ud83d\udcdd The 1979 textbook by Michael Garey and David S. Johnson, \"Computers and Intractability,\" is the seminal guide to the theory of NP-completeness."
+  },
+  {
+    "title": "Flashcards",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Active recall for key terms and facts. What is an algorithm? A well-defined computational procedure that takes input and produces output."
+  },
+  {
+    "title": "Feynman Explanations",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Deep understanding through simplified analogies."
+  },
+  {
+    "title": "What is an Algorithm?",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Explaining it like a recipe. The core idea: Think of an algorithm as a recipe. You have ingredients (Input), a specific set of steps to follow (The Procedure), and a finished dish (Output). Just as a recipe must be precise so anyone can follow it to get the same result, an algorithm must be well-defined so a computer can execute it. In practice: Sorting a list of numbers is like organizing spices alphabetically. You follow a rule (like \"find the smallest and put it first\") until the task is done. The one thing to remember: An algorithm is a repeatable \"how-to\" guide for solving a specific data problem."
+  },
+  {
+    "title": "Time-Space Trade-off",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " The bookshelf analogy. The core idea: Imagine you have 100 books. You can pile them randomly (takes little space, but takes a long time to find one) or build a massive index system with labels for every page (takes lots of space, but you find things instantly). In practice: In computing, using a \"Hash Map\" uses extra memory to allow for nearly instant data retrieval, while a simple \"Linear Search\" uses no extra memory but is much slower. The one thing to remember: You can often buy speed by spending memory, or save memory by spending time."
+  },
+  {
+    "title": "P vs NP",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Solving vs. Verifying. The core idea: Class P is like an easy Sudoku: you can solve it quickly. Class NP is like a massive, complex jigsaw puzzle: it might be extremely hard to solve, but if someone shows you the finished picture, you can verify that it's correct very quickly. In practice: Multiplying two large numbers is in P. Finding the prime factors of a huge number is in NP (hard to do, easy to check if someone gives you the factors). The one thing to remember: P is about finding the answer; NP is about checking the answer."
+  },
+  {
+    "title": "Reduction",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " The \"Translator\" analogy. The core idea: If you know how to bake a Cake (Problem B), and I show you how to turn the task of making a Muffin (Problem A) into \"basically baking a small cake,\" then you can now solve Problem A using your existing knowledge of Problem B. In practice: We \"reduce\" a new problem to an old, hard one to prove the new one is also hard. If A is harder than B, and B is already \"impossible,\" then A is also \"impossible.\" The one thing to remember: Reduction proves hardness by showing one problem can be transformed into another."
+  },
+  {
+    "title": "Knowledge Graph",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Visualizing relationships between algorithm concepts."
+  },
+  {
+    "title": "Exercises",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Tier 1 \u00b7 Recall and basic understanding. Define a \"correct\" algorithm. Explain the difference between a decision problem and an optimization problem. Why is the theory of NP-completeness important for an algorithm designer? What is the complexity class of problems solvable in O(n3) time? True or False: If a problem is in P, it is also in NP. What is a \"certificate\" in the context of NP? Who is credited with founding the field of analysis of algorithms? What does B \u2264p A mean in terms of relative hardness? Describe the \"time-space trade-off\" in algorithm design. List the two requirements for a problem A to be NP-complete. Name the influential 1979 textbook by Michael Garey and David S. Johnson. What is the current status of the \"P vs NP\" question? Can an NP-hard problem be outside of NP? How does the choice of data structure generally affect an algorithm? What is the primary goal of using reduction in complexity theory?"
+  },
+  {
+    "title": "Cheat Sheet",
+    "subtitle": "Ch 01: The Role of Algorithms & NP-Completeness \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch01.html",
+    "content": " Quick reference for exam preparation. Correctness: Halts + Correct Output. Efficiency: Time + Space Complexity. Wirth's Law: Algorithms + DS = Programs. NPC Proof: Show in NP + Reduce known NPC to it. \u26a0\ufe0f Thinking NP means \"Not Polynomial\" (It means Nondeterministic Polynomial). \u26a0\ufe0f Assuming P = NP (Unknown status). \u26a0\ufe0f Forgetting that reduction (B \u2264p A) means A is the harder one."
+  },
+  {
+    "title": "Ch 02: Determinants of Interest Rates & Term Structure",
+    "subtitle": "Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Computer Algorithm \u00b7 Analyzing the mechanisms of rate determination and time value of money."
+  },
+  {
+    "title": "Chapter Summary",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Core concepts of interest rate determination and valuation."
+  },
+  {
+    "title": "The Loanable Funds Theory",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " The loanable funds theory views equilibrium interest rates as the result of the supply of and demand for loanable funds in financial markets. Just as the price of a product is determined by supply and demand, the \"price\" of money (the interest rate) is determined by the interaction of those who have surplus capital and those who wish to borrow it."
+  },
+  {
+    "title": "Nominal vs. Real Interest Rates: The Fisher Effect",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Nominal interest rates are the rates actually observed in financial markets. However, investors care about their actual purchasing power, which requires adjusting for inflation. The relationship is defined by the Fisher effect."
+  },
+  {
+    "title": "Security-Specific Risk Premiums",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Beyond the base rate, individual securities have different interest rates due to specific risks and features. Callability vs. Tax-Exemption\n            Features that benefit the issuer (like callability) increase the interest rate. Features that benefit the investor (like tax-exempt status on municipal bonds) decrease the interest rate."
+  },
+  {
+    "title": "Term Structure & Yield Curves",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " The yield curve plots the relationship between interest rates and time to maturity for similar securities. There are three primary theories explaining its shape: Long-term rates are the geometric average of expected future short-term rates. The curve reflects purely market expectations of future rates. Investors demand a premium for the increased risk of holding longer-term securities. This biases the yield curve upward. Investors stay in specific maturity segments (habitats). Supply and demand in each segment independently determine the rates."
+  },
+  {
+    "title": "Flashcards",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Test your recall of the fundamental mechanisms. What is the loanable funds theory? A theory suggesting interest rates are determined by the supply and demand for loanable funds in financial markets."
+  },
+  {
+    "title": "Feynman Explanations",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Breaking down complex theories into simple logic."
+  },
+  {
+    "title": "The Fisher Effect",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Why inflation and interest rates move together. The core idea: Imagine you lend $100 to a friend so they can buy 10 pizzas today. If there is 10% inflation, those 10 pizzas will cost $110 next year. If your friend only pays you back $100, you've lost purchasing power. You'd demand $110 back just to break even, plus a little extra for your trouble (the real return). In practice: Lenders always add expected inflation to their required \"real\" return to set the \"nominal\" rate we see at banks. The one thing to remember: Nominal rates must rise when inflation expectations rise to keep the real return constant."
+  },
+  {
+    "title": "Loanable Funds Equilibrium",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Market forces at work. The core idea: Think of interest rates as the \"price of renting money.\" If everyone wants to rent money (high demand) but nobody wants to lend it (low supply), the price of renting goes up. If banks are flooded with cash (high supply) but nobody wants to borrow (low demand), the price falls. In practice: When the Fed prints money, they increase the \"supply,\" which naturally pushes interest rates down. The one thing to remember: Interest rates clear the market where the amount of money people want to lend matches the amount others want to borrow."
+  },
+  {
+    "title": "Yield Curve Inversion",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " The economy's warning signal. The core idea: Usually, you get paid more for a 30-year loan than a 1-year loan because the future is uncertain. But sometimes, people are so worried about the immediate future that they pay huge rates for short-term cash, while expecting rates to be much lower in the long run when a recession hits. In practice: An inverted curve means \"the market thinks a recession is coming and rates will have to be cut later.\" The one thing to remember: Inversion occurs when short-term rates exceed long-term rates, historically predicting a recession."
+  },
+  {
+    "title": "Time Value of Money (TVM)",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Why a dollar today is better than a dollar tomorrow. The core idea: If I give you $1 today, you can put it in a bank and have $1.05 next year. If I give you $1 next year, you've missed out on that 5 cents. Therefore, $1 today is \"worth more\" than $1 later. In practice: Every financial decision (buying a car, stock, or bond) is just comparing \"money today\" with \"money later.\" The one thing to remember: Compounding moves money forward in time; discounting moves money back to today."
+  },
+  {
+    "title": "Knowledge Graph",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Relational mapping of rate determinants."
+  },
+  {
+    "title": "Exercises",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " 15 problems covering theory and calculation."
+  },
+  {
+    "title": "Cheat Sheet",
+    "subtitle": "Ch 02: Determinants of Interest Rates & Term Structure \u00b7 Computer Algorithm",
+    "url": "notes/computer-algorithm/ch02.html",
+    "content": " Key formulas and common pitfalls. i = RFR + IP + DRP + LRP + SCP + MP \u2014 components (1+i) = (1+RFR)(1+IP) \u2014 Fisher Exact FV = PV(1+r)\u207f \u2014 Future Value PV = FV/(1+r)\u207f \u2014 Present Value PV = C/r \u2014 Perpetuity t = 72 / r% \u2014 Rule of 72 DRP: Yield difference vs. Treasury LRP: Extra yield for illiquid assets Callability: Benefits issuer \u2192 Yield \u2191 Tax-Exempt: Benefits investor \u2192 Yield \u2193 \u26a0\ufe0f Confusing nominal vs real rates. \u26a0\ufe0f Forgetting sign convention on BAII Plus. \u26a0\ufe0f Applying simple interest when compounding is required. \u26a0\ufe0f Incorrectly shifting supply/demand curves (Wealth vs Risk)."
+  },
+  {
     "title": "Chapter 1: Introduction to Financial Markets",
     "subtitle": "Financial Markets & Institutions",
     "url": "notes/financial-market/ch01.html",
