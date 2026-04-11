@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch 01: The Role of Algorithms & NP-Completeness — Computer Algorithm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ========== DESIGN SYSTEM ========== */
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1b2e45;
+  --navy-light: #243b55;
+  --shadow: 0 4px 24px rgba(13, 27, 42, 0.08);
+  --shadow-strong: 0 8px 40px rgba(13, 27, 42, 0.15);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --transition: 0.22s ease;
+  --cream: #faf7f0;
+  --cream-dark: #f0ead8;
+  --text-dark: #1a1a2e;
+  --text-body: #2d3748;
+  --text-muted: #718096;
+  --green: #276749;
+  --green-light: #e6f4ed;
+  --amber: #b7791f;
+  --amber-light: #fefce8;
+  --red: #9b2335;
+  --red-light: #fff1f2;
+  --blue-accent: #2b6cb0;
+  --blue-light: #ebf4ff;
+
+  /* ACCENT: Indigo (#3730a3) */
+  --accent: #3730a3;
+  --accent-light: #818cf8;
+  --accent-pale: #eef2ff;
+  --accent-border: rgba(55, 48, 163, 0.20);
+}
+
+[data-theme="dark"] {
+  --cream: #0f1923;
+  --cream-dark: #1a2535;
+  --text-dark: #e8e4d9;
+  --text-body: #c8c3b8;
+  --text-muted: #8899aa;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: 'Source Sans 3', sans-serif; background: var(--cream); color: var(--text-body); line-height: 1.75; display: flex; min-height: 100vh; transition: background var(--transition), color var(--transition); }
+
+/* ========== SIDEBAR ========== */
+.sidebar { width: 270px; min-height: 100vh; background: var(--navy); position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; display: flex; flex-direction: column; }
+.sidebar-header { padding: 28px 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.course-label { font-family: 'JetBrains Mono'; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 6px; }
+.chapter-title { font-family: 'Playfair Display'; color: #fff; font-size: 1.05rem; line-height: 1.3; }
+nav { padding: 16px 0; flex: 1; }
+.nav-section-label { font-family: 'JetBrains Mono'; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 12px 24px 6px; }
+.nav-link { display: flex; align-items: center; gap: 10px; padding: 9px 24px; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.875rem; transition: all var(--transition); border-left: 3px solid transparent; }
+.nav-link:hover, .nav-link.active { color: var(--accent-light); background: rgba(255,255,255,0.05); border-left-color: var(--accent); }
+.nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+.sidebar-footer { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+.dark-toggle { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 8px 14px; cursor: pointer; color: rgba(255,255,255,0.6); font-size: 0.8rem; width: 100%; transition: all var(--transition); }
+
+/* ========== MAIN CONTENT ========== */
+.main { margin-left: 270px; flex: 1; min-width: 0; }
+.hero { background: linear-gradient(135deg, #0d1b2a 0%, #2e1065 55%, #1a0840 100%); padding: 80px 60px 60px; color: white; }
+.chapter-badge { font-family: 'JetBrains Mono'; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 16px; }
+.hero h1 { font-size: 2.6rem; font-weight: 700; margin-bottom: 12px; font-family: 'Playfair Display'; }
+.hero .subtitle { font-size: 1.1rem; opacity: 0.8; margin-bottom: 32px; }
+.hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+.hero-meta span { font-family: 'JetBrains Mono'; font-size: 0.72rem; letter-spacing: 0.05em; opacity: 0.85; }
+
+.content { padding: 48px 60px 80px; max-width: 960px; }
+
+/* ========== COMPONENTS ========== */
+.study-section { margin-bottom: 72px; scroll-margin-top: 24px; }
+.section-header { margin: 48px 0 32px; padding-bottom: 16px; border-bottom: 2px solid var(--accent-border); }
+.section-badge { font-family: 'JetBrains Mono'; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+h2 { font-family: 'Playfair Display'; font-size: 1.8rem; font-weight: 600; margin: 0 0 8px; color: var(--text-dark); }
+h3 { font-family: 'Playfair Display'; font-size: 1.3rem; margin: 36px 0 14px; color: var(--text-dark); }
+.section-desc { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+
+.topic-block { margin: 0 0 36px; }
+.highlight { background: var(--accent-pale); border-left: 3px solid var(--accent); padding: 2px 8px; border-radius: 3px; }
+.note-text { font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+
+/* Callouts */
+.callout { display: flex; gap: 14px; padding: 16px 20px; border-radius: var(--radius-sm); border-left: 4px solid; margin: 24px 0; }
+.callout-info { background: var(--blue-light); border-color: var(--blue-accent); }
+.callout-accent { background: var(--accent-pale); border-color: var(--accent); }
+.callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.callout-body p { margin: 4px 0 0; font-size: 0.9rem; }
+
+/* Flashcards */
+.flashcard-section { margin: 24px 0; }
+.card-counter { font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--text-muted); text-align: right; margin-bottom: 8px; }
+.flashcard-container { perspective: 1000px; height: 240px; cursor: pointer; margin: 20px 0; }
+.flashcard { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s; border-radius: var(--radius); }
+.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back { position: absolute; inset: 0; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; padding: 40px; background: var(--cream-dark); border: 1px solid var(--accent-border); border-radius: var(--radius); }
+.flashcard-back { transform: rotateY(180deg); background: var(--accent-pale); text-align: center; }
+.card-label { font-family: 'JetBrains Mono'; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px; }
+.card-controls { display: flex; justify-content: center; gap: 20px; }
+.card-controls button { background: var(--navy); color: white; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-family: 'JetBrains Mono'; font-size: 0.75rem; transition: var(--transition); }
+.card-controls button:hover { background: var(--accent); }
+
+/* Feynman */
+.feynman-card { background: var(--cream-dark); border: 1px solid var(--accent-border); border-radius: var(--radius); margin: 16px 0; overflow: hidden; transition: var(--transition); }
+.feynman-header { padding: 18px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.feynman-icon { font-size: 1.4rem; margin-right: 15px; }
+.feynman-title { flex: 1; }
+.feynman-title h3 { margin: 0; font-size: 1.1rem; }
+.feynman-title p { margin: 2px 0 0; font-size: 0.85rem; color: var(--text-muted); }
+.feynman-toggle { font-size: 0.8rem; color: var(--accent); }
+.feynman-body { padding: 0 24px 24px; display: none; border-top: 1px solid var(--accent-border); padding-top: 20px; }
+.feynman-card.open .feynman-body { display: block; }
+
+/* Graph */
+.graph-container { background: var(--navy); border-radius: var(--radius); padding: 30px 20px; margin: 20px 0; position: relative; min-height: 480px; }
+svg { width: 100%; height: 100%; }
+.node circle { stroke: #fff; stroke-width: 2px; transition: r 0.3s; cursor: pointer; }
+.node text { font-family: 'Source Sans 3'; font-size: 12px; fill: #fff; pointer-events: none; text-anchor: middle; }
+.link { stroke: rgba(255,255,255,0.2); stroke-width: 1px; }
+.core { fill: var(--accent); }
+.primary { fill: var(--accent-light); }
+.secondary { fill: #718096; }
+
+/* Exercises */
+.tier-header { font-family: 'JetBrains Mono'; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 8px 16px; background: var(--navy); color: white; border-radius: 4px; margin: 32px 0 16px; }
+.exercise-card { background: var(--cream-dark); border: 1px solid var(--accent-border); padding: 20px; border-radius: var(--radius); margin-bottom: 16px; }
+.exercise-q { display: flex; align-items: flex-start; gap: 12px; }
+.ex-num { background: var(--accent); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; margin-top: 3px; }
+.show-answer { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; margin-top: 10px; transition: var(--transition); }
+.show-answer:hover { background: var(--accent); color: white; }
+.exercise-answer { margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--accent-border); font-size: 0.9rem; color: var(--text-body); }
+
+/* Cheat Sheet */
+.cheatsheet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin: 28px 0; }
+.cheat-card { background: var(--cream-dark); border: 1px solid var(--accent-border); border-radius: var(--radius); overflow: hidden; }
+.cheat-header { background: var(--navy); color: var(--accent-light); font-family: 'JetBrains Mono'; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 10px 16px; }
+.cheat-list { padding: 16px 20px; margin: 0; font-size: 0.88rem; list-style: none; }
+.cheat-list li { margin-bottom: 8px; }
+.cheat-definitions dt { font-weight: 600; color: var(--accent); font-size: 0.85rem; margin-top: 10px; }
+.cheat-definitions dd { margin-left: 0; font-size: 0.82rem; color: var(--text-body); border-bottom: 1px solid var(--accent-border); padding-bottom: 5px; }
+
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="course-label">Computer Algorithm</div>
+    <div class="chapter-title">Ch.01 · Algorithms & NP-Completeness</div>
+  </div>
+  <nav>
+    <a href="../../index.html" class="nav-link"><span class="nav-icon">🏠</span> Back to Library</a>
+    <div class="nav-section-label">Sections</div>
+    <a href="#section-a" class="nav-link active" onclick="chScrollTo('section-a')"><span class="nav-icon">📖</span> A · Summary</a>
+    <a href="#section-b" class="nav-link" onclick="chScrollTo('section-b')"><span class="nav-icon">🃏</span> B · Flashcards</a>
+    <a href="#section-c" class="nav-link" onclick="chScrollTo('section-c')"><span class="nav-icon">🧠</span> C · Feynman</a>
+    <a href="#section-d" class="nav-link" onclick="chScrollTo('section-d')"><span class="nav-icon">🔗</span> D · Graph</a>
+    <a href="#section-e" class="nav-link" onclick="chScrollTo('section-e')"><span class="nav-icon">✏️</span> E · Exercises</a>
+    <a href="#section-f" class="nav-link" onclick="chScrollTo('section-f')"><span class="nav-icon">⚡</span> F · Cheat Sheet</a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="dark-toggle" id="dark-toggle" onclick="toggleDark()">🌙 Dark Mode</button>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="chapter-badge">Chapter 01</div>
+    <h1>The Role of Algorithms & NP-Completeness</h1>
+    <p class="subtitle">Computer Algorithm · Foundation of Computational Complexity & Problem Hardness</p>
+    <div class="hero-meta">
+      <span>⚙️ P vs NP</span>
+      <span>📉 Reduction</span>
+      <span>📦 Data Structures</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <section class="study-section" id="section-a">
+      <div class="section-header">
+        <div class="section-badge">Section A</div>
+        <h2>Chapter Summary</h2>
+        <p class="section-desc">Core concepts distilled from lecture slides — read first.</p>
+      </div>
+
+      <div class="topic-block">
+        <h3>Definition and Correctness</h3>
+        <p>An <span class="highlight">algorithm</span> is any well-defined computational procedure that takes some value, or set of values, as <strong>input</strong> and produces some value, or set of values, as <strong>output</strong>. Essentially, it is a tool for solving a well-specified computational problem.</p>
+        <div class="callout callout-accent">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Correctness:</strong> An algorithm is said to be <strong>correct</strong> if, for every input instance, it halts with the correct output. An incorrect algorithm might not halt at all on some input instances, or it might halt with an answer other than the desired one.
+          </div>
+        </div>
+      </div>
+
+      <div class="topic-block">
+        <h3>Algorithm Efficiency</h3>
+        <p>Efficiency is primarily measured in terms of <span class="highlight">Time</span> (speed) and <span class="highlight">Space</span> (memory usage). While many problems have efficient solutions, others do not yet have an efficient (polynomial-time) solution known to exist. These are often referred to as "hard" problems.</p>
+        <p>Donald Knuth is credited with founding the field of analysis of algorithms, while Niklaus Wirth famously stated: <em>Algorithms + Data Structures = Programs</em>.</p>
+      </div>
+
+      <div class="topic-block">
+        <h3>Algorithms and Data Structures</h3>
+        <p>A <strong>Data Structure</strong> is a way to store and organize data to facilitate access and modifications. One of the basic techniques for improving algorithms is to structure the data appropriately. Usually, the choice of data structure involves a <span class="highlight">time-space trade-off</span>, where optimizing for speed may require more memory, and vice-versa.</p>
+      </div>
+
+      <div class="topic-block">
+        <h3>The Theory of NP-Completeness</h3>
+        <p>Understanding NP-completeness is crucial for an algorithm designer. If you can show that a problem is NP-complete, you can spend your time developing an efficient <strong>approximation algorithm</strong> rather than searching for a non-existent (or at least undiscovered) optimal polynomial-time solution.</p>
+        <div class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 28px 0;">
+          <div class="concept-card" style="background: var(--cream-dark); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 24px 20px;">
+            <h4 style="color: var(--accent); margin: 0 0 8px;">Class P</h4>
+            <p style="font-size: 0.88rem; margin: 0;">Decision problems solvable in <strong>polynomial time</strong> (e.g., O(n<sup>k</sup>)). These are considered tractable.</p>
+          </div>
+          <div class="concept-card" style="background: var(--cream-dark); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 24px 20px;">
+            <h4 style="color: var(--accent); margin: 0 0 8px;">Class NP</h4>
+            <p style="font-size: 0.88rem; margin: 0;"><strong>Nondeterministic Polynomial</strong> time. Problems whose solutions can be <strong>verified</strong> in polynomial time given a certificate.</p>
+          </div>
+          <div class="concept-card" style="background: var(--cream-dark); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 24px 20px;">
+            <h4 style="color: var(--accent); margin: 0 0 8px;">Class NPC</h4>
+            <p style="font-size: 0.88rem; margin: 0;"><strong>NP-complete</strong>. A subset of NP that is at least as hard as any other problem in NP.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic-block">
+        <h3>Problem Reduction</h3>
+        <p>Reduction is a technique used to show that a new problem A is NP-complete by transforming a known NP-complete problem B into problem A in polynomial time (B &le;<sub>p</sub> A). If we can solve A efficiently, we can solve B efficiently. Since B is hard, A must also be hard.</p>
+        <p class="note-text">📝 The 1979 textbook by Michael Garey and David S. Johnson, "Computers and Intractability," is the seminal guide to the theory of NP-completeness.</p>
+      </div>
+    </section>
+
+    <section class="study-section" id="section-b">
+      <div class="section-header">
+        <div class="section-badge">Section B</div>
+        <h2>Flashcards</h2>
+        <p class="section-desc">Active recall for key terms and facts.</p>
+      </div>
+      <div class="flashcard-section">
+        <div class="card-counter">Card <span id="ch1-current">1</span> of <span id="ch1-total">15</span></div>
+        <div class="flashcard-container">
+          <div class="flashcard" id="ch1-flashcard" onclick="flipCard1()">
+            <div class="flashcard-front">
+              <div class="card-label">Question</div>
+              <p id="ch1-fc-question">What is an algorithm?</p>
+            </div>
+            <div class="flashcard-back">
+              <div class="card-label">Answer</div>
+              <p id="ch1-fc-answer">A well-defined computational procedure that takes input and produces output.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-controls">
+          <button onclick="prevCard1()">← Previous</button>
+          <button onclick="nextCard1()">Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="study-section" id="section-c">
+      <div class="section-header">
+        <div class="section-badge">Section C</div>
+        <h2>Feynman Explanations</h2>
+        <p class="section-desc">Deep understanding through simplified analogies.</p>
+      </div>
+
+      <div class="feynman-card" id="feynman1-1">
+        <div class="feynman-header" onclick="toggleFeynman('feynman1-1')">
+          <div class="feynman-icon">👨‍🍳</div>
+          <div class="feynman-title">
+            <h3>What is an Algorithm?</h3>
+            <p>Explaining it like a recipe.</p>
+          </div>
+          <span class="feynman-toggle">▼ Expand</span>
+        </div>
+        <div class="feynman-body">
+          <p><strong>The core idea:</strong> Think of an algorithm as a <strong>recipe</strong>. You have ingredients (Input), a specific set of steps to follow (The Procedure), and a finished dish (Output). Just as a recipe must be precise so anyone can follow it to get the same result, an algorithm must be well-defined so a computer can execute it.</p>
+          <p><strong>In practice:</strong> Sorting a list of numbers is like organizing spices alphabetically. You follow a rule (like "find the smallest and put it first") until the task is done.</p>
+          <p><strong>The one thing to remember:</strong> An algorithm is a repeatable "how-to" guide for solving a specific data problem.</p>
+        </div>
+      </div>
+
+      <div class="feynman-card" id="feynman1-2">
+        <div class="feynman-header" onclick="toggleFeynman('feynman1-2')">
+          <div class="feynman-icon">📚</div>
+          <div class="feynman-title">
+            <h3>Time-Space Trade-off</h3>
+            <p>The bookshelf analogy.</p>
+          </div>
+          <span class="feynman-toggle">▼ Expand</span>
+        </div>
+        <div class="feynman-body">
+          <p><strong>The core idea:</strong> Imagine you have 100 books. You can pile them randomly (takes little space, but takes a <em>long time</em> to find one) or build a massive index system with labels for every page (takes <em>lots of space</em>, but you find things <em>instantly</em>).</p>
+          <p><strong>In practice:</strong> In computing, using a "Hash Map" uses extra memory to allow for nearly instant data retrieval, while a simple "Linear Search" uses no extra memory but is much slower.</p>
+          <p><strong>The one thing to remember:</strong> You can often buy speed by spending memory, or save memory by spending time.</p>
+        </div>
+      </div>
+
+      <div class="feynman-card" id="feynman1-3">
+        <div class="feynman-header" onclick="toggleFeynman('feynman1-3')">
+          <div class="feynman-icon">🧩</div>
+          <div class="feynman-title">
+            <h3>P vs NP</h3>
+            <p>Solving vs. Verifying.</p>
+          </div>
+          <span class="feynman-toggle">▼ Expand</span>
+        </div>
+        <div class="feynman-body">
+          <p><strong>The core idea:</strong> Class <strong>P</strong> is like an easy Sudoku: you can <strong>solve</strong> it quickly. Class <strong>NP</strong> is like a massive, complex jigsaw puzzle: it might be extremely hard to solve, but if someone shows you the finished picture, you can <strong>verify</strong> that it's correct very quickly.</p>
+          <p><strong>In practice:</strong> Multiplying two large numbers is in P. Finding the prime factors of a huge number is in NP (hard to do, easy to check if someone gives you the factors).</p>
+          <p><strong>The one thing to remember:</strong> P is about finding the answer; NP is about checking the answer.</p>
+        </div>
+      </div>
+
+      <div class="feynman-card" id="feynman1-4">
+        <div class="feynman-header" onclick="toggleFeynman('feynman1-4')">
+          <div class="feynman-icon">🔄</div>
+          <div class="feynman-title">
+            <h3>Reduction</h3>
+            <p>The "Translator" analogy.</p>
+          </div>
+          <span class="feynman-toggle">▼ Expand</span>
+        </div>
+        <div class="feynman-body">
+          <p><strong>The core idea:</strong> If you know how to bake a Cake (Problem B), and I show you how to turn the task of making a Muffin (Problem A) into "basically baking a small cake," then you can now solve Problem A using your existing knowledge of Problem B.</p>
+          <p><strong>In practice:</strong> We "reduce" a new problem to an old, hard one to prove the new one is also hard. If A is harder than B, and B is already "impossible," then A is also "impossible."</p>
+          <p><strong>The one thing to remember:</strong> Reduction proves hardness by showing one problem can be transformed into another.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="study-section" id="section-d">
+      <div class="section-header">
+        <div class="section-badge">Section D</div>
+        <h2>Knowledge Graph</h2>
+        <p class="section-desc">Visualizing relationships between algorithm concepts.</p>
+      </div>
+      <div class="graph-container">
+        <svg id="ch1-kg-svg" viewBox="0 0 800 480"></svg>
+        <div id="kg-tooltip" class="kg-tooltip"></div>
+      </div>
+    </section>
+
+    <section class="study-section" id="section-e">
+      <div class="section-header">
+        <div class="section-badge">Section E</div>
+        <h2>Exercises</h2>
+        <p class="section-desc">Tier 1 · Recall and basic understanding.</p>
+      </div>
+      <div class="exercise-section">
+        <div class="tier-header">Tier 1 — Fundamental Concepts</div>
+        
+        <div class="exercise-card" id="ex-ch1-1">
+          <div class="exercise-q">
+            <span class="ex-num">1</span>
+            <p>Define a "correct" algorithm.</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            An algorithm is correct if, for every input instance, it halts with the correct output.
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-2">
+          <div class="exercise-q">
+            <span class="ex-num">2</span>
+            <p>Explain the difference between a decision problem and an optimization problem.</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            A decision problem has a Yes/No answer (e.g., "Is there a path?"), while an optimization problem seeks the best possible value (e.g., "What is the shortest path?"). NP-completeness is formally defined for decision problems.
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-3">
+          <div class="exercise-q">
+            <span class="ex-num">3</span>
+            <p>Why is the theory of NP-completeness important for an algorithm designer?</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            If a problem can be shown to be NP-complete, the designer can stop looking for an exact polynomial-time algorithm and focus on approximation algorithms or heuristics.
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-4">
+          <div class="exercise-q">
+            <span class="ex-num">4</span>
+            <p>What is the complexity class of problems solvable in O(n<sup>3</sup>) time?</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            Class P (Polynomial time).
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-5">
+          <div class="exercise-q">
+            <span class="ex-num">5</span>
+            <p>True or False: If a problem is in P, it is also in NP.</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            True. Any problem that can be solved in polynomial time can also be verified in polynomial time (by simply solving it).
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-6">
+          <div class="exercise-q">
+            <span class="ex-num">6</span>
+            <p>What is a "certificate" in the context of NP?</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            A certificate is extra information (like a solution candidate) that allows a verification algorithm to prove the answer is "Yes" in polynomial time.
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-7">
+          <div class="exercise-q">
+            <span class="ex-num">7</span>
+            <p>Who is credited with founding the field of analysis of algorithms?</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            Donald Knuth.
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-8">
+          <div class="exercise-q">
+            <span class="ex-num">8</span>
+            <p>What does B &le;<sub>p</sub> A mean in terms of relative hardness?</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            It means B reduces to A in polynomial time, implying that A is at least as hard as B.
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-9">
+          <div class="exercise-q">
+            <span class="ex-num">9</span>
+            <p>Describe the "time-space trade-off" in algorithm design.</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            It refers to the phenomenon where an algorithm can be made faster by using more memory, or its memory usage can be reduced at the cost of execution time.
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-10">
+          <div class="exercise-q">
+            <span class="ex-num">10</span>
+            <p>List the two requirements for a problem A to be NP-complete.</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            1. A must be in NP. <br> 2. A must be NP-hard (every problem in NP must reduce to A in polynomial time).
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-11">
+          <div class="exercise-q">
+            <span class="ex-num">11</span>
+            <p>Name the influential 1979 textbook by Michael Garey and David S. Johnson.</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            "Computers and Intractability: A Guide to the Theory of NP-Completeness."
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-12">
+          <div class="exercise-q">
+            <span class="ex-num">12</span>
+            <p>What is the current status of the "P vs NP" question?</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            It is one of the most famous unsolved problems in computer science. Most scientists believe P &ne; NP, but it has not been proven.
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-13">
+          <div class="exercise-q">
+            <span class="ex-num">13</span>
+            <p>Can an NP-hard problem be outside of NP?</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            Yes. A problem is NP-hard if it is "at least as hard as NP," but it doesn't have to be verifiable in polynomial time itself.
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-14">
+          <div class="exercise-q">
+            <span class="ex-num">14</span>
+            <p>How does the choice of data structure generally affect an algorithm?</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            The data structure affects how efficiently data can be accessed and modified, which directly impacts the algorithm's time and space complexity.
+          </div>
+        </div>
+
+        <div class="exercise-card" id="ex-ch1-15">
+          <div class="exercise-q">
+            <span class="ex-num">15</span>
+            <p>What is the primary goal of using reduction in complexity theory?</p>
+            <button class="show-answer" onclick="ch1ToggleAnswer(this)">Show Answer</button>
+          </div>
+          <div class="exercise-answer" style="display:none">
+            To show that a problem is at least as hard as another known hard problem, thereby classifying its complexity.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="study-section" id="section-f">
+      <div class="section-header">
+        <div class="section-badge">Section F</div>
+        <h2>Cheat Sheet</h2>
+        <p class="section-desc">Quick reference for exam preparation.</p>
+      </div>
+      <div class="cheatsheet-grid">
+        <div class="cheat-card">
+          <div class="cheat-header">Complexity Classes</div>
+          <dl class="cheat-definitions">
+            <dt>P (Polynomial)</dt>
+            <dd>Solved in O(n<sup>k</sup>). Easy problems.</dd>
+            <dt>NP (Nondeterministic Poly)</dt>
+            <dd>Verified in O(n<sup>k</sup>). Hard to find, easy to check.</dd>
+            <dt>NPC (NP-Complete)</dt>
+            <dd>Hardest problems in NP. Solve one, solve all.</dd>
+            <dt>NP-Hard</dt>
+            <dd>At least as hard as NP. Not necessarily in NP.</dd>
+          </dl>
+        </div>
+        <div class="cheat-card">
+          <div class="cheat-header">Key Equations & Rules</div>
+          <ul class="cheat-list">
+            <li><strong>Correctness:</strong> Halts + Correct Output.</li>
+            <li><strong>Efficiency:</strong> Time + Space Complexity.</li>
+            <li><strong>Wirth's Law:</strong> Algorithms + DS = Programs.</li>
+            <li><strong>NPC Proof:</strong> Show in NP + Reduce known NPC to it.</li>
+          </ul>
+        </div>
+        <div class="cheat-card">
+          <div class="cheat-header">Common Mistakes</div>
+          <ul class="cheat-list">
+            <li>⚠️ Thinking NP means "Not Polynomial" (It means Nondeterministic Polynomial).</li>
+            <li>⚠️ Assuming P = NP (Unknown status).</li>
+            <li>⚠️ Forgetting that reduction (B &le;<sub>p</sub> A) means A is the <em>harder</em> one.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+// NAMESPACED STATE
+const ch1_cards = [
+  { q: "What is an algorithm?", a: "A well-defined computational procedure that takes input and produces output." },
+  { q: "When is an algorithm considered 'correct'?", a: "If for every input instance, it halts with the correct output." },
+  { q: "What are the two primary measures of algorithm efficiency?", a: "Time (speed) and Space (memory)." },
+  { q: "What is a Data Structure?", a: "A way to store and organize data to facilitate access and modifications." },
+  { q: "Who wrote the book 'Algorithms + Data Structures = Programs'?", a: "Niklaus Wirth." },
+  { q: "What is the 'time-space trade-off'?", a: "The choice of data structure where gaining speed often requires more memory, or vice-versa." },
+  { q: "Define Class P.", a: "Decision problems solvable in polynomial time O(n^k)." },
+  { q: "Define Class NP.", a: "Decision problems verifiable in polynomial time given a certificate." },
+  { q: "What does NP stand for?", a: "Nondeterministic Polynomial." },
+  { q: "What is the core characteristic of NP-complete problems?", a: "They are at least as hard as any problem in NP, and no poly-time algorithm is known." },
+  { q: "Name the authors of the seminal 1979 NPC textbook.", a: "Michael Garey and David S. Johnson." },
+  { q: "What is a 'reduction'?", a: "A technique to transform one problem into another to show relative hardness." },
+  { q: "If B is NPC and B reduces to A (B <=p A), and A is in NP, what is A?", a: "A is NP-complete." },
+  { q: "What is a decision problem?", a: "A problem that has a Yes/No answer." },
+  { q: "What is the relationship between P and NP?", a: "P is a subset of NP (P ⊆ NP)." }
+];
+let ch1_idx = 0;
+let ch1_flipped = false;
+
+// INTERACTIVE LOGIC
+function flipCard1() {
+  ch1_flipped = !ch1_flipped;
+  document.getElementById('ch1-flashcard').classList.toggle('flipped', ch1_flipped);
+}
+
+function nextCard1() {
+  ch1_idx = (ch1_idx + 1) % ch1_cards.length;
+  ch1_flipped = false;
+  updateCard1();
+}
+
+function prevCard1() {
+  ch1_idx = (ch1_idx - 1 + ch1_cards.length) % ch1_cards.length;
+  ch1_flipped = false;
+  updateCard1();
+}
+
+function updateCard1() {
+  const c = ch1_cards[ch1_idx];
+  document.getElementById('ch1-fc-question').textContent = c.q;
+  document.getElementById('ch1-fc-answer').textContent = c.a;
+  document.getElementById('ch1-flashcard').classList.remove('flipped');
+  document.getElementById('ch1-current').textContent = ch1_idx + 1;
+}
+
+function toggleFeynman(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+  const toggle = card.querySelector('.feynman-toggle');
+  toggle.textContent = card.classList.contains('open') ? '▲ Collapse' : '▼ Expand';
+}
+
+function ch1ToggleAnswer(btn) {
+  const answer = btn.closest('.exercise-card').querySelector('.exercise-answer');
+  const open = answer.style.display === 'block';
+  answer.style.display = open ? 'none' : 'block';
+  btn.textContent = open ? 'Show Answer' : 'Hide Answer';
+}
+
+function initCh1Graph() {
+  const svg = document.getElementById('ch1-kg-svg');
+  const nodes = [
+    { id: 'n1', x: 400, y: 240, label: 'Algorithm', type: 'core' },
+    { id: 'n2', x: 220, y: 140, label: 'Efficiency', type: 'primary' },
+    { id: 'n3', x: 580, y: 140, label: 'Complexity Classes', type: 'primary' },
+    { id: 'n4', x: 120, y: 80, label: 'Time', type: 'secondary' },
+    { id: 'n5', x: 320, y: 80, label: 'Space', type: 'secondary' },
+    { id: 'n6', x: 400, y: 380, label: 'Data Structure', type: 'primary' },
+    { id: 'n7', x: 520, y: 60, label: 'P', type: 'secondary' },
+    { id: 'n8', x: 640, y: 60, label: 'NP', type: 'secondary' },
+    { id: 'n9', x: 680, y: 240, label: 'NP-Complete', type: 'secondary' },
+    { id: 'n10', x: 580, y: 320, label: 'Reduction', type: 'secondary' },
+    { id: 'n11', x: 740, y: 140, label: 'NP-Hard', type: 'secondary' },
+    { id: 'n12', x: 100, y: 240, label: 'Correctness', type: 'secondary' }
+  ];
+  const edges = [
+    { from: 'n1', to: 'n2' }, { from: 'n1', to: 'n3' }, { from: 'n1', to: 'n6' }, { from: 'n1', to: 'n12' },
+    { from: 'n2', to: 'n4' }, { from: 'n2', to: 'n5' },
+    { from: 'n3', to: 'n7' }, { from: 'n3', to: 'n8' }, { from: 'n3', to: 'n9' }, { from: 'n3', to: 'n11' },
+    { from: 'n9', to: 'n10' }, { from: 'n8', to: 'n9' }
+  ];
+
+  const edgeG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  edges.forEach(e => {
+    const fromNode = nodes.find(n => n.id === e.from);
+    const toNode = nodes.find(n => n.id === e.to);
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", fromNode.x);
+    line.setAttribute("y1", fromNode.y);
+    line.setAttribute("x2", toNode.x);
+    line.setAttribute("y2", toNode.y);
+    line.setAttribute("class", "link");
+    edgeG.appendChild(line);
+  });
+  svg.appendChild(edgeG);
+
+  const nodeG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  nodes.forEach(n => {
+    const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    g.setAttribute("class", "node");
+    
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", n.x);
+    circle.setAttribute("cy", n.y);
+    circle.setAttribute("r", n.type === 'core' ? 40 : (n.type === 'primary' ? 30 : 20));
+    circle.setAttribute("class", n.type);
+    
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", n.x);
+    text.setAttribute("y", n.y + (n.type === 'core' ? 55 : (n.type === 'primary' ? 45 : 35)));
+    text.textContent = n.label;
+    
+    g.appendChild(circle);
+    g.appendChild(text);
+    nodeG.appendChild(g);
+  });
+  svg.appendChild(nodeG);
+}
+
+function chScrollTo(id) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+function toggleDark() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('dark-toggle').textContent = isDark ? '🌙 Dark Mode' : '☀️ Light Mode';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+
+// RESTORE THEME
+(function() {
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  if (saved === 'dark') document.getElementById('dark-toggle').textContent = '☀️ Light Mode';
+})();
+
+window.onload = () => {
+  initCh1Graph();
+};
+</script>
+<script src="../../highlight.js"></script>
+</body>
+</html>

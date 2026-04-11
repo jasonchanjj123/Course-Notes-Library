@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch 02: Determinants of Interest Rates & Term Structure — Computer Algorithm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ========== DESIGN SYSTEM ========== */
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1b2e45;
+  --navy-light: #243b55;
+  --shadow: 0 4px 24px rgba(13, 27, 42, 0.08);
+  --shadow-strong: 0 8px 40px rgba(13, 27, 42, 0.15);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --transition: 0.22s ease;
+  --cream: #faf7f0;
+  --cream-dark: #f0ead8;
+  --text-dark: #1a1a2e;
+  --text-body: #2d3748;
+  --text-muted: #718096;
+  --green: #276749;
+  --green-light: #e6f4ed;
+  --amber: #b7791f;
+  --amber-light: #fefce8;
+  --red: #9b2335;
+  --red-light: #fff1f2;
+  --blue-accent: #2b6cb0;
+  --blue-light: #ebf4ff;
+
+  /* ACCENT: Indigo (#3730a3) */
+  --accent: #3730a3;
+  --accent-light: #818cf8;
+  --accent-pale: #eef2ff;
+  --accent-border: rgba(55, 48, 163, 0.20);
+}
+
+[data-theme="dark"] {
+  --cream: #0f1923;
+  --cream-dark: #1a2535;
+  --text-dark: #e8e4d9;
+  --text-body: #c8c3b8;
+  --text-muted: #8899aa;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: 'Source Sans 3', sans-serif; background: var(--cream); color: var(--text-body); line-height: 1.75; display: flex; min-height: 100vh; transition: background var(--transition), color var(--transition); }
+
+/* ========== SIDEBAR ========== */
+.sidebar { width: 270px; min-height: 100vh; background: var(--navy); position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; display: flex; flex-direction: column; }
+.sidebar-header { padding: 28px 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.course-label { font-family: 'JetBrains Mono'; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 6px; }
+.chapter-title { font-family: 'Playfair Display'; color: #fff; font-size: 1.05rem; line-height: 1.3; }
+nav { padding: 16px 0; flex: 1; }
+.nav-section-label { font-family: 'JetBrains Mono'; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 12px 24px 6px; }
+.nav-link { display: flex; align-items: center; gap: 10px; padding: 9px 24px; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.875rem; transition: all var(--transition); border-left: 3px solid transparent; }
+.nav-link:hover, .nav-link.active { color: var(--accent-light); background: rgba(255,255,255,0.05); border-left-color: var(--accent); }
+.nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+.sidebar-footer { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+.dark-toggle { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 8px 14px; cursor: pointer; color: rgba(255,255,255,0.6); font-size: 0.8rem; width: 100%; transition: all var(--transition); }
+
+/* ========== MAIN CONTENT ========== */
+.main { margin-left: 270px; flex: 1; min-width: 0; }
+.hero { background: linear-gradient(135deg, #0d1b2a 0%, #2e1065 55%, #1a0840 100%); padding: 80px 60px 60px; color: white; }
+.chapter-badge { font-family: 'JetBrains Mono'; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 16px; }
+.hero h1 { font-size: 2.6rem; font-weight: 700; margin-bottom: 12px; font-family: 'Playfair Display'; }
+.hero .subtitle { font-size: 1.1rem; opacity: 0.8; margin-bottom: 32px; }
+.hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+.hero-meta span { font-family: 'JetBrains Mono'; font-size: 0.72rem; letter-spacing: 0.05em; opacity: 0.85; }
+
+.content { padding: 48px 60px 80px; max-width: 960px; }
+
+/* ========== COMPONENTS ========== */
+.study-section { margin-bottom: 72px; scroll-margin-top: 24px; }
+.section-header { margin: 48px 0 32px; padding-bottom: 16px; border-bottom: 2px solid var(--accent-border); }
+.section-badge { font-family: 'JetBrains Mono'; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+h2 { font-family: 'Playfair Display'; font-size: 1.8rem; font-weight: 600; margin: 32px 0 16px; color: var(--text-dark); }
+h3 { font-family: 'Playfair Display'; font-size: 1.3rem; margin: 36px 0 14px; color: var(--text-dark); }
+.section-desc { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+
+.topic-block { margin: 0 0 36px; }
+.highlight { background: var(--accent-pale); border-left: 3px solid var(--accent); padding: 2px 8px; border-radius: 3px; }
+.note-text { font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+
+/* Callouts */
+.callout { display: flex; gap: 14px; padding: 16px 20px; border-radius: var(--radius-sm); border-left: 4px solid; margin: 24px 0; }
+.callout-info { background: var(--blue-light); border-color: var(--blue-accent); }
+.callout-warn { background: var(--amber-light); border-color: var(--amber); }
+.callout-accent { background: var(--accent-pale); border-color: var(--accent); }
+.callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.callout-body p { margin: 4px 0 0; font-size: 0.9rem; }
+.callout-body strong { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 28px 0; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.data-table th { background: var(--navy); color: var(--accent-light); font-family: 'JetBrains Mono'; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 16px; text-align: left; }
+.data-table td { padding: 11px 16px; border-bottom: 1px solid var(--accent-border); color: var(--text-body); }
+.data-table tbody tr:hover { background: var(--accent-pale); }
+
+/* Formula Box */
+.formula-box { background: var(--navy); color: #e8e4d9; border-radius: var(--radius); padding: 24px 28px; margin: 28px 0; border-left: 4px solid var(--accent); }
+.formula-label { font-family: 'JetBrains Mono'; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 12px; }
+.formula-display { font-family: 'JetBrains Mono'; font-size: 1.15rem; line-height: 2; text-align: center; margin: 12px 0; }
+.formula-vars { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; font-size: 0.82rem; opacity: 0.75; }
+.formula-vars em { color: var(--accent-light); font-style: normal; font-weight: 600; }
+.formula-note { font-size: 0.8rem; opacity: 0.6; font-style: italic; margin-top: 8px; }
+
+/* Worked Example */
+.worked-example { background: var(--cream-dark); border: 1px solid var(--accent-border); border-radius: var(--radius); overflow: hidden; margin: 24px 0; }
+.we-header { background: var(--accent); padding: 12px 20px; color: white; display: flex; align-items: center; gap: 10px; }
+.we-title { font-family: 'Playfair Display'; font-size: 1rem; font-weight: 600; }
+.we-body { padding: 20px; }
+.we-step { display: flex; gap: 12px; margin-bottom: 12px; font-size: 0.9rem; }
+.we-step-num { background: var(--accent); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono'; font-size: 0.7rem; flex-shrink: 0; }
+.we-result { background: var(--navy); color: var(--accent-light); font-family: 'JetBrains Mono'; padding: 10px 16px; border-radius: var(--radius-sm); margin-top: 10px; font-size: 0.85rem; }
+
+/* Flashcards */
+.flashcard-section { background: var(--navy); border-radius: var(--radius); padding: 32px; margin: 28px 0; color: white; }
+.card-counter { font-family: 'JetBrains Mono'; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--accent-light); margin-bottom: 16px; }
+.flashcard-container { perspective: 1000px; height: 260px; cursor: pointer; position: relative; }
+.flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; }
+.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); text-align: center; }
+.flashcard-front { background: var(--navy-mid); }
+.flashcard-back { background: var(--accent); transform: rotateY(180deg); }
+.card-label { font-family: 'JetBrains Mono'; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.6; margin-bottom: 12px; }
+.card-controls { display: flex; justify-content: space-between; margin-top: 24px; }
+.card-controls button { background: rgba(255,255,255,0.1); border: none; color: white; padding: 10px 20px; border-radius: var(--radius-sm); cursor: pointer; font-family: 'Source Sans 3'; font-size: 0.9rem; transition: background var(--transition); }
+.card-controls button:hover { background: rgba(255,255,255,0.2); }
+
+/* Feynman Cards */
+.feynman-card { border: 1px solid var(--accent-border); border-radius: var(--radius); margin: 20px 0; overflow: hidden; }
+.feynman-header { display: flex; align-items: center; gap: 16px; padding: 18px 24px; background: var(--accent-pale); cursor: pointer; }
+.feynman-icon { font-size: 1.4rem; }
+.feynman-title h3 { margin: 0; font-size: 1.15rem; }
+.feynman-title p { margin: 2px 0 0; font-size: 0.85rem; color: var(--text-muted); }
+.feynman-toggle { margin-left: auto; font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--accent); }
+.feynman-body { padding: 24px; border-top: 1px solid var(--accent-border); }
+.feynman-body p { margin-bottom: 16px; font-size: 0.95rem; }
+.feynman-body p:last-child { margin-bottom: 0; }
+
+/* Knowledge Graph */
+.graph-container { background: var(--navy); border-radius: var(--radius); padding: 32px; margin: 28px 0; overflow: hidden; position: relative; }
+.kg-tooltip { position: absolute; background: white; color: var(--navy); padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; pointer-events: none; display: none; z-index: 10; box-shadow: var(--shadow-strong); max-width: 240px; border: 1px solid var(--accent); }
+
+/* Exercises */
+.exercise-card { background: var(--cream-dark); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; }
+.exercise-q { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+.ex-num { background: var(--accent); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono'; font-size: 0.75rem; flex-shrink: 0; margin-top: 2px; }
+.exercise-q p { margin: 0; font-weight: 600; font-size: 0.95rem; }
+.show-answer { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-family: 'JetBrains Mono'; transition: all var(--transition); }
+.show-answer:hover { background: var(--accent); color: white; }
+.exercise-answer { padding: 16px; background: var(--accent-pale); border-radius: var(--radius-sm); border-left: 3px solid var(--accent); margin-top: 12px; font-size: 0.9rem; }
+
+/* Cheat Sheet */
+.cheatsheet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin: 28px 0; }
+.cheat-card { background: var(--cream-dark); border: 1px solid var(--accent-border); border-radius: var(--radius); overflow: hidden; }
+.cheat-header { background: var(--navy); color: var(--accent-light); font-family: 'JetBrains Mono'; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 10px 16px; }
+.cheat-list { padding: 16px 20px; margin: 0; font-size: 0.88rem; list-style: none; }
+.cheat-list li { margin-bottom: 10px; display: flex; gap: 8px; align-items: flex-start; }
+.cheat-list li:last-child { margin-bottom: 0; }
+.cheat-list code { font-family: 'JetBrains Mono'; color: var(--accent); font-weight: 600; background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 3px; }
+
+/* Utils */
+.ornament { text-align: center; color: var(--accent); opacity: 0.3; font-size: 1.2rem; margin: 40px 0; letter-spacing: 0.4em; }
+
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .hero { padding: 60px 24px 40px; }
+  .content { padding: 32px 24px 60px; }
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="course-label">Computer Algorithm</div>
+    <div class="chapter-title">Ch. 02 · Determinants of Interest Rates</div>
+  </div>
+  <nav>
+    <div class="nav-section-label">Study Sections</div>
+    <a href="#section-a" class="nav-link active" onclick="chScrollTo('section-a')"><span class="nav-icon">📖</span> Summary</a>
+    <a href="#section-b" class="nav-link" onclick="chScrollTo('section-b')"><span class="nav-icon">🃏</span> Flashcards</a>
+    <a href="#section-c" class="nav-link" onclick="chScrollTo('section-c')"><span class="nav-icon">🧠</span> Feynman</a>
+    <a href="#section-d" class="nav-link" onclick="chScrollTo('section-d')"><span class="nav-icon">🔗</span> Graph</a>
+    <a href="#section-e" class="nav-link" onclick="chScrollTo('section-e')"><span class="nav-icon">✏️</span> Exercises</a>
+    <a href="#section-f" class="nav-link" onclick="chScrollTo('section-f')"><span class="nav-icon">⚡</span> Cheat Sheet</a>
+    
+    <div class="nav-section-label">Key Topics</div>
+    <a href="#loanable-funds" class="nav-link" onclick="chScrollTo('loanable-funds')"><span class="nav-icon">📈</span> Loanable Funds</a>
+    <a href="#fisher-effect" class="nav-link" onclick="chScrollTo('fisher-effect')"><span class="nav-icon">🌡️</span> Fisher Effect</a>
+    <a href="#risk-premiums" class="nav-link" onclick="chScrollTo('risk-premiums')"><span class="nav-icon">⚠️</span> Risk Premiums</a>
+    <a href="#term-structure" class="nav-link" onclick="chScrollTo('term-structure')"><span class="nav-icon">📉</span> Term Structure</a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="dark-toggle" onclick="toggleDark()">🌙 Dark Mode</button>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="chapter-badge">Chapter 02</div>
+    <h1>Determinants of Interest Rates & Term Structure</h1>
+    <p class="subtitle">Computer Algorithm · Analyzing the mechanisms of rate determination and time value of money.</p>
+    <div class="hero-meta">
+      <span>🎓 Fisher Effect</span>
+      <span>📈 Loanable Funds</span>
+      <span>📉 Yield Curves</span>
+      <span>⏳ TVM Fundamentals</span>
+    </div>
+  </div>
+
+  <div class="content">
+    
+    <!-- SECTION A: SUMMARY -->
+    <section class="study-section" id="section-a">
+      <div class="section-header">
+        <div class="section-badge">Section A</div>
+        <h2>Chapter Summary</h2>
+        <p class="section-desc">Core concepts of interest rate determination and valuation.</p>
+      </div>
+
+      <div class="topic-block" id="loanable-funds">
+        <h3>The Loanable Funds Theory</h3>
+        <p>The <strong>loanable funds theory</strong> views equilibrium interest rates as the result of the <em>supply of</em> and <em>demand for</em> loanable funds in financial markets. Just as the price of a product is determined by supply and demand, the "price" of money (the interest rate) is determined by the interaction of those who have surplus capital and those who wish to borrow it.</p>
+        
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Factor</th>
+                <th>Shift</th>
+                <th>Effect on Interest Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Supplier Wealth ↑</td>
+                <td>Supply Curve Right →</td>
+                <td>Interest Rate ↓</td>
+              </tr>
+              <tr>
+                <td>Security Risk ↑</td>
+                <td>Supply Curve Left ←</td>
+                <td>Interest Rate ↑</td>
+              </tr>
+              <tr>
+                <td>Monetary Policy (Expansionary)</td>
+                <td>Supply Curve Right →</td>
+                <td>Interest Rate ↓</td>
+              </tr>
+              <tr>
+                <td>Expected Project Returns ↑</td>
+                <td>Demand Curve Right →</td>
+                <td>Interest Rate ↑</td>
+              </tr>
+              <tr>
+                <td>Government Deficit (Borrowing) ↑</td>
+                <td>Demand Curve Right →</td>
+                <td>Interest Rate ↑ ("Crowding Out")</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="topic-block" id="fisher-effect">
+        <h3>Nominal vs. Real Interest Rates: The Fisher Effect</h3>
+        <p><strong>Nominal interest rates</strong> are the rates actually observed in financial markets. However, investors care about their actual purchasing power, which requires adjusting for inflation. The relationship is defined by the <strong>Fisher effect</strong>.</p>
+        
+        <div class="formula-box">
+          <div class="formula-label">The Fisher Effect</div>
+          <div class="formula-display">
+            (1 + i) = (1 + RFR) × (1 + E(IP))
+          </div>
+          <div class="formula-vars">
+            <span><em>i</em> = nominal interest rate</span>
+            <span><em>RFR</em> = real risk-free rate</span>
+            <span><em>E(IP)</em> = expected inflation premium</span>
+          </div>
+          <div class="formula-note">Approximation for low rates: i ≈ RFR + E(IP)</div>
+        </div>
+
+        <div class="worked-example">
+          <div class="we-header"><div class="we-title">📊 Example: Calculating Nominal Rate</div></div>
+          <div class="we-body">
+            <div class="we-step"><div class="we-step-num">1</div><div>Given RFR = 2% and expected inflation = 3%.</div></div>
+            <div class="we-step"><div class="we-step-num">2</div><div>Approximate: 2% + 3% = 5%.</div></div>
+            <div class="we-step"><div class="we-step-num">3</div><div>Exact: (1.02)(1.03) = 1.0506 → 5.06%.</div></div>
+            <div class="we-result">The nominal rate should be 5.06% to preserve the 2% real return.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic-block" id="risk-premiums">
+        <h3>Security-Specific Risk Premiums</h3>
+        <p>Beyond the base rate, individual securities have different interest rates due to specific risks and features.</p>
+        
+        <div class="formula-box">
+          <div class="formula-label">The Fair Interest Rate Equation</div>
+          <div class="formula-display">
+            i<sub>j</sub> = IP + RFR + DRP<sub>j</sub> + LRP<sub>j</sub> + SCP<sub>j</sub> + MP<sub>j</sub>
+          </div>
+          <div class="formula-vars">
+            <span><em>DRP</em> = Default Risk Premium</span>
+            <span><em>LRP</em> = Liquidity Risk Premium</span>
+            <span><em>SCP</em> = Special Provisions (Tax, Callability)</span>
+            <span><em>MP</em> = Maturity Premium</span>
+          </div>
+        </div>
+
+        <div class="callout callout-warn">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Callability vs. Tax-Exemption</strong>
+            <p>Features that benefit the <strong>issuer</strong> (like callability) increase the interest rate. Features that benefit the <strong>investor</strong> (like tax-exempt status on municipal bonds) decrease the interest rate.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic-block" id="term-structure">
+        <h3>Term Structure & Yield Curves</h3>
+        <p>The <strong>yield curve</strong> plots the relationship between interest rates and time to maturity for similar securities. There are three primary theories explaining its shape:</p>
+        
+        <div class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          <div class="concept-card" style="background: var(--cream-dark); padding: 20px; border-radius: 10px; border: 1px solid var(--accent-border);">
+            <h4 style="color: var(--accent); margin-bottom: 8px;">Unbiased Expectations</h4>
+            <p style="font-size: 0.88rem;">Long-term rates are the geometric average of expected future short-term rates. The curve reflects purely market expectations of future rates.</p>
+          </div>
+          <div class="concept-card" style="background: var(--cream-dark); padding: 20px; border-radius: 10px; border: 1px solid var(--accent-border);">
+            <h4 style="color: var(--accent); margin-bottom: 8px;">Liquidity Premium</h4>
+            <p style="font-size: 0.88rem;">Investors demand a premium for the increased risk of holding longer-term securities. This biases the yield curve upward.</p>
+          </div>
+          <div class="concept-card" style="background: var(--cream-dark); padding: 20px; border-radius: 10px; border: 1px solid var(--accent-border);">
+            <h4 style="color: var(--accent); margin-bottom: 8px;">Market Segmentation</h4>
+            <p style="font-size: 0.88rem;">Investors stay in specific maturity segments (habitats). Supply and demand in each segment independently determine the rates.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ornament">✦ ✦ ✦</div>
+    </section>
+
+    <!-- SECTION B: FLASHCARDS -->
+    <section class="study-section" id="section-b">
+      <div class="section-header">
+        <div class="section-badge">Section B</div>
+        <h2>Flashcards</h2>
+        <p class="section-desc">Test your recall of the fundamental mechanisms.</p>
+      </div>
+
+      <div class="flashcard-section">
+        <div class="card-counter">Card <span id="ch2-current">1</span> of <span id="ch2-total">15</span></div>
+        <div class="flashcard-container">
+          <div class="flashcard" id="ch2-flashcard" onclick="ch2_flipCard()">
+            <div class="flashcard-front">
+              <div class="card-label">Question</div>
+              <p id="ch2-fc-question">What is the loanable funds theory?</p>
+            </div>
+            <div class="flashcard-back">
+              <div class="card-label">Answer</div>
+              <p id="ch2-fc-answer">A theory suggesting interest rates are determined by the supply and demand for loanable funds in financial markets.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-controls">
+          <button onclick="ch2_prevCard()">← Previous</button>
+          <button onclick="ch2_nextCard()">Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION C: FEYNMAN -->
+    <section class="study-section" id="section-c">
+      <div class="section-header">
+        <div class="section-badge">Section C</div>
+        <h2>Feynman Explanations</h2>
+        <p class="section-desc">Breaking down complex theories into simple logic.</p>
+      </div>
+
+      <div class="feynman-card" id="feynman2-1">
+        <div class="feynman-header" onclick="toggleFeynman('feynman2-1')">
+          <div class="feynman-icon">🧠</div>
+          <div class="feynman-title">
+            <h3>The Fisher Effect</h3>
+            <p>Why inflation and interest rates move together.</p>
+          </div>
+          <span class="feynman-toggle">Show More ▼</span>
+        </div>
+        <div class="feynman-body" style="display:none">
+          <p><strong>The core idea:</strong> Imagine you lend $100 to a friend so they can buy 10 pizzas today. If there is 10% inflation, those 10 pizzas will cost $110 next year. If your friend only pays you back $100, you've lost purchasing power. You'd demand $110 back just to break even, plus a little extra for your trouble (the real return).</p>
+          <p><strong>In practice:</strong> Lenders always add expected inflation to their required "real" return to set the "nominal" rate we see at banks.</p>
+          <p><strong>The one thing to remember:</strong> Nominal rates must rise when inflation expectations rise to keep the real return constant.</p>
+        </div>
+      </div>
+
+      <div class="feynman-card" id="feynman2-2">
+        <div class="feynman-header" onclick="toggleFeynman('feynman2-2')">
+          <div class="feynman-icon">⚖️</div>
+          <div class="feynman-title">
+            <h3>Loanable Funds Equilibrium</h3>
+            <p>Market forces at work.</p>
+          </div>
+          <span class="feynman-toggle">Show More ▼</span>
+        </div>
+        <div class="feynman-body" style="display:none">
+          <p><strong>The core idea:</strong> Think of interest rates as the "price of renting money." If everyone wants to rent money (high demand) but nobody wants to lend it (low supply), the price of renting goes up. If banks are flooded with cash (high supply) but nobody wants to borrow (low demand), the price falls.</p>
+          <p><strong>In practice:</strong> When the Fed prints money, they increase the "supply," which naturally pushes interest rates down.</p>
+          <p><strong>The one thing to remember:</strong> Interest rates clear the market where the amount of money people want to lend matches the amount others want to borrow.</p>
+        </div>
+      </div>
+
+      <div class="feynman-card" id="feynman2-3">
+        <div class="feynman-header" onclick="toggleFeynman('feynman2-3')">
+          <div class="feynman-icon">⏳</div>
+          <div class="feynman-title">
+            <h3>Yield Curve Inversion</h3>
+            <p>The economy's warning signal.</p>
+          </div>
+          <span class="feynman-toggle">Show More ▼</span>
+        </div>
+        <div class="feynman-body" style="display:none">
+          <p><strong>The core idea:</strong> Usually, you get paid more for a 30-year loan than a 1-year loan because the future is uncertain. But sometimes, people are so worried about the immediate future that they pay huge rates for short-term cash, while expecting rates to be much lower in the long run when a recession hits.</p>
+          <p><strong>In practice:</strong> An inverted curve means "the market thinks a recession is coming and rates will have to be cut later."</p>
+          <p><strong>The one thing to remember:</strong> Inversion occurs when short-term rates exceed long-term rates, historically predicting a recession.</p>
+        </div>
+      </div>
+
+      <div class="feynman-card" id="feynman2-4">
+        <div class="feynman-header" onclick="toggleFeynman('feynman2-4')">
+          <div class="feynman-icon">💡</div>
+          <div class="feynman-title">
+            <h3>Time Value of Money (TVM)</h3>
+            <p>Why a dollar today is better than a dollar tomorrow.</p>
+          </div>
+          <span class="feynman-toggle">Show More ▼</span>
+        </div>
+        <div class="feynman-body" style="display:none">
+          <p><strong>The core idea:</strong> If I give you $1 today, you can put it in a bank and have $1.05 next year. If I give you $1 next year, you've missed out on that 5 cents. Therefore, $1 today is "worth more" than $1 later.</p>
+          <p><strong>In practice:</strong> Every financial decision (buying a car, stock, or bond) is just comparing "money today" with "money later."</p>
+          <p><strong>The one thing to remember:</strong> Compounding moves money forward in time; discounting moves money back to today.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION D: GRAPH -->
+    <section class="study-section" id="section-d">
+      <div class="section-header">
+        <div class="section-badge">Section D</div>
+        <h2>Knowledge Graph</h2>
+        <p class="section-desc">Relational mapping of rate determinants.</p>
+      </div>
+
+      <div class="graph-container">
+        <svg id="ch2-kg-svg" viewBox="0 0 800 480" preserveAspectRatio="xMidYMid meet"></svg>
+        <div id="ch2-kg-tooltip" class="kg-tooltip"></div>
+      </div>
+    </section>
+
+    <!-- SECTION E: EXERCISES -->
+    <section class="study-section" id="section-e">
+      <div class="section-header">
+        <div class="section-badge">Section E</div>
+        <h2>Exercises</h2>
+        <p class="section-desc">15 problems covering theory and calculation.</p>
+      </div>
+
+      <div id="ch2-exercises">
+        <!-- JS will populate these for better management -->
+      </div>
+    </section>
+
+    <!-- SECTION F: CHEAT SHEET -->
+    <section class="study-section" id="section-f">
+      <div class="section-header">
+        <div class="section-badge">Section F</div>
+        <h2>Cheat Sheet</h2>
+        <p class="section-desc">Key formulas and common pitfalls.</p>
+      </div>
+
+      <div class="cheatsheet-grid">
+        <div class="cheat-card">
+          <div class="cheat-header">Key Formulas</div>
+          <ul class="cheat-list">
+            <li><code>i = RFR + IP + DRP + LRP + SCP + MP</code> — components</li>
+            <li><code>(1+i) = (1+RFR)(1+IP)</code> — Fisher Exact</li>
+            <li><code>FV = PV(1+r)ⁿ</code> — Future Value</li>
+            <li><code>PV = FV/(1+r)ⁿ</code> — Present Value</li>
+            <li><code>PV = C/r</code> — Perpetuity</li>
+            <li><code>t = 72 / r%</code> — Rule of 72</li>
+          </ul>
+        </div>
+        <div class="cheat-card">
+          <div class="cheat-header">Determinants</div>
+          <ul class="cheat-list">
+            <li><strong>DRP:</strong> Yield difference vs. Treasury</li>
+            <li><strong>LRP:</strong> Extra yield for illiquid assets</li>
+            <li><strong>Callability:</strong> Benefits issuer → Yield ↑</li>
+            <li><strong>Tax-Exempt:</strong> Benefits investor → Yield ↓</li>
+          </ul>
+        </div>
+        <div class="cheat-card">
+          <div class="cheat-header">Common Pitfalls</div>
+          <ul class="cheat-list">
+            <li>⚠️ Confusing nominal vs real rates.</li>
+            <li>⚠️ Forgetting sign convention on BAII Plus.</li>
+            <li>⚠️ Applying simple interest when compounding is required.</li>
+            <li>⚠️ Incorrectly shifting supply/demand curves (Wealth vs Risk).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="ornament">📝 END OF CHAPTER 02 📝</div>
+
+  </div>
+</main>
+
+<script>
+/* ========== CORE NAVIGATION ========== */
+function chScrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  event.target.closest('.nav-link').classList.add('active');
+}
+
+function toggleDark() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  event.target.textContent = isDark ? '🌙 Dark Mode' : '☀️ Light Mode';
+}
+
+function toggleFeynman(id) {
+  const body = document.querySelector(`#${id} .feynman-body`);
+  const toggle = document.querySelector(`#${id} .feynman-toggle`);
+  const isHidden = body.style.display === 'none';
+  body.style.display = isHidden ? 'block' : 'none';
+  toggle.textContent = isHidden ? 'Hide ▲' : 'Show More ▼';
+}
+
+/* ========== FLASHCARDS ========== */
+const ch2_cards = [
+  { q: "Define the loanable funds theory in one sentence.", a: "Interest rates are determined by the supply and demand for funds in financial markets, similar to any product market." },
+  { q: "What are the 4 major suppliers of loanable funds?", a: "(1) Households, (2) Businesses, (3) Foreign investors, (4) Government." },
+  { q: "State the Fisher effect (approximate form).", a: "i ≈ RFR + E(IP). Nominal rate equals real risk-free rate plus expected inflation." },
+  { q: "What is the real risk-free rate (RFR)?", a: "The rate on a risk-free security if no inflation were expected; it reflects society's time preference for money." },
+  { q: "Define default risk premium (DRP).", a: "The extra return required to compensate for the possibility that the issuer will fail to pay." },
+  { q: "How does callability affect a bond's yield?", a: "It increases the yield because it benefits the issuer, who can repay early if rates fall." },
+  { q: "How does tax-exempt status affect a bond's yield?", a: "It decreases the yield because the tax benefit is attractive to investors, allowing the issuer to pay less." },
+  { q: "Name the 3 theories of the term structure.", a: "(1) Unbiased Expectations, (2) Liquidity Premium, (3) Market Segmentation." },
+  { q: "What does an inverted yield curve historically predict?", a: "A recession." },
+  { q: "Calculate FV of $2,500 at 6% for 5 years.", a: "2,500 * (1.06)^5 = $3,345.56." },
+  { q: "Calculate PV of $5,000 received in 8 years at 7%.", a: "5,000 / (1.07)^8 = $2,910.75." },
+  { q: "What is the PV of a perpetuity paying $500/year at 5%?", a: "500 / 0.05 = $10,000." },
+  { q: "What is the PV of a growing perpetuity with C=$100, g=4%, r=9%?", a: "100 / (0.09 - 0.04) = $2,000." },
+  { q: "Using the Rule of 72, how long to double at 8%?", a: "72 / 8 = 9 years." },
+  { q: "Who is the largest supplier of loanable funds in the U.S.?", a: "The household sector." }
+];
+
+let ch2_idx = 0;
+function ch2_updateCard() {
+  const c = ch2_cards[ch2_idx];
+  document.getElementById('ch2-fc-question').textContent = c.q;
+  document.getElementById('ch2-fc-answer').textContent = c.a;
+  document.getElementById('ch2-current').textContent = ch2_idx + 1;
+  document.getElementById('ch2-flashcard').classList.remove('flipped');
+}
+function ch2_flipCard() { document.getElementById('ch2-flashcard').classList.toggle('flipped'); }
+function ch2_nextCard() { ch2_idx = (ch2_idx + 1) % ch2_cards.length; ch2_updateCard(); }
+function ch2_prevCard() { ch2_idx = (ch2_idx - 1 + ch2_cards.length) % ch2_cards.length; ch2_updateCard(); }
+
+/* ========== EXERCISES ========== */
+const ch2_exData = [
+  { q: "Explain 'Crowding Out' in the context of loanable funds.", a: "When the government borrows heavily (deficit spending), it increases the demand for funds, pushing interest rates up and reducing ('crowding out') private business investment." },
+  { q: "RFR is 1.5%, IP is 2.8%. Find nominal rate using Fisher Exact.", a: "(1.015)(1.028) - 1 = 0.04342 or 4.342%." },
+  { q: "A 10-year Treasury yields 3.8%. A corporate bond yields 5.2%. What is the DRP?", a: "5.2% - 3.8% = 1.4%." },
+  { q: "Why is the Liquidity Premium Theory the most common explanation for upward-sloping curves?", a: "Because it combines expectations of future rates with a mandatory 'risk premium' for the uncertainty of the long-term future." },
+  { q: "What happens to the supply of funds if supplier wealth increases?", a: "The supply curve shifts right, and equilibrium interest rates fall." },
+  { q: "How much to invest today at 8% to have $150,000 in 17 years?", a: "PV = 150,000 / (1.08)^17 = $40,540.34." },
+  { q: "Calculate PV of $1,000/year for 10 years at 5%.", a: "PV = 1000 * [1 - (1.05)^-10] / 0.05 = $7,721.73." },
+  { q: "Rule of 72: If money doubles in 12 years, what is the interest rate?", a: "72 / 12 = 6%." },
+  { q: "If the Fed buys $10B in bonds, what happens to interest rates?", a: "Supply of funds increases (shifts right), pushing interest rates down." },
+  { q: "A muni bond pays 4% and investor is in 35% tax bracket. Tax-equivalent yield?", a: "0.04 / (1 - 0.35) = 6.15%." },
+  { q: "True or False: Simple interest is standard in finance.", a: "False. Compound interest is the standard." },
+  { q: "Explain the 'Habitats' in Market Segmentation Theory.", a: "Institutions (like banks or pension funds) have specific needs for short or long-term durations and don't easily move between them regardless of rates." },
+  { q: "Future Value of $10,000 in 3 years at 10%?", a: "10,000 * (1.10)^3 = $13,310." },
+  { q: "Present Value of $1,000 received forever at 10%?", a: "1,000 / 0.10 = $10,000." },
+  { q: "What is a 'Lump Sum'?", a: "A single payment or investment made at one time, rather than in installments." }
+];
+
+function ch2_renderExercises() {
+  const container = document.getElementById('ch2-exercises');
+  ch2_exData.forEach((ex, i) => {
+    const card = document.createElement('div');
+    card.className = 'exercise-card';
+    card.innerHTML = `
+      <div class="exercise-q">
+        <span class="ex-num">${i+1}</span>
+        <p>${ex.q}</p>
+      </div>
+      <button class="show-answer" onclick="ch2_toggleAnswer(this)">Show Answer</button>
+      <div class="exercise-answer" style="display:none">
+        <p>${ex.a}</p>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function ch2_toggleAnswer(btn) {
+  const ans = btn.nextElementSibling;
+  const isHidden = ans.style.display === 'none';
+  ans.style.display = isHidden ? 'block' : 'none';
+  btn.textContent = isHidden ? 'Hide Answer' : 'Show Answer';
+}
+
+/* ========== KNOWLEDGE GRAPH ========== */
+function initCh2Graph() {
+  const svg = document.getElementById('ch2-kg-svg');
+  const tooltip = document.getElementById('ch2-kg-tooltip');
+  
+  const nodes = [
+    { id: 'nominal', label: 'Nominal Rate (i)', x: 400, y: 240, r: 45, type: 'core', desc: 'The observed interest rate in the market.' },
+    { id: 'rfr', label: 'RFR', x: 200, y: 140, r: 30, type: 'primary', desc: 'Real Risk-Free Rate.' },
+    { id: 'ip', label: 'Inflation (IP)', x: 200, y: 340, r: 30, type: 'primary', desc: 'Inflation Premium.' },
+    { id: 'drp', label: 'Default (DRP)', x: 600, y: 140, r: 30, type: 'primary', desc: 'Default Risk Premium.' },
+    { id: 'lrp', label: 'Liquidity (LRP)', x: 600, y: 340, r: 30, type: 'primary', desc: 'Liquidity Risk Premium.' },
+    { id: 'mp', label: 'Maturity (MP)', x: 400, y: 80, r: 30, type: 'primary', desc: 'Maturity Premium / Yield Curve.' },
+    { id: 'lf', label: 'Loanable Funds', x: 720, y: 240, r: 35, type: 'secondary', desc: 'Macro supply/demand theory.' },
+    { id: 'tvm', label: 'TVM', x: 80, y: 240, r: 35, type: 'secondary', desc: 'Time Value of Money framework.' }
+  ];
+  
+  const edges = [
+    { from: 'rfr', to: 'nominal' },
+    { from: 'ip', to: 'nominal' },
+    { from: 'drp', to: 'nominal' },
+    { from: 'lrp', to: 'nominal' },
+    { from: 'mp', to: 'nominal' },
+    { from: 'lf', to: 'nominal' },
+    { from: 'tvm', to: 'nominal' }
+  ];
+
+  // Draw Edges
+  edges.forEach(edge => {
+    const fromNode = nodes.find(n => n.id === edge.from);
+    const toNode = nodes.find(n => n.id === edge.to);
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', fromNode.x);
+    line.setAttribute('y1', fromNode.y);
+    line.setAttribute('x2', toNode.x);
+    line.setAttribute('y2', toNode.y);
+    line.setAttribute('stroke', 'rgba(129, 140, 248, 0.3)');
+    line.setAttribute('stroke-width', '2');
+    svg.appendChild(line);
+  });
+
+  // Draw Nodes
+  nodes.forEach(node => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.style.cursor = 'help';
+    
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', node.x);
+    circle.setAttribute('cy', node.y);
+    circle.setAttribute('r', node.r);
+    circle.setAttribute('fill', node.type === 'core' ? '#3730a3' : (node.type === 'primary' ? '#818cf8' : '#eef2ff'));
+    circle.setAttribute('stroke', '#3730a3');
+    circle.setAttribute('stroke-width', '2');
+    
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', node.x);
+    text.setAttribute('y', node.y);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('fill', node.type === 'secondary' ? '#3730a3' : 'white');
+    text.setAttribute('font-size', '10px');
+    text.setAttribute('font-family', 'JetBrains Mono');
+    text.textContent = node.label;
+    
+    g.appendChild(circle);
+    g.appendChild(text);
+    
+    g.addEventListener('mouseenter', (e) => {
+      tooltip.style.display = 'block';
+      tooltip.textContent = node.desc;
+      tooltip.style.left = (e.pageX + 10) + 'px';
+      tooltip.style.top = (e.pageY + 10) + 'px';
+    });
+    
+    g.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+    
+    svg.appendChild(g);
+  });
+}
+
+/* ========== INIT ========== */
+window.onload = () => {
+  ch2_updateCard();
+  ch2_renderExercises();
+  initCh2Graph();
+};
+</script>
+
+<script src="../../highlight.js"></script>
+
+</body>
+</html>
